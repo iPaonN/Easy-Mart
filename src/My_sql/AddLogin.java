@@ -11,23 +11,28 @@ public class AddLogin extends My_sql{
         super(schema, table);
     }
 
-    public void insertData(String name, String email){
+    public void insertData(String username, String email, String password, String firstname, String lastname){
         try {
             super.connect();
             Connection conn = super.get_Connection();
             
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + super.get_Table() + " (name, email) VALUES (?, ?)");
-            pstmt.setString(1, name);
-            pstmt.setString(2, email);
-            
-            pstmt.executeUpdate();
-            
-            System.out.println("Add data completed.");
-            
-            pstmt.close();
+            try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + super.get_Table() + " (username, email, password, firstname, lastname) VALUES (?, ?, ?, ?, ?)")) {
+                pstmt.setString(1, username);
+                pstmt.setString(2, email);
+                pstmt.setString(3, BCrypt.hashpw(password, BCrypt.gensalt()));
+                pstmt.setString(4, firstname);
+                pstmt.setString(5, lastname);
+                
+                pstmt.executeUpdate();
+
+                System.out.println("Add data completed.");
+                
+                pstmt.close();
+                System.out.println("Disconnect PreparedStatement.");
+            }
             
         } catch (Exception e) {
-            e.toString();
+            e.printStackTrace();
         }finally{
             super.disconnect();
         }
