@@ -1,14 +1,10 @@
 
 package My_sql;
 
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class NewMain{
 
     public static void main(String[] args) {
-        AddLogin p1 = new AddLogin("sys", "User");
-        p1.insertData("Tanapat Sanguanwong", "66070082@kmitl.ac.th");
+        AddLogin p1 = new AddLogin("sys", "users");
+        p1.insertData("zedl3all","66070082@kmitl.ac.th", "1234", "Tanapat", "Sanguanwong");
     }
 }
