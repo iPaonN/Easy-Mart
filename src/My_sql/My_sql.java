@@ -67,6 +67,7 @@ public class My_sql implements Connectable {
         if (conn != null) {
             try {
                 conn.close();
+                System.out.println("Disconnect Connection.");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -74,6 +75,7 @@ public class My_sql implements Connectable {
         if (rs != null) {
             try {
                 rs.close();
+                System.out.println("Disconnect ResultSet.");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -81,6 +83,7 @@ public class My_sql implements Connectable {
         if (stmt != null) {
             try {
                 stmt.close();
+                System.out.println("Disconnect Statement.");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
