@@ -28,7 +28,7 @@ public class My_sql implements Connectable {
         return schema;
     }
     public void set_Table(String table){
-        this.schema = table;
+        this.table = table;
     }
     public String get_Table(){
         return table;
