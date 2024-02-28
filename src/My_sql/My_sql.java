@@ -3,14 +3,13 @@ package My_sql;
 import java.sql.*;
 
 public class My_sql implements Connectable {
-    public static final String URL = "jdbc:mysql://localhost:3306/";
+    public static final String URL = "jdbc:mysql://26.137.224.122:3306/";
     private String schema;
     private String table;
     public static final String USER = "root";
     public static final String PASS = "1234";
     private Connection conn;
-    private ResultSet rs;
-    private Statement stmt;
+
     
     public My_sql(){
         this("", "");
@@ -34,10 +33,6 @@ public class My_sql implements Connectable {
         return table;
     }
     
-    public ResultSet get_ResultSet(){
-        return rs;
-    }
-    
     public Connection get_Connection(){
         return conn;
     }
@@ -55,9 +50,6 @@ public class My_sql implements Connectable {
                 System.out.println("Failed to connect.");
             }
             
-            stmt = conn.createStatement();
-            String sql = "SELECT * FROM " + table;
-            rs = stmt.executeQuery(sql);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,21 +64,5 @@ public class My_sql implements Connectable {
                 e.printStackTrace();
             }
         }
-        if (rs != null) {
-            try {
-                rs.close();
-                System.out.println("Disconnect ResultSet.");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (stmt != null) {
-            try {
-                stmt.close();
-                System.out.println("Disconnect Statement.");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }  
+    }
 }
