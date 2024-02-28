@@ -1,6 +1,7 @@
 package My_sql;
 
 import java.sql.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class AddLogin_Data extends My_sql{
     public AddLogin_Data() {
@@ -27,7 +28,6 @@ public class AddLogin_Data extends My_sql{
 
                 System.out.println("Add data completed.");
                 
-                pstmt.close();
                 System.out.println("Disconnect PreparedStatement.");
             }
             
