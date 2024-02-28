@@ -2,12 +2,12 @@ package My_sql;
 
 import java.sql.*;
 
-public class AddLogin extends My_sql{
-    public AddLogin() {
+public class AddLogin_Data extends My_sql{
+    public AddLogin_Data() {
         super();
     }
 
-    public AddLogin(String schema, String table) {
+    public AddLogin_Data(String schema, String table) {
         super(schema, table);
     }
 
