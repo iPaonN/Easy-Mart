@@ -1,5 +1,3 @@
-package FrontendUI;
-
 
 import javax.swing.*;
 import java.awt.*;
