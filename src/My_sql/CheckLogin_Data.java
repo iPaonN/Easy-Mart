@@ -42,7 +42,7 @@ public class CheckLogin_Data extends My_sql{
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }finally{

@@ -23,7 +23,7 @@ public class AddProject extends My_sql {
                     System.out.println("Failed to add data.");
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally{
             super.disconnect();
