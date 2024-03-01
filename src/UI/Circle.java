@@ -12,7 +12,7 @@ public class Circle extends JPanel {
     public Circle() {
 
         // Set Image
-        i1 = new ImageIcon("C:\\Users\\User\\Documents\\NetBeansProjects\\ProjectFrontend\\src\\FrontendUI\\1.jpg");
+        i1 = new ImageIcon("src/UI/Image/1.jpg");
         im1 = i1.getImage();
 
         //Set JFrame
