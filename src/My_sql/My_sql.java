@@ -8,6 +8,7 @@ public class My_sql implements Connectable {
     private String table;
     public static final String USER = "root";
     public static final String PASS = "1234";
+    public static final String SQL_DRIVER = "com.mysql.cj.jdbc.Driver";
     private Connection conn;
 
     
@@ -40,7 +41,7 @@ public class My_sql implements Connectable {
     @Override
     public void connect(){
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(SQL_DRIVER);
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(URL + schema, USER, PASS);
             
