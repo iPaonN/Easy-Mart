@@ -35,4 +35,39 @@ public class AddProject extends My_sql {
         addProject.addData("123", "Example Project");
     }
     */
+    
+    public String getData(int index) {
+    List<String> data = new ArrayList<>();
+
+    try {
+        super.connect();
+        Connection conn = super.get_Connection();
+        String sql = "SELECT name FROM your_table";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                data.add(name);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally{
+        super.disconnect();
+    }
+
+    
+    if (index >= 0 && index < data.size()) {
+        return data.get(index);
+    } else {
+        return "Invalid index";
+    }
+    /* Sample how to use
+    public static void main(String[] args) {
+        AddProject addProject = new AddProject();
+        String project_name1 = addProject.getData(0);
+    }
+    */
+}
 }
