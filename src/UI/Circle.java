@@ -1,3 +1,5 @@
+package UI;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +14,12 @@ public class Circle extends JPanel {
     public Circle() {
 
         // Set Image
-        i1 = new ImageIcon("src/UI/Image/1.jpg");
+        i1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         im1 = i1.getImage();
 
         //Set JFrame
         fr1 = new JFrame("Circle");
-        this.setBackground(new Color(157, 178, 191));
+        this.setBackground(new Color(101, 113, 132));
         fr1.add(this);
         fr1.setSize(i1.getIconWidth(), i1.getIconHeight());
         fr1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,7 +36,7 @@ public class Circle extends JPanel {
         int position = Math.min(getWidth(), getHeight());
         int x = ((getWidth() - position) / 2);
         int y = ((getHeight() - position) / 2);
-
+        
         // Draw Circle
         Ellipse2D c1 = new Ellipse2D.Float(x, y, position, position);
         g2.setClip(c1);
@@ -43,7 +45,7 @@ public class Circle extends JPanel {
         g2.setStroke(new BasicStroke(15));
         g2.drawOval(x, y, position, position);
         g2.dispose();
-
+        
     }
 
     public static void main(String[] args) {

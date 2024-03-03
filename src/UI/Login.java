@@ -1,3 +1,5 @@
+package UI;
+
 
 import java.awt.*;
 import javax.swing.*;
@@ -6,11 +8,12 @@ import javax.swing.border.LineBorder;
 public class Login {
 
     private JFrame fr1;
-    private JLabel j1, j2, j3, j4, j5, j6, j9, j12, j13, j14, j15, j16, j17;
-    private JTextField tf1, tf2;
+    private JLabel j1, j2, j3, j4, j5, j6, j7, j8, j9, j10, j11, j12, j13, j14, j15, j16, j17;
+    private JTextField tf1;
+    private JPasswordField pf1;
     private JCheckBox jb1;
-    private JButton b2;
-    private JPanel p1, p2, p3, p4, p5, P6, P7, P8, P9, P10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22;
+    private JButton b1, b2, b3, b4;
+    private JPanel p1, p2, p3, p4, p5, P6, P7, P8, P9, P10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24;
     private ImageIcon i1, i2, i3, i4, i5, i6, i7, i8;
     private Circle c1;
 
@@ -41,6 +44,8 @@ public class Login {
         p20 = new JPanel();
         p21 = new JPanel();
         p22 = new JPanel();
+        p23 = new JPanel();
+        p24 = new JPanel();
         i1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         i2 = new ImageIcon("src/UI/Image/username.png");
         i3 = new ImageIcon("src/UI/Image/password.png");
@@ -48,20 +53,27 @@ public class Login {
         i4 = new ImageIcon(i2.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         i5 = new ImageIcon(i3.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         i7 = new ImageIcon(i6.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        i8 = new ImageIcon("src/UI/Image/291964288_5968447443172599_510524243317264435_n.jpg");
-        j1 = new JLabel(" Username", i4, 2);
-        j2 = new JLabel(" Password", i5, 2);
+        i8 = new ImageIcon("src/UI/Image/image_5.png");
+        j1 = new JLabel("Username", i4, 2);
+        j2 = new JLabel("Password", i5, 2);
         j3 = new JLabel("Forget password ?", i7, 2);
         j4 = new JLabel("Don't have an account ?");
         j5 = new JLabel("register");
         j6 = new JLabel();
+        j7 = new JLabel();
+        j8 = new JLabel();
         j9 = new JLabel();
+        j10 = new JLabel();
+        j11 = new JLabel();
         j12 = new JLabel();
         j13 = new JLabel("W E I C O M E !");
         tf1 = new JTextField(33);
-        tf2 = new JTextField(33);
+        pf1 = new JPasswordField(33);
         jb1 = new JCheckBox("Remember me");
+        b1 = new JButton();
         b2 = new JButton("Login");
+        b3 = new JButton();
+        b4 = new JButton();
         j14 = new JLabel(i8);
         j15 = new JLabel("S I G N  I N");
         j16 = new JLabel();
@@ -70,10 +82,11 @@ public class Login {
         //Set component 
         fr1.setLayout(new GridLayout(1, 1));
         p1.setLayout(new BorderLayout());
-        p1.setBackground(new Color(157, 178, 191));
+        p1.setBackground(new Color(101, 113, 132));
 
         p2.setLayout(new GridLayout(7, 0));
         p2.setBackground(new Color(69, 104, 159));
+
 
         p5.setLayout(new BorderLayout());
 
@@ -104,7 +117,7 @@ public class Login {
         jb1.setHorizontalAlignment(SwingConstants.RIGHT);
         p12.add(j2);
         P8.add(p14);
-        p14.add(tf2);
+        p14.add(pf1);
         P8.add(p15);
         p15.add(jb1);
         p15.add(j6);
@@ -130,10 +143,14 @@ public class Login {
 
         // P1 add
         p18.setLayout(new BorderLayout());
-        c1.setPreferredSize(new Dimension(640, 460));
-        p18.add(c1);
+        p18.setPreferredSize(new Dimension(570, 460));
+        p23.setPreferredSize(new Dimension(100, 460));
+        p24.setPreferredSize(new Dimension(100, 460));
+        p18.add(c1, BorderLayout.CENTER);
+        p18.add(p23, BorderLayout.WEST);
+        p18.add(p24, BorderLayout.EAST);
         p19.setLayout(new BorderLayout());
-        p19.setPreferredSize(new Dimension(640, 180));
+        p19.setPreferredSize(new Dimension(210, 180));
         p1.add(p18, BorderLayout.CENTER);
         j13.setHorizontalAlignment(SwingConstants.CENTER);
         p1.add(p19, BorderLayout.SOUTH);
@@ -164,11 +181,13 @@ public class Login {
         p15.setBackground(new Color(69, 104, 159));
         p16.setBackground(new Color(69, 104, 159));
         p17.setBackground(new Color(69, 104, 159));
-        p18.setBackground(new Color(157, 178, 191));
-        p19.setBackground(new Color(157, 178, 191));
+        p18.setBackground(new Color(101, 113, 132));
+        p19.setBackground(new Color(101, 113, 132));
         p20.setBackground(new Color(69, 104, 159));
         p21.setBackground(new Color(69, 104, 159));
-        p22.setBackground(new Color(157, 178, 191));
+        p22.setBackground(new Color(101, 113, 132));
+        p23.setBackground(new Color(101, 113, 132));
+        p24.setBackground(new Color(101, 113, 132));
         jb1.setBackground(new Color(69, 104, 159));
         jb1.setForeground(Color.WHITE);
 
@@ -179,31 +198,31 @@ public class Login {
         j2.setForeground(Color.WHITE);
         j3.setFont(new Font("Arial", Font.CENTER_BASELINE, 12));
         j3.setForeground(Color.WHITE);
-        j4.setFont(new Font("Arial", Font.CENTER_BASELINE, 12));
+        j4.setFont(new Font("Arial", Font.CENTER_BASELINE, 14));
         j4.setForeground(Color.WHITE);
-        j5.setFont(new Font("Arial", Font.CENTER_BASELINE, 12));
+        j5.setFont(new Font("Arial", Font.CENTER_BASELINE, 14));
         j5.setForeground(Color.WHITE);
-        j13.setFont(new Font("Arial", Font.CENTER_BASELINE, 40));
+        j13.setFont(new Font("Arial", Font.CENTER_BASELINE, 50));
         j13.setForeground(Color.WHITE);
         j14.setFont(new Font("Arial", Font.CENTER_BASELINE, 700));
         j14.setForeground(Color.WHITE);
         j15.setFont(new Font("Arial", Font.CENTER_BASELINE, 40));
         j15.setForeground(Color.WHITE);
 
-        //Set TextField
+        //Set TextField and JPasswordField
         tf1.setForeground(Color.WHITE);
         tf1.setFont(new Font("Arial", Font.PLAIN, 18));
         tf1.setBackground(new Color(69, 104, 159));
         tf1.setBorder(new LineBorder(Color.WHITE, 2));
-        tf2.setForeground(Color.WHITE);
-        tf2.setBackground(new Color(69, 104, 159));
-        tf2.setBorder(new LineBorder(Color.WHITE, 2));
-        tf2.setFont(new Font("Arial", Font.PLAIN, 18));
+        pf1.setForeground(Color.WHITE);
+        pf1.setBackground(new Color(69, 104, 159));
+        pf1.setBorder(new LineBorder(Color.WHITE, 2));
+        pf1.setFont(new Font("Arial", Font.PLAIN, 18));
 
         //Frame add
         fr1.add(p1);
         fr1.add(p2);
-        fr1.setBackground(new Color(157, 178, 191));
+        fr1.setBackground(new Color(101, 113, 132));
         fr1.setResizable(true);
         fr1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr1.setVisible(true);
