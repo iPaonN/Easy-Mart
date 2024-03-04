@@ -72,4 +72,66 @@ public class AddProject extends My_sql {
     }
     */
 }
+    public void updateName(String id, String newName) {
+        try {
+            super.connect();
+            Connection conn = super.get_Connection();
+            String sql = "UPDATE your_table SET name = ? WHERE id = ?";
+            try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+                preparedStatement.setString(1, newName);
+                preparedStatement.setString(2, id);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    System.out.println("Name updated successfully.");
+                } else {
+                    System.out.println("Failed to update data. ID not found.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            super.disconnect();
+        }
+    }
+    /* Sample how to use
+    public static void main(String[] args) {
+        AddProject addProject = new AddProject();
+        // IF ID = "123" And newname = "Updated Project"
+        addProject.updateData("123", "Updated Project");
+    }
+    */
+    public void updateDataByName(String oldName, String newName) {
+    try {
+        super.connect();
+        Connection conn = super.get_Connection();
+        String sql = "UPDATE your_table SET name = ? WHERE name = ?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+            preparedStatement.setString(1, newName);
+            preparedStatement.setString(2, oldName);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Name updated successfully.");
+            } else {
+                System.out.println("Failed to update data. Name not found.");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        super.disconnect();
+    }
+    /* Sample How to use
+    public static void main(String[] args) {
+        AddProject addProject = new AddProject();
+        // If Old name = "Old Project" And new name = "New Project"
+        addProject.updateDataByName("Old Project", "New Project");
+        
+    -- this will update every row that name's "Old Project" in table "Your table" to "New Project"
+    }
+    */
+}
 }
