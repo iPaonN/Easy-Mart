@@ -1,9 +1,12 @@
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import My_sql.CheckRegis_Data;
+import java.util.Arrays;
 
-public class Register {
+public class Register implements MouseListener, KeyListener{
 
     private JFrame fr1;
     private JPanel p1, P2, P3, P4, P5, P6, P7, P8, P9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27;
@@ -87,8 +90,8 @@ public class Register {
         j26 = new JLabel();
         j27 = new JLabel();
         j28 = new JLabel();
-        jaletusername = new JLabel("This username has already been used.");
-        jaletpassword = new JLabel("Your password not same.");
+        jaletusername = new JLabel("");
+        jaletpassword = new JLabel("");
         b1 = new JButton("Create");
         b2 = new JButton(i10);
         b3 = new JButton(i10);
@@ -99,6 +102,12 @@ public class Register {
         tf4 = new JTextField(21);
         pf1 = new JPasswordField(19);
         pf2 = new JPasswordField(19);
+        System.out.println(pf2.getEchoChar());
+        //Add Listener
+        b2.addMouseListener(this);
+        b3.addMouseListener(this);
+        pf2.addKeyListener(this);
+        tf1.addKeyListener(this);
 
         //P1 add
         p1.setLayout(new GridLayout(8, 0));
@@ -287,6 +296,65 @@ public class Register {
         fr1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fr1.setVisible(true);
     }
+    @Override
+    public void mouseClicked(MouseEvent me){
+        
+    }
+    @Override
+    public void mouseEntered(MouseEvent me){
+        
+    }
+    @Override
+    public void mouseExited(MouseEvent me){
+        
+    }
+    @Override
+    public void mousePressed(MouseEvent me){
+        if (me.getSource().equals(b2)){
+            pf1.setEchoChar((char)0);
+        }
+        else if (me.getSource().equals(b3)){
+            pf2.setEchoChar((char)0);
+        }
+    }
+    @Override
+    public void mouseReleased(MouseEvent me){
+        if (me.getSource().equals(b2)){
+            pf1.setEchoChar('●');
+        }
+        else if (me.getSource().equals(b3)){
+            pf2.setEchoChar('●');
+        }
+    }
+    @Override
+    public void keyTyped(KeyEvent ke){
+        if (ke.getSource().equals(tf1)){
+            CheckRegis_Data checker = new CheckRegis_Data("sys", "user");
+            if(checker.CheckUsername(tf1.getText()) == true){
+                jaletusername.setText("This username has already been used.");
+            }
+            else{
+                jaletusername.setText("Done");
+            }
+        }
+        else if (ke.getSource().equals(pf2)){
+            if (Arrays.equals(pf1.getPassword(), pf2.getPassword()) == true){
+                jaletpassword.setText("correct");
+            }
+            else{
+                jaletpassword.setText("Your password not same.");
+            }
+        }
+    }
+    @Override
+    public void keyPressed(KeyEvent ke){
+        
+    }
+    @Override
+    public void keyReleased(KeyEvent ke){
+        
+    }
+
 
     public static void main(String[] args) {
         try {
