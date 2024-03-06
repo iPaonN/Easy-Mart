@@ -284,7 +284,7 @@ public class Register {
         fr1.add(p1);
         fr1.setSize(400, 750);
         fr1.setResizable(false);
-        fr1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fr1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fr1.setVisible(true);
     }
 
