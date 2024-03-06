@@ -1,9 +1,6 @@
-package UI;
-
 
 import java.awt.*;
 import javax.swing.*;
-
 
 public class MainMenu {
 
@@ -15,13 +12,18 @@ public class MainMenu {
     private ImageIcon icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9;
     private ImageIcon reicon1, reicon2, reicon3, reicon4, reicon5, reicon6, reicon9, reicon10, reicon11;
     private GridBagConstraints gb1;
-    private Product p1;
+    private StockProduct Sp1;
+    private History h1;
+    private Member m1;
     public MainMenu() {
-
-        fr = new JFrame("menu");
+        
+        //Create
+        fr = new JFrame("MENU");
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gb1 = new GridBagConstraints();
-        p1 = new Product();
+        Sp1 = new StockProduct();
+        h1 = new History();
+        m1 = new Member();
         icon1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         icon2 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         icon3 = new ImageIcon("src/UI/Image/eweweewew.jpg");
@@ -67,7 +69,7 @@ public class MainMenu {
         bn2.setForeground(new java.awt.Color(69, 104, 159));
         bn2.setBackground(Color.WHITE);
         bn2.setFont(new Font("Arial", Font.BOLD, 14));
-        bn3 = new JButton("Product");
+        bn3 = new JButton("Product | Stock");
         bn3.setForeground(new java.awt.Color(69, 104, 159));
         bn3.setBackground(Color.WHITE);
         bn3.setFont(new Font("Arial", Font.BOLD, 14));
@@ -97,7 +99,8 @@ public class MainMenu {
         panel.add(bn1);
         panel.add(bn2);
         panel.add(bn3);
-        panel.add(bn4);
+        
+        //panel.add(bn4);
         panel.add(bn5);
         panel.add(bn6);
         panel.add(bn9);
@@ -130,7 +133,7 @@ public class MainMenu {
         fr.setLayout(new BorderLayout());
         fr.add(panel2, BorderLayout.NORTH);
         fr.add(panel, BorderLayout.WEST);
-        fr.add(p1, BorderLayout.CENTER);
+        fr.add(h1, BorderLayout.CENTER);
         fr.setSize(1280, 720);
         fr.setVisible(true);
     }

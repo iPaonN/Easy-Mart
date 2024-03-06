@@ -1,5 +1,3 @@
-package UI;
-
 
 import java.awt.*;
 import javax.swing.*;
@@ -18,10 +16,11 @@ public class Login {
     private Circle c1;
 
     public Login() {
-
+        
         //Create component 
         fr1 = new JFrame("EasyMart");
         c1 = new Circle();
+        c1.LoadImage("src/UI/Image/3.jpg");
         p1 = new JPanel();
         p2 = new JPanel();
         p3 = new JPanel();
@@ -83,11 +82,10 @@ public class Login {
         fr1.setLayout(new GridLayout(1, 1));
         p1.setLayout(new BorderLayout());
         p1.setBackground(new Color(101, 113, 132));
-
         p2.setLayout(new GridLayout(7, 0));
         p2.setBackground(new Color(69, 104, 159));
 
-
+        //P5
         p5.setLayout(new BorderLayout());
 
         //P6
@@ -239,5 +237,6 @@ public class Login {
         SwingUtilities.invokeLater(() -> {
             new Login();
         });
+        
     }
 }
