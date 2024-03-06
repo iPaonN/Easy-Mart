@@ -2,11 +2,12 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import javax.swing.border.LineBorder;
 import My_sql.CheckRegis_Data;
 import java.util.Arrays;
 
-public class Register implements MouseListener, KeyListener{
+public class Register implements MouseListener, DocumentListener{
 
     private JFrame fr1;
     private JPanel p1, P2, P3, P4, P5, P6, P7, P8, P9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27;
@@ -106,8 +107,8 @@ public class Register implements MouseListener, KeyListener{
         //Add Listener
         b2.addMouseListener(this);
         b3.addMouseListener(this);
-        pf2.addKeyListener(this);
-        tf1.addKeyListener(this);
+        pf1.getDocument().addDocumentListener(this);
+        pf2.getDocument().addDocumentListener(this);
 
         //P1 add
         p1.setLayout(new GridLayout(8, 0));
@@ -327,35 +328,15 @@ public class Register implements MouseListener, KeyListener{
         }
     }
     @Override
-    public void keyTyped(KeyEvent ke){
-        if (ke.getSource().equals(tf1)){
-            CheckRegis_Data checker = new CheckRegis_Data("sys", "user");
-            if(checker.CheckUsername(tf1.getText()) == true){
-                jaletusername.setText("This username has already been used.");
-            }
-            else{
-                jaletusername.setText("Done");
-            }
-        }
-        else if (ke.getSource().equals(pf2)){
+    public void changedUpdate(DocumentEvent ae){
+            System.out.println("Test");
             if (Arrays.equals(pf1.getPassword(), pf2.getPassword()) == true){
                 jaletpassword.setText("correct");
             }
             else{
                 jaletpassword.setText("Your password not same.");
             }
-        }
     }
-    @Override
-    public void keyPressed(KeyEvent ke){
-        
-    }
-    @Override
-    public void keyReleased(KeyEvent ke){
-        
-    }
-
-
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -365,5 +346,27 @@ public class Register implements MouseListener, KeyListener{
         SwingUtilities.invokeLater(() -> {
             new Register();
         });
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        System.out.println("Test");
+            if (Arrays.equals(pf1.getPassword(), pf2.getPassword()) == true){
+                jaletpassword.setText("correct");
+            }
+            else{
+                jaletpassword.setText("Your password not same.");
+            }
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        System.out.println("Test");
+            if (Arrays.equals(pf1.getPassword(), pf2.getPassword()) == true){
+                jaletpassword.setText("correct");
+            }
+            else{
+                jaletpassword.setText("Your password not same.");
+            }
     }
 }
