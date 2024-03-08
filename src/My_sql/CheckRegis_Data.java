@@ -4,19 +4,14 @@ import java.sql.*;
 
 public class CheckRegis_Data extends My_sql{
     
-    public CheckRegis_Data(){
-        super();
-    }
-    public CheckRegis_Data(String schema, String table){
-        super(schema, table);
-    }
-    
     public boolean CheckUsername(String username){
         try {
+            super.set_Schema("staff"); //Use in staff schema only
+            
             super.connect();
             Connection conn = super.get_Connection();
             
-            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM users WHERE username = ?")){
+            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM staff_login WHERE staff_user = ?")){
                 pstmt.setString(1, username);
                 
                 try(ResultSet rs = pstmt.executeQuery()){
@@ -43,10 +38,12 @@ public class CheckRegis_Data extends My_sql{
     
     public boolean CheckEmail(String email){
         try {
+            super.set_Schema("staff"); //Use in staff schema only
+            
             super.connect();
             Connection conn = super.get_Connection();
             
-            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM users WHERE email = ?")){
+            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM staff_info WHERE email = ?")){
                 pstmt.setString(1, email);
                 
                 try(ResultSet rs = pstmt.executeQuery()){
@@ -68,9 +65,9 @@ public class CheckRegis_Data extends My_sql{
         }
     }
     
-//    public static void main(String[] args) {
-//        CheckRegis_Data t1 = new CheckRegis_Data("sys", "users");
-//        t1.CheckUsername("0");
-//        t1.CheckEmail("55555@gmail.com");
-//    }
+    public static void main(String[] args) {
+        CheckRegis_Data t1 = new CheckRegis_Data();
+        t1.CheckUsername("zedl3all");
+        t1.CheckEmail("66070082@kmitl.ac.th");
+    }
 }

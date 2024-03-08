@@ -5,27 +5,21 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class CheckLogin_Data extends My_sql{
     
-    public CheckLogin_Data(){
-        super();
-    }
-    public CheckLogin_Data(String schema, String table){
-        super(schema, table);
-    }
-    
     public boolean CheckData(String username, String password){
-
         try {
+            super.set_Schema("staff"); //Use in staff schema only
+            
             super.connect();
             Connection conn = super.get_Connection();
             
-            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM users WHERE username = ?")){
+            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM staff_login WHERE staff_user = ?")){
                 pstmt.setString(1, username);
                 
                 try(ResultSet rs = pstmt.executeQuery()){
                     
                     if (rs.next()){
                         
-                        String gethashingpassword = rs.getString("password");
+                        String gethashingpassword = rs.getString("staff_pass");
                         
                         if(BCrypt.checkpw(password, gethashingpassword)){
                             System.out.println("Login successful!");

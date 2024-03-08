@@ -3,7 +3,7 @@ package My_sql;
 import java.sql.*;
 
 public class My_sql implements Connectable {
-    public static final String URL = "jdbc:mysql://26.137.224.122:3306/";
+    public static final String URL = "jdbc:mysql://localhost:3306/";
     private String schema;
     private String table;
     public static final String USER = "root";
