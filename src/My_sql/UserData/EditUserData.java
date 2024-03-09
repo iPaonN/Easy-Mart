@@ -1,6 +1,7 @@
 
-package My_sql;
+package My_sql.UserData;
 
+import My_sql.My_sql;
 import java.sql.*;
 import org.mindrot.jbcrypt.BCrypt;
 

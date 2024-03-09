@@ -1,4 +1,6 @@
-package My_sql;
+package My_sql.UserData;
+
+import My_sql.My_sql;
 
 public abstract class UserData extends My_sql{
     

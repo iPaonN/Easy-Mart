@@ -1,4 +1,5 @@
-package My_sql;
+package My_sql.ProjectData;
+import My_sql.My_sql;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
