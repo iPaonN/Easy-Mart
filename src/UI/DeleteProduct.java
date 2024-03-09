@@ -1,14 +1,21 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import My_sql.My_sql;
+import java.sql.Connection;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
 
-public class DeleteProduct {
+public class DeleteProduct{
     private JFrame fr;
     private JLabel label, label2;
     private JButton bn1;
     private JPanel panel, panel2, panel3, panel4;
     private JTextField jt;
     private ImageIcon i3, i4, i5, i6;
+    
+  
     public DeleteProduct(){
         fr = new JFrame("Alet Delete");
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,6 +68,39 @@ public class DeleteProduct {
         panel3.setBackground(Color.WHITE);
         panel4.setBackground(Color.WHITE);
         
+        /// Action Event Update
+        bn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String productName = jt.getText().trim();
+
+                if (!productName.isEmpty()) {
+                    try {
+                        My_sql mySqlObject = new My_sql();
+                        mySqlObject.connect();
+                        Connection conn = mySqlObject.get_Connection();
+
+                        String sql = "DELETE FROM your_table_name WHERE product_name = ?";
+                        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                            pstmt.setString(1, productName);
+                            int rowsDeleted = pstmt.executeUpdate();
+
+                            if (rowsDeleted > 0) {
+                                label2.setText("Product deleted successfully.");
+                            } else {
+                                label2.setText("Product not found.");
+                            }
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        label2.setText("Error connecting to the database.");
+                    }
+                } else {
+                    label2.setText("Please enter a product name.");
+                }
+            }
+        });
+        
         fr.setIconImage(i4.getImage());
         fr.setLayout(new BorderLayout());
         fr.add(panel4);
@@ -68,6 +108,12 @@ public class DeleteProduct {
         fr.setSize(320,220);
         fr.setVisible(true);
     }
+    
+
+    
+    
+    
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
