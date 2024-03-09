@@ -3,8 +3,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddProject extends My_sql {
-    public AddProject() {
+public class ProjectPanel extends My_sql {
+    public ProjectPanel() {
         super();
     }
 
