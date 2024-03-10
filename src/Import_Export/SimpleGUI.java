@@ -43,8 +43,7 @@ public class SimpleGUI implements ActionListener {
         if (e.getSource() == button1) {
             // Action for button1
             im = new ImportFile();
-            im.Myimport();
-            JOptionPane.showMessageDialog(frame, "Check"+ im.choose.getAbsolutePath());
+            JOptionPane.showMessageDialog(frame, "Check"+ im.getPath().getAbsolutePath());
             
         } else if (e.getSource() == button2) {
             

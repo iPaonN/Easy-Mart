@@ -4,24 +4,18 @@ import javax.swing.*;
 import java.io.*;
 
 public class ImportFile {
-    public JFileChooser fileChooser;
-    public int val;
-    public File choose;
-    public File path;
+    private JFileChooser fileChooser;
+    private File file;
     
     public ImportFile(){
         fileChooser = new JFileChooser();
-        val = fileChooser.showOpenDialog(null);
-    }
-    
-    public void Myimport(){
+        int val = fileChooser.showOpenDialog(null);
         if (val == JFileChooser.APPROVE_OPTION) {
-            choose = fileChooser.getSelectedFile();
-            path = choose;
+            file = fileChooser.getSelectedFile();
         }
     }
     
     public File getPath(){
-        return path;
+        return file;
     }
 }
