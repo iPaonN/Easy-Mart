@@ -8,10 +8,19 @@ public class ImportFile {
     private File file;
     
     public ImportFile(){
+        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         fileChooser = new JFileChooser();
         int val = fileChooser.showOpenDialog(null);
         if (val == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
+        }else {
+            file = null;
         }
     }
     
