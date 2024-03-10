@@ -7,7 +7,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.*;
 import java.io.*;
 
-public class EditUserData extends UserData{
+public class DoUserData extends UserData{
     
     private My_sql data = new My_sql("staff","");
     
@@ -241,7 +241,7 @@ public class EditUserData extends UserData{
     }
     
     public static void main(String[] args) {
-        EditUserData t1 = new EditUserData();
+        DoUserData t1 = new DoUserData();
         t1.InsertData("Test1", "6666@gmail.com", "1234", "Hello", "World");
     }
 }
