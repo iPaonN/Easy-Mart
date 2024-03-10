@@ -4,6 +4,8 @@ package My_sql.UserData;
 import My_sql.My_sql;
 import java.sql.*;
 import org.mindrot.jbcrypt.BCrypt;
+import java.util.*;
+import java.io.*;
 
 public class EditUserData extends UserData{
     
@@ -15,14 +17,22 @@ public class EditUserData extends UserData{
             System.out.println("Can't add data because it's already have data.");
         }else{
             try {
+                
+                Random random = new Random();
+                int random_number = random.nextInt(4)+1;
+                
+                File imageFile = new File("src/My_sql/UserData/Image/image"+random_number+".png");
+                FileInputStream inputStream = new FileInputStream(imageFile);
+
                 data.connect();
                 Connection conn = data.get_Connection();
                 
-                try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + "staff_info" + " (first_name, last_name, email) VALUES (?, ?, ?)")) {
+                try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + "staff_info" + " (first_name, last_name, email, image) VALUES (?, ?, ?, ?)")) {
                 
                     pstmt.setString(1, firstname);
                     pstmt.setString(2, lastname);
                     pstmt.setString(3, email);
+                    pstmt.setBinaryStream(4, inputStream);
                 
                     pstmt.executeUpdate();
                     
@@ -37,7 +47,7 @@ public class EditUserData extends UserData{
                     
                     System.out.println("Add data 2 completed.");
                 }
-            } catch (Exception e) {
+            } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }finally{
                 data.disconnect();
@@ -230,9 +240,8 @@ public class EditUserData extends UserData{
         }
     }
     
-//    public static void main(String[] args) {
-//        EditUserData t1 = new EditUserData();
-//        t1.ChangePassword("Ball", "456");
-//        t1.CheckLogin("Ball", "456");
-//    }
+    public static void main(String[] args) {
+        EditUserData t1 = new EditUserData();
+        t1.InsertData("Test1", "6666@gmail.com", "1234", "Hello", "World");
+    }
 }
