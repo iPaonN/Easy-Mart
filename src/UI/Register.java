@@ -1,9 +1,14 @@
 
 import java.awt.*;
+import java.awt.event.*;
+import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import My_sql.UserData.*;
 
-public class Register {
+public class Register implements DocumentListener, MouseListener, FocusListener, ActionListener{
 
     private JFrame mainf;
     private JPanel pnorth, pcenter, psouth, pmain;
@@ -68,9 +73,9 @@ public class Register {
         jlastname = new JLabel("Last Name", ilastname, SwingConstants.LEFT);
         jnewpassword = new JLabel("New Password", inewpassword, SwingConstants.LEFT);
         jconfirmpassword = new JLabel("Confirm Password", iconfirmpassword, SwingConstants.LEFT);
-        jaletusername = new JLabel("Incorrect username.");
-        jaletpassword = new JLabel("Your password not same.");
-        jaletemail = new JLabel("Your email is not correct.");
+        jaletusername = new JLabel("");
+        jaletpassword = new JLabel("");
+        jaletemail = new JLabel("");
         jeyepassword = new JButton(ieye);
         jeyeconfirmword = new JButton(ieye);
         tfusername = new JTextField();
@@ -80,6 +85,16 @@ public class Register {
         tfconfirmpassword = new JPasswordField();
         tfnewpassword = new JPasswordField();
         jcreate = new JButton("Create");
+        
+        //Add Event
+        tfusername.addFocusListener(this);
+        tfemail.addFocusListener(this);
+        tfconfirmpassword.getDocument().addDocumentListener(this);
+        tfnewpassword.getDocument().addDocumentListener(this);
+        jeyepassword.addMouseListener(this);
+        jeyeconfirmword.addMouseListener(this);
+        jcreate.addActionListener(this);
+        
 
         //SetLayout
         mainf.setLayout(new BorderLayout());
@@ -271,6 +286,100 @@ public class Register {
         mainf.setSize(350, 700);
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainf.setVisible(true);
+    }
+    @Override
+    public void mouseClicked(MouseEvent me){
+        
+    }
+    @Override
+    public void mouseEntered(MouseEvent me){
+        
+    }
+    @Override
+    public void mouseExited(MouseEvent me){
+        
+    }
+    @Override
+    public void mousePressed(MouseEvent me){
+        if (me.getSource().equals(jeyepassword)){
+            tfnewpassword.setEchoChar((char)0);
+        }
+        else if (me.getSource().equals(jeyeconfirmword)){
+            tfconfirmpassword.setEchoChar((char)0);
+        }
+    }
+    @Override
+    public void mouseReleased(MouseEvent me){
+        if (me.getSource().equals(jeyepassword)){
+            tfnewpassword.setEchoChar('●');
+        }
+        else if (me.getSource().equals(jeyeconfirmword)){
+            tfconfirmpassword.setEchoChar('●');
+        }
+    }
+    @Override
+    public void changedUpdate(DocumentEvent ae){
+            
+    }
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        System.out.println("Test");
+            if (Arrays.equals(tfnewpassword.getPassword(), tfconfirmpassword.getPassword()) == true){
+                jaletpassword.setText("correct");
+            }
+            else{
+                jaletpassword.setText("Your password not same.");
+            }
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        System.out.println("Test");
+            if (Arrays.equals(tfnewpassword.getPassword(), tfconfirmpassword.getPassword()) == true){
+                jaletpassword.setText("correct");
+            }
+            else{
+                jaletpassword.setText("Your password not same.");
+            }
+    }
+    @Override
+    public void focusGained(FocusEvent e) {
+        
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        DoUserData user = new DoUserData();
+        if (e.getSource().equals(tfusername)){
+            if (user.CheckUsername(tfusername.getText()) == true){
+                jaletusername.setText("This username has used.");
+            }
+            else {
+                jaletusername.setText("");
+            }
+        }
+        else if (e.getSource().equals(tfemail)){
+            if (user.CheckEmail(tfemail.getText()) == true){
+                jaletemail.setText("This email has used.");
+            }
+            else {
+                jaletemail.setText("");
+            }
+        }
+    }
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if (e.getSource().equals(jcreate)){
+            DoUserData user = new DoUserData();
+        if(tffirstname.getText().equals("") || tflastname.getText().equals("") || tfnewpassword.getPassword().equals("") || tfconfirmpassword.getPassword().equals("") ||tfusername.getText().equals("") || user.CheckUsername(tfusername.getText())==true || (tfemail.getText().equals("") || user.CheckEmail(tfemail.getText()) == true) || (Arrays.equals(tfnewpassword.getPassword(), tfconfirmpassword.getPassword()) == false)){
+            System.out.println("Can't Create Accout.");
+        }
+        else {
+            user.InsertData(tffirstname.getText(), tfemail.getText(), new String(tfnewpassword.getPassword()), tffirstname.getText(), tflastname.getText());
+            mainf.dispose();
+        }
+        }
+        
     }
 
     public static void main(String[] args) {
