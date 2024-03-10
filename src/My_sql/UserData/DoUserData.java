@@ -1,6 +1,7 @@
 
 package My_sql.UserData;
 
+import Import_Export.ImportFile;
 import My_sql.My_sql;
 import java.sql.*;
 import org.mindrot.jbcrypt.BCrypt;
@@ -234,8 +235,35 @@ public class DoUserData extends UserData{
         }
     }
     
-    public static void main(String[] args) {
-        DoUserData t1 = new DoUserData();
-        t1.InsertData("Test1", "test1gmail.com", "1234", "test1", "1test");
+    @Override
+    public void ChangeProfileImage(String username, File pathFile){
+        try{
+            FileInputStream inputStream = new FileInputStream(pathFile);
+            
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET image = ? WHERE staff_user = ?")){
+                
+                pstmt.setBinaryStream(1, inputStream);
+                pstmt.setString(2, username);
+                
+                pstmt.execute();
+                
+                System.out.println("Change Image completed.");
+                
+            }
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
     }
+    
+//    public static void main(String[] args) {
+//        DoUserData t1 = new DoUserData();
+//        ImportFile file = new ImportFile();
+//        System.out.println(file.getPath());
+//        t1.ChangeProfileImage("Test1", file.getPath());
+//    }
 }
