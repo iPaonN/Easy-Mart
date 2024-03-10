@@ -1,17 +1,16 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
 
-public class Circle extends JPanel {
+public class CircleProfile extends JPanel {
 
     private JFrame fr1;
     private ImageIcon i1, i2;
     private Image im1;
 
-    public Circle() {
+    public CircleProfile() {
         fr1 = new JFrame("Circle");
-        this.setBackground(new Color(101, 113, 132));
+        this.setBackground(new Color(69, 104, 159));
         fr1.add(this);
         fr1.pack();
         fr1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,10 +41,12 @@ public class Circle extends JPanel {
         Ellipse2D c1 = new Ellipse2D.Float(x, y, position, position);
         g2.setClip(c1);
         g2.drawImage(im1, 0, 0, getWidth(), getHeight(), this);
-        g2.setColor(Color.white);
-        g2.setStroke(new BasicStroke(15));
-        g2.drawOval(x, y, position, position);
         g2.dispose();
-        
+       
     }
+    public static void main(String[] args) {
+       CircleProfile cp1 = new CircleProfile();
+       cp1.LoadImage("src/UI/Image/3.jpg");
+    }
+    
 }

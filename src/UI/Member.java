@@ -19,7 +19,7 @@ public class Member extends JPanel{
     private JTextField search;
     public Member() {
         fr = new JFrame("menu");
-        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gb1 = new GridBagConstraints();
         icon1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         icon2 = new ImageIcon("src/UI/Image/eweweewew.jpg");
@@ -216,7 +216,7 @@ public class Member extends JPanel{
         fr.add(this);
         //fr.add(panel, BorderLayout.WEST);
         fr.setSize(1280, 720);
-        fr.setVisible(true);
+        fr.setVisible(false);
     }
     
     public static void main(String[] args){

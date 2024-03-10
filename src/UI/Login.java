@@ -1,10 +1,9 @@
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.*;
 import javax.swing.border.LineBorder;
 
-public class Login implements MouseListener{
+public class Login {
 
     private JFrame fr1;
     private JLabel j1, j2, j3, j4, j5, j6, j7, j8, j9, j10, j11, j12, j13, j14, j15, j16, j17;
@@ -21,7 +20,7 @@ public class Login implements MouseListener{
         //Create component 
         fr1 = new JFrame("EasyMart");
         c1 = new Circle();
-        //c1.LoadImage("src/UI/Image/3.jpg");
+        c1.LoadImage("src/UI/Image/3.jpg");
         p1 = new JPanel();
         p2 = new JPanel();
         p3 = new JPanel();
@@ -78,10 +77,7 @@ public class Login implements MouseListener{
         j15 = new JLabel("S I G N  I N");
         j16 = new JLabel();
         j17 = new JLabel();
-        
-        //Add Event
-        j5.addMouseListener(this);
-        
+
         //Set component 
         fr1.setLayout(new GridLayout(1, 1));
         p1.setLayout(new BorderLayout());
@@ -226,32 +222,10 @@ public class Login implements MouseListener{
         fr1.add(p2);
         fr1.setBackground(new Color(101, 113, 132));
         fr1.setResizable(true);
-        fr1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fr1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fr1.setVisible(true);
         fr1.setSize(1280, 720);
         fr1.setIconImage(i1.getImage());
-    }
-    @Override
-    public void mouseClicked(MouseEvent me){
-        if (me.getSource().equals(j5)){
-            new Register();
-        }
-    }
-    @Override
-    public void mouseEntered(MouseEvent me){
-        
-    }
-    @Override
-    public void mouseExited(MouseEvent me){
-        
-    }
-    @Override
-    public void mousePressed(MouseEvent me){
-        
-    }
-    @Override
-    public void mouseReleased(MouseEvent me){
-        
     }
 
     public static void main(String[] args) {

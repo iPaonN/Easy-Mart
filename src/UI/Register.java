@@ -1,342 +1,278 @@
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.border.LineBorder;
-import My_sql.CheckRegis_Data;
-import java.util.Arrays;
 
-public class Register implements MouseListener, DocumentListener{
+public class Register {
 
-    private JFrame fr1;
-    private JPanel p1, P2, P3, P4, P5, P6, P7, P8, P9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27;
-    private JLabel j1, j2, j3, j4, j5, j6, j7, j8, j9, j10, j11, j12, j13, j14, j15, j16, j17, j18, j19, j20, j21, j22, j23, j24, j25, j26, j27, j28;
-    private JLabel jaletusername, jaletpassword;
-    private JButton b1, b2, b3, b4;
-    private JTextField tf1, tf2, tf3, tf4, tf5, tf6;
-    private JPasswordField pf1, pf2;
-    private ImageIcon i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14;
-
+    private JFrame mainf;
+    private JPanel pnorth, pcenter, psouth, pmain;
+    private JPanel pempty1, pempty2, pempty3, pempty4, pempty5, pempty6, pempty7, pempty8, pempty9;
+    private JPanel pempty10, pempty11, pempty12, pempty13, pempty14, pempty15, pempty16, pempty17, pempty18, pempty19, pempty20;
+    private JLabel jaccount, jusername, jemail, jfirstname, jlastname, jnewpassword, jconfirmpassword;
+    private JLabel jaletusername, jaletpassword, jaletemail;
+    private JTextField tfusername, tfemail, tffirstname, tflastname;
+    private JPasswordField tfnewpassword, tfconfirmpassword;
+    private JButton jcreate, jeyepassword, jeyeconfirmword;
+    private ImageIcon itryusername, itryemail, itryfirstname, itrylastname, itrynewpassword, itryconfirmword;
+    private ImageIcon iusername, iemail, ifirstname, ilastname, inewpassword, iconfirmpassword;
+    private ImageIcon itryframe, iframe, itryeye, ieye;
     public Register() {
 
-        //Create component
-        fr1 = new JFrame("Register");
-        p1 = new JPanel();
-        P2 = new JPanel();
-        P3 = new JPanel();
-        P4 = new JPanel();
-        P5 = new JPanel();
-        P6 = new JPanel();
-        P7 = new JPanel();
-        P8 = new JPanel();
-        P9 = new JPanel();
-        p10 = new JPanel();
-        p11 = new JPanel();
-        p12 = new JPanel();
-        p13 = new JPanel();
-        p14 = new JPanel();
-        p15 = new JPanel();
-        p16 = new JPanel();
-        p17 = new JPanel();
-        p18 = new JPanel();
-        p19 = new JPanel();
-        p20 = new JPanel();
-        p21 = new JPanel();
-        p22 = new JPanel();
-        p23 = new JPanel();
-        p24 = new JPanel();
-        p25 = new JPanel();
-        p26 = new JPanel();
-        p27 = new JPanel();
-        i1 = new ImageIcon("src/UI/Image/username.png");
-        i2 = new ImageIcon(i1.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        i3 = new ImageIcon("src/UI/Image/password.png");
-        i4 = new ImageIcon(i3.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        i5 = new ImageIcon("src/UI/Image/image_5.png");
-        i6 = new ImageIcon(i5.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        i7 = new ImageIcon("src/UI/Image/eweweewew.jpg");
-        i8 = new ImageIcon(i7.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        i9 = new ImageIcon("src/UI/Image/eye.jpg");
-        i10 = new ImageIcon(i9.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        i11 = new ImageIcon("src/UI/Image/username.jpg");
-        i12 = new ImageIcon(i11.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        i13 = new ImageIcon();
-        i14 = new ImageIcon();
-        j1 = new JLabel("Username", i2, 2);
-        j2 = new JLabel("Email", i4, 0);
-        j3 = new JLabel("First Name", i2, 0);
-        j4 = new JLabel("Last Name", i2, 0);
-        j5 = new JLabel("New password", i6, 0);
-        j6 = new JLabel("Confirm password", i6, 0);
-        j7 = new JLabel("REGISTER");
-        j8 = new JLabel();
-        j9 = new JLabel();
-        j10 = new JLabel();
-        j11 = new JLabel();
-        j12 = new JLabel();
-        j13 = new JLabel();
-        j14 = new JLabel();
-        j15 = new JLabel();
-        j16 = new JLabel();
-        j17 = new JLabel();
-        j18 = new JLabel();
-        j19 = new JLabel();
-        j20 = new JLabel();
-        j21 = new JLabel();
-        j22 = new JLabel();
-        j23 = new JLabel();
-        j24 = new JLabel();
-        j25 = new JLabel();
-        j26 = new JLabel();
-        j27 = new JLabel();
-        j28 = new JLabel();
-        jaletusername = new JLabel("");
-        jaletpassword = new JLabel("");
-        b1 = new JButton("Create");
-        b2 = new JButton(i10);
-        b3 = new JButton(i10);
-        b4 = new JButton();
-        tf1 = new JTextField(21);
-        tf2 = new JTextField(21);
-        tf3 = new JTextField(21);
-        tf4 = new JTextField(21);
-        pf1 = new JPasswordField(19);
-        pf2 = new JPasswordField(19);
-        System.out.println(pf2.getEchoChar());
-        //Add Listener
-        b2.addMouseListener(this);
-        b3.addMouseListener(this);
-        pf1.getDocument().addDocumentListener(this);
-        pf2.getDocument().addDocumentListener(this);
+        //Create
+        itryeye = new ImageIcon("src/UI/Image/eye.jpg");
+        itryframe = new ImageIcon("src/UI/Image/eweweewew.jpg");
+        itryusername = new ImageIcon("src/UI/Image/username.png");
+        itryemail = new ImageIcon("src/UI/Image/image_6.png");
+        itryfirstname = new ImageIcon("src/UI/Image/image_4.png");
+        itrylastname = new ImageIcon("src/UI/Image/image_4.png");
+        itrynewpassword = new ImageIcon("src/UI/Image/password.png");
+        itryconfirmword = new ImageIcon("src/UI/Image/image_4.png");
+        ieye = new ImageIcon(itryeye.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        iframe = new ImageIcon(itryframe.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        iusername = new ImageIcon(itryusername.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        iemail = new ImageIcon(itryemail.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        ifirstname = new ImageIcon(itryfirstname.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        ilastname = new ImageIcon(itrylastname.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        inewpassword = new ImageIcon(itrynewpassword.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        iconfirmpassword = new ImageIcon(itryconfirmword.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        mainf = new JFrame("Register");
+        pnorth = new JPanel();
+        pcenter = new JPanel();
+        psouth = new JPanel();
+        pmain = new JPanel();
+        pempty1 = new JPanel();
+        pempty2 = new JPanel();
+        pempty3 = new JPanel();
+        pempty4 = new JPanel();
+        pempty5 = new JPanel();
+        pempty6 = new JPanel();
+        pempty7 = new JPanel();
+        pempty8 = new JPanel();
+        pempty9 = new JPanel();
+        pempty10 = new JPanel();
+        pempty11 = new JPanel();
+        pempty12 = new JPanel();
+        pempty13 = new JPanel();
+        pempty14 = new JPanel();
+        pempty15 = new JPanel();
+        pempty16 = new JPanel();
+        pempty17 = new JPanel();
+        pempty18 = new JPanel();
+        pempty19 = new JPanel();
+        pempty20 = new JPanel();
+        jaccount = new JLabel("Create Account");
+        jusername = new JLabel("Username", iusername, SwingConstants.LEFT);
+        jemail = new JLabel("Email", iemail, SwingConstants.LEFT);
+        jfirstname = new JLabel("First Name", ifirstname, SwingConstants.LEFT);
+        jlastname = new JLabel("Last Name", ilastname, SwingConstants.LEFT);
+        jnewpassword = new JLabel("New Password", inewpassword, SwingConstants.LEFT);
+        jconfirmpassword = new JLabel("Confirm Password", iconfirmpassword, SwingConstants.LEFT);
+        jaletusername = new JLabel("Incorrect username.");
+        jaletpassword = new JLabel("Your password not same.");
+        jaletemail = new JLabel("Your email is not correct.");
+        jeyepassword = new JButton(ieye);
+        jeyeconfirmword = new JButton(ieye);
+        tfusername = new JTextField();
+        tfemail = new JTextField();
+        tffirstname = new JTextField();
+        tflastname = new JTextField();
+        tfconfirmpassword = new JPasswordField();
+        tfnewpassword = new JPasswordField();
+        jcreate = new JButton("Create");
 
-        //P1 add
-        p1.setLayout(new GridLayout(8, 0));
-        p1.add(P2);
-        p1.add(P3);
-        p1.add(P4);
-        p1.add(P5);
-        p1.add(P6);
-        p1.add(P7);
-        p1.add(P8);
-        p1.add(P9);
+        //SetLayout
+        mainf.setLayout(new BorderLayout());
+        pnorth.setLayout(new BorderLayout());
+        pcenter.setLayout(new GridLayout(20, 0));
+        psouth.setLayout(new BorderLayout());
+        pmain.setLayout(new BorderLayout());
+        pempty1.setLayout(new BorderLayout());
+        pempty2.setLayout(new BorderLayout());
+        pempty3.setLayout(new BorderLayout());
+        pempty4.setLayout(new BorderLayout());
+        pempty5.setLayout(new BorderLayout());
+        pempty6.setLayout(new BorderLayout());
+        pempty7.setLayout(new BorderLayout());
+        pempty8.setLayout(new BorderLayout());
+        pempty9.setLayout(new BorderLayout());
+        pempty10.setLayout(new BorderLayout());
+        pempty11.setLayout(new BorderLayout());
+        pempty12.setLayout(new BorderLayout());
+        pempty13.setLayout(new BorderLayout());
+        pempty14.setLayout(new BorderLayout());
+        pempty15.setLayout(new BorderLayout());
+        pempty16.setLayout(new BorderLayout());
+        pempty17.setLayout(new BorderLayout());
+        pempty18.setLayout(new BorderLayout());
+        pempty19.setLayout(new BorderLayout());
+        pempty20.setLayout(new BorderLayout());
 
-        //P2 add
-        P2.setLayout(new BorderLayout());
-        j7.setHorizontalAlignment(SwingConstants.CENTER);
-        P2.add(j7);
+        //Pmain
+        pmain.add(pnorth, BorderLayout.NORTH);
+        pmain.add(pcenter, BorderLayout.CENTER);
+        pmain.add(psouth, BorderLayout.SOUTH);
 
-        //P3 add
-        P3.setLayout(new GridLayout(3, 0));
-        j1.setHorizontalAlignment(SwingConstants.RIGHT);
-        P3.add(p10);
-        p10.add(j1);
-        j21.setPreferredSize(new Dimension(tf1.getColumns() * 7, 10));
-        p10.add(j21);
-        P3.add(p11);
-        p11.add(tf1);
-        P3.add(p12);
-        j27.setPreferredSize(new Dimension(tf1.getColumns() +30, 10));
-        p12.add(jaletusername);
-        p12.add(j27);
+        //Pnorth
+        jaccount.setHorizontalAlignment(SwingConstants.CENTER);
+        pnorth.add(jaccount);
 
-        //P4 add
-        P4.setLayout(new GridLayout(3, 0));
-        j2.setHorizontalAlignment(SwingConstants.RIGHT);
-        j22.setPreferredSize(new Dimension(tf1.getColumns() * 9, 10));
-        p13.add(j2);
-        p13.add(j22);
-        P4.add(p13);
-        P4.add(p14);
-        p14.add(tf2);
-        P4.add(p15);
+        //Pcenter
+        pcenter.add(new JLabel());
 
-        //P5 add
-        P5.setLayout(new GridLayout(3, 0));
-        j3.setHorizontalAlignment(SwingConstants.RIGHT);
-        j23.setPreferredSize(new Dimension(tf1.getColumns() + 120, 10));
-        p16.add(j3);
-        p16.add(j23);
-        p17.add(tf3);
-        P5.add(p16);
-        P5.add(p17);
-        P5.add(p18);
+        pcenter.add(pempty1);
+        pempty1.add(jusername);
 
-        //P6 add
-        P6.setLayout(new GridLayout(3, 0));
-        j4.setHorizontalAlignment(SwingConstants.RIGHT);
-        j24.setPreferredSize(new Dimension(tf1.getColumns() + 122, 10));
-        p19.add(j4);
-        p19.add(j24);
-        p20.add(tf4);
-        P6.add(p19);
-        P6.add(p20);
-        P6.add(p21);
+        pcenter.add(pempty2);
+        pempty2.add(tfusername);
 
-        //P7 add
-        P7.setLayout(new GridLayout(3, 0));
-        j5.setHorizontalAlignment(SwingConstants.RIGHT);
-        j25.setPreferredSize(new Dimension(tf1.getColumns() * 5, 10));
-        p22.add(j5);
-        p22.add(j25);
-        p23.add(pf1);
-        p23.add(b2);
-        b2.setPreferredSize(new Dimension(23, 24));
-        b2.setBackground(Color.WHITE);
-        b2.setBorder(new LineBorder(new Color(69, 104, 159), 1));
-        P7.add(p22);
-        P7.add(p23);
-        P7.add(p24);
+        pcenter.add(pempty3);
+        pempty3.add(jaletusername);
 
-        //P8 add
-        P8.setLayout(new GridLayout(3, 0));
-        j6.setHorizontalAlignment(SwingConstants.RIGHT);
-        j26.setPreferredSize(new Dimension(tf1.getColumns() + 54, 10));
-        p25.add(j6);
-        p25.add(j26);
-        p26.add(pf2);
-        b3.setPreferredSize(new Dimension(23, 24));
-        b3.setBackground(Color.WHITE);
-        b3.setBorder(new LineBorder(new Color(69, 104, 159), 1));
-        p26.add(b3);
-        P8.add(p25);
-        P8.add(p26);
-        P8.add(p27);
-        p27.add(jaletpassword);
-        j28.setPreferredSize(new Dimension(tf1.getColumns() + 108, 10));
-        p27.add(j28);
-        //P9 add
-        P9.setLayout(new GridLayout(2, 0));
-        P9.add(j20);
-        P9.add(b1);
-        b1.setHorizontalAlignment(SwingConstants.CENTER);
-        b1.setFont(new Font("Arial", Font.CENTER_BASELINE, 20));
-        b1.setBackground(Color.WHITE);
-        b1.setForeground(new Color(69, 104, 159));
+        pcenter.add(pempty4);
+        pempty4.add(jemail);
 
-        //Set component
-        p1.setBackground(Color.WHITE);
-        P2.setBackground(new Color(69, 104, 159));
-        P3.setBackground(new Color(69, 104, 159));
-        P4.setBackground(new Color(69, 104, 159));
-        P5.setBackground(new Color(69, 104, 159));
-        P6.setBackground(new Color(69, 104, 159));
-        P7.setBackground(new Color(69, 104, 159));
-        P8.setBackground(new Color(69, 104, 159));
-        P9.setBackground(new Color(69, 104, 159));
-        p10.setBackground(new Color(69, 104, 159));
-        p11.setBackground(new Color(69, 104, 159));
-        p12.setBackground(new Color(69, 104, 159));
-        p13.setBackground(new Color(69, 104, 159));
-        p14.setBackground(new Color(69, 104, 159));
-        p15.setBackground(new Color(69, 104, 159));
-        p16.setBackground(new Color(69, 104, 159));
-        p17.setBackground(new Color(69, 104, 159));
-        p18.setBackground(new Color(69, 104, 159));
-        p19.setBackground(new Color(69, 104, 159));
-        p20.setBackground(new Color(69, 104, 159));
-        p21.setBackground(new Color(69, 104, 159));
-        p22.setBackground(new Color(69, 104, 159));
-        p23.setBackground(new Color(69, 104, 159));
-        p24.setBackground(new Color(69, 104, 159));
-        p25.setBackground(new Color(69, 104, 159));
-        p26.setBackground(new Color(69, 104, 159));
-        p27.setBackground(new Color(69, 104, 159));
+        pcenter.add(pempty5);
+        pempty5.add(tfemail);
 
-        //Set Font
-        j1.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));
-        j1.setForeground(Color.WHITE);
-        j2.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));
-        j2.setForeground(Color.WHITE);
-        j3.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));
-        j3.setForeground(Color.WHITE);
-        j4.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));
-        j4.setForeground(Color.WHITE);
-        j5.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));
-        j5.setForeground(Color.WHITE);
-        j6.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));
-        j6.setForeground(Color.WHITE);
-        j7.setFont(new Font("Arial", Font.CENTER_BASELINE, 40));
-        j7.setForeground(Color.WHITE);
+        pcenter.add(pempty6);
+        pempty6.add(jaletemail);
+
+        pcenter.add(pempty7);
+        pempty7.add(jfirstname);
+
+        pcenter.add(pempty8);
+        pempty8.add(tffirstname);
+
+        pcenter.add(pempty9);
+        pempty9.add(new JLabel());
+
+        pcenter.add(pempty10);
+        pempty10.add(jlastname);
+
+        pcenter.add(pempty11);
+        pempty11.add(tflastname);
+
+        pcenter.add(pempty12);
+        pempty12.add(new JLabel());
+
+        pcenter.add(pempty13);
+        pempty13.add(jnewpassword);
+
+        pcenter.add(pempty14);
+        pempty14.add(pempty19);
+        jeyepassword.setPreferredSize(new Dimension(30, 20));
+        pempty19.add(jeyepassword, BorderLayout.EAST);
+        pempty19.add(tfnewpassword);
+        
+        pcenter.add(pempty15);
+        pempty15.add(new JLabel());
+
+        pcenter.add(pempty16);
+        pempty16.add(jconfirmpassword);
+
+        pcenter.add(pempty17);
+        pempty17.add(pempty20);
+        jeyeconfirmword.setPreferredSize(new Dimension(30, 20));
+        pempty20.add(jeyeconfirmword, BorderLayout.EAST);
+        pempty20.add(tfconfirmpassword);
+
+        pcenter.add(pempty18);
+        pempty18.add(jaletpassword);
+
+        pcenter.add(new JLabel());
+        //Psouth
+        jcreate.setPreferredSize(new Dimension(20, 35));
+        psouth.add(jcreate);
+
+        //SetFont
+        jaccount.setFont(new Font("Arial", Font.BOLD, 32));
+        jaccount.setForeground(Color.WHITE);
+        jusername.setFont(new Font("Arial", Font.BOLD, 16));
+        jusername.setForeground(Color.WHITE);
+        jemail.setFont(new Font("Arial", Font.BOLD, 16));
+        jemail.setForeground(Color.WHITE);
+        jfirstname.setFont(new Font("Arial", Font.BOLD, 16));
+        jfirstname.setForeground(Color.WHITE);
+        jlastname.setFont(new Font("Arial", Font.BOLD, 16));
+        jlastname.setForeground(Color.WHITE);
+        jnewpassword.setFont(new Font("Arial", Font.BOLD, 16));
+        jnewpassword.setForeground(Color.WHITE);
+        jconfirmpassword.setFont(new Font("Arial", Font.BOLD, 16));
+        jconfirmpassword.setForeground(Color.WHITE);
         jaletusername.setFont(new Font("Arial", Font.BOLD, 12));
-        jaletusername.setForeground(new Color(255, 255, 0));
-        jaletpassword.setFont(new Font("Arial", Font.CENTER_BASELINE, 12));
-        jaletpassword.setForeground(new Color(255, 255, 0));
+        jaletusername.setForeground(new Color(250, 199, 16));
+        jaletpassword.setFont(new Font("Arial", Font.BOLD, 12));
+        jaletpassword.setForeground(new Color(250, 199, 16));
+        jaletemail.setFont(new Font("Arial", Font.BOLD, 12));
+        jaletemail.setForeground(new Color(250, 199, 16));
+
+        tfusername.setFont(new Font("Arial", Font.PLAIN, 14));
+        tfusername.setForeground(Color.WHITE);
+        tfusername.setBackground(new Color(101, 113, 132));
+        tfusername.setBorder(new LineBorder(Color.WHITE, 3));
+        tfemail.setFont(new Font("Arial", Font.PLAIN, 14));
+        tfemail.setForeground(Color.WHITE);
+        tfemail.setBackground(new Color(101, 113, 132));
+        tfemail.setBorder(new LineBorder(Color.WHITE, 3));
+        tffirstname.setFont(new Font("Arial", Font.PLAIN, 14));
+        tffirstname.setForeground(Color.WHITE);
+        tffirstname.setBackground(new Color(101, 113, 132));
+        tffirstname.setBorder(new LineBorder(Color.WHITE, 3));
+        tflastname.setFont(new Font("Arial", Font.PLAIN, 14));
+        tflastname.setForeground(Color.WHITE);
+        tflastname.setBackground(new Color(101, 113, 132));
+        tflastname.setBorder(new LineBorder(Color.WHITE, 3));
+        tfconfirmpassword.setFont(new Font("Arial", Font.PLAIN, 14));
+        tfconfirmpassword.setForeground(Color.WHITE);
+        tfconfirmpassword.setBackground(new Color(101, 113, 132));
+        tfconfirmpassword.setBorder(new LineBorder(Color.WHITE, 3));
+        tfnewpassword.setFont(new Font("Arial", Font.PLAIN, 14));
+        tfnewpassword.setForeground(Color.WHITE);
+        tfnewpassword.setBackground(new Color(101, 113, 132));
+        tfnewpassword.setBorder(new LineBorder(Color.WHITE, 3));
+
+        jcreate.setFont(new Font("Arial", Font.BOLD, 14));
+        jcreate.setForeground(new Color(101, 113, 132));
+        jcreate.setBackground(new Color(101, 113, 132));
         
-        //Set TextField
-        tf1.setBackground(new Color(69, 104, 159));
-        tf1.setForeground(Color.WHITE);
-        tf1.setBorder(new LineBorder(Color.WHITE, 2));
-        tf1.setFont(new Font("Arial", Font.PLAIN, 16));
-        tf2.setBackground(new Color(69, 104, 159));
-        tf2.setForeground(Color.WHITE);
-        tf2.setBorder(new LineBorder(Color.WHITE, 2));
-        tf2.setFont(new Font("Arial", Font.PLAIN, 16));
-        tf3.setBackground(new Color(69, 104, 159));
-        tf3.setForeground(Color.WHITE);
-        tf3.setBorder(new LineBorder(Color.WHITE, 2));
-        tf3.setFont(new Font("Arial", Font.PLAIN, 16));
-        tf4.setBackground(new Color(69, 104, 159));
-        tf4.setForeground(Color.WHITE);
-        tf4.setBorder(new LineBorder(Color.WHITE, 2));
-        tf4.setFont(new Font("Arial", Font.PLAIN, 16));
-        pf1.setBackground(new Color(69, 104, 159));
-        pf1.setForeground(Color.WHITE);
-        pf1.setBorder(new LineBorder(Color.WHITE, 2));
-        pf1.setFont(new Font("Arial", Font.PLAIN, 16));
-        pf2.setBackground(new Color(69, 104, 159));
-        pf2.setForeground(Color.WHITE);
-        pf2.setBorder(new LineBorder(Color.WHITE, 2));
-        pf2.setFont(new Font("Arial", Font.PLAIN, 16));
         
-        //Set JFrame
-        fr1.setIconImage(i8.getImage());
-        fr1.add(p1);
-        fr1.setSize(400, 750);
-        fr1.setResizable(false);
-        fr1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        fr1.setVisible(true);
+        //SetBackGround
+        mainf.setBackground(new Color(101, 113, 132));
+        pnorth.setBackground(new Color(101, 113, 132));
+        pcenter.setBackground(new Color(101, 113, 132));
+        psouth.setBackground(new Color(101, 113, 132));
+        pmain.setBackground(new Color(101, 113, 132));
+        pmain.setBorder(new LineBorder(new Color(101, 113, 132), 20));
+        pempty1.setBackground(new Color(101, 113, 132));
+        pempty2.setBackground(new Color(101, 113, 132));
+        pempty3.setBackground(new Color(101, 113, 132));
+        pempty4.setBackground(new Color(101, 113, 132));
+        pempty5.setBackground(new Color(101, 113, 132));
+        pempty6.setBackground(new Color(101, 113, 132));
+        pempty7.setBackground(new Color(101, 113, 132));
+        pempty8.setBackground(new Color(101, 113, 132));
+        pempty9.setBackground(new Color(101, 113, 132));
+        pempty10.setBackground(new Color(101, 113, 132));
+        pempty11.setBackground(new Color(101, 113, 132));
+        pempty12.setBackground(new Color(101, 113, 132));
+        pempty13.setBackground(new Color(101, 113, 132));
+        pempty14.setBackground(new Color(101, 113, 132));
+        pempty15.setBackground(new Color(101, 113, 132));
+        pempty16.setBackground(new Color(101, 113, 132));
+        pempty17.setBackground(new Color(101, 113, 132));
+        pempty18.setBackground(new Color(101, 113, 132));
+        pempty19.setBackground(new Color(101, 113, 132));
+        pempty20.setBackground(new Color(101, 113, 132));
+
+        //JFrame
+        mainf.setIconImage(iframe.getImage());
+        mainf.add(pmain);
+        mainf.setSize(350, 700);
+        mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        mainf.setVisible(true);
     }
-    @Override
-    public void mouseClicked(MouseEvent me){
-        
-    }
-    @Override
-    public void mouseEntered(MouseEvent me){
-        
-    }
-    @Override
-    public void mouseExited(MouseEvent me){
-        
-    }
-    @Override
-    public void mousePressed(MouseEvent me){
-        if (me.getSource().equals(b2)){
-            pf1.setEchoChar((char)0);
-        }
-        else if (me.getSource().equals(b3)){
-            pf2.setEchoChar((char)0);
-        }
-    }
-    @Override
-    public void mouseReleased(MouseEvent me){
-        if (me.getSource().equals(b2)){
-            pf1.setEchoChar('●');
-        }
-        else if (me.getSource().equals(b3)){
-            pf2.setEchoChar('●');
-        }
-    }
-    @Override
-    public void changedUpdate(DocumentEvent ae){
-            System.out.println("Test");
-            if (Arrays.equals(pf1.getPassword(), pf2.getPassword()) == true){
-                jaletpassword.setText("correct");
-            }
-            else{
-                jaletpassword.setText("Your password not same.");
-            }
-    }
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -346,27 +282,5 @@ public class Register implements MouseListener, DocumentListener{
         SwingUtilities.invokeLater(() -> {
             new Register();
         });
-    }
-
-    @Override
-    public void insertUpdate(DocumentEvent e) {
-        System.out.println("Test");
-            if (Arrays.equals(pf1.getPassword(), pf2.getPassword()) == true){
-                jaletpassword.setText("correct");
-            }
-            else{
-                jaletpassword.setText("Your password not same.");
-            }
-    }
-
-    @Override
-    public void removeUpdate(DocumentEvent e) {
-        System.out.println("Test");
-            if (Arrays.equals(pf1.getPassword(), pf2.getPassword()) == true){
-                jaletpassword.setText("correct");
-            }
-            else{
-                jaletpassword.setText("Your password not same.");
-            }
     }
 }

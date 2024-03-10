@@ -56,7 +56,7 @@ public class MainPage implements ActionListener{
         martPanel = new JPanel();
         help = new JLabel("Help");
         support = new JLabel("Support");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         //SET LAYOUT
         top.setLayout(new BorderLayout());
@@ -186,7 +186,7 @@ public class MainPage implements ActionListener{
         frame.add(mainbg);
         frame.setIconImage(scaleicon2.getImage());
         frame.setSize(1280,720);
-        frame.setVisible(true);
+        frame.setVisible(false);
         
     }
     public static void main(String[] args){

@@ -21,7 +21,7 @@ public class History extends JPanel{
     public History() {
 
         fr = new JFrame("menu");
-        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gb1 = new GridBagConstraints();
         icon1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         icon2 = new ImageIcon("src/UI/Image/eweweewew.jpg");

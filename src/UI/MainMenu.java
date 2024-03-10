@@ -8,16 +8,20 @@ public class MainMenu {
     private JLabel label, uns1, j1, j2;
     private JLabel Jicon1, Jicon2, Jicon3;
     private JButton bn1, bn2, bn3, bn4, bn5, bn6, bn9, bn10;
-    private JPanel panel, panel2, panel3, pane14, panel5, panel6 , panel7;
+    private JPanel panel, panel2, panel3, pane14, panel5, panel6, panel7, panel8;
     private ImageIcon icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9;
     private ImageIcon reicon1, reicon2, reicon3, reicon4, reicon5, reicon6, reicon9, reicon10, reicon11;
     private GridBagConstraints gb1;
     private StockProduct Sp1;
     private History h1;
     private Member m1;
+    private CircleProfile cp1;
+
     public MainMenu() {
-        
+
         //Create
+        cp1 = new CircleProfile();
+        cp1.LoadImage("src/UI/Image/3.jpg");
         fr = new JFrame("MENU");
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gb1 = new GridBagConstraints();
@@ -46,7 +50,7 @@ public class MainMenu {
         label.setBackground(new java.awt.Color(255, 255, 255));
         label.setFont(new Font("Arial", Font.CENTER_BASELINE, 40)); // NOI18N
         label.setForeground(new java.awt.Color(255, 255, 255));
-        uns1 = new JLabel("Tibet Sawangkan");
+        uns1 = new JLabel("Tibet Sawangkan  ");
         uns1.setFont(new Font("Arial", Font.PLAIN, 14)); // NOI18N
         uns1.setForeground(new java.awt.Color(255, 255, 255));
         j1 = new JLabel("     ");
@@ -57,8 +61,9 @@ public class MainMenu {
         panel5 = new JPanel();
         panel6 = new JPanel();
         panel7 = new JPanel();
+        panel8 = new JPanel();
         Jicon1 = new JLabel(reicon11);
-        
+
         //Bottom
         bn1 = new JButton("Dashboard");
         bn1.setPreferredSize(new Dimension(200, 10));
@@ -93,13 +98,13 @@ public class MainMenu {
         bn10.setForeground(new java.awt.Color(69, 104, 159));
         bn10.setBackground(Color.WHITE);
         bn10.setFont(new Font("Arial", Font.BOLD, 14));
-        
+
         //Panel
         panel.setLayout(new GridLayout(13, 0, 0, 5));
         panel.add(bn1);
         panel.add(bn2);
         panel.add(bn3);
-        
+
         //panel.add(bn4);
         panel.add(bn5);
         panel.add(bn6);
@@ -116,18 +121,23 @@ public class MainMenu {
         panel5.setBackground(new java.awt.Color(69, 104, 159));
         panel6.setBackground(new java.awt.Color(69, 104, 159));
         panel7.setBackground(new java.awt.Color(69, 104, 159));
+        panel8.setBackground(new java.awt.Color(69, 104, 159));
         panel2.add(label, BorderLayout.WEST);
         panel2.add(panel7, BorderLayout.EAST);
-        panel7.setLayout(new GridBagLayout());
+        panel8.setLayout(new BorderLayout());
+        panel8.add(cp1);
+        panel8.add(new JLabel("    "), BorderLayout.EAST);
+        panel8.add(new JLabel("    "), BorderLayout.NORTH);
+        panel8.add(new JLabel("    "), BorderLayout.SOUTH);
+        panel7.setLayout(new BorderLayout());
         panel7.add(uns1);
-        panel7.add(j2);
-        panel7.add(Jicon1);
-        panel7.add(j1);
+        cp1.setPreferredSize(new Dimension(40, 10));
+        panel7.add(panel8, BorderLayout.EAST);
         panel2.add(panel5, BorderLayout.NORTH);
         panel2.add(panel6, BorderLayout.SOUTH);
         panel3.setLayout(new BorderLayout());
         panel3.setBackground(new java.awt.Color(101, 113, 132));
-        
+
         //JFrame
         fr.setIconImage(icon1.getImage());
         fr.setLayout(new BorderLayout());

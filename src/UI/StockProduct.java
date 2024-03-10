@@ -27,7 +27,7 @@ public class StockProduct extends JPanel{
         //Product
         Product.add(this);
         Product.setSize(1280, 720);
-        Product.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Product.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Product.setVisible(false);
     }
     public static void main(String[] args) {

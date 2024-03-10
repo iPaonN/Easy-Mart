@@ -13,7 +13,6 @@ public class MainEditor extends DefaultCellEditor {
         optionBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
             }
         });
     }

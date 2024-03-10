@@ -11,10 +11,13 @@ public class SubProduct extends JPanel {
     private JLabel Jproduct, Jnameproduct, Jtype, Jnametype, Jamount, Jnumamount, Jprice, Jnumprice;
     private JLabel Jempty1, Jempty2, Jempty3, Jempty4, Jempty5, Jempty6;
     private JButton bview;
+    private ImageIcon i1, i2;
 
     public SubProduct() {
 
         //Create
+        i1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
+        i2 = new ImageIcon(i1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
         mainf = new JFrame("SubProduct");
         Jnameproduct = new JLabel("......");
         Jproduct = new JLabel("Product Name : "+Jnameproduct.getText());
@@ -121,10 +124,11 @@ public class SubProduct extends JPanel {
         this.setBorder(new LineBorder(new Color(101, 113, 132), 5));
 
         //JFrame
+        mainf.setIconImage(i2.getImage());
         mainf.add(this);
         mainf.setSize(300, 400);
-        mainf.setResizable(false);
-        mainf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainf.setResizable(true);
+        mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainf.setVisible(true);
     }
 
