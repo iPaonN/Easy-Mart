@@ -186,6 +186,50 @@ public class EditUserData extends UserData{
         }
     }
     
+    @Override
+    public void ChangeFirstname(String oldfirstname, String newfirstname){
+        try{
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET first_name = ? WHERE first_name = ?")){
+                
+                pstmt.setString(1, newfirstname);
+                pstmt.setString(2, oldfirstname);
+                
+                pstmt.execute();
+                
+                System.out.println("Change Username completed.");
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    @Override
+    public void ChangeLastname(String oldlastname, String newlastname){
+        try{
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET last_name = ? WHERE last_name = ?")){
+                
+                pstmt.setString(1, newlastname);
+                pstmt.setString(2, oldlastname);
+                
+                pstmt.execute();
+                
+                System.out.println("Change Username completed.");
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
 //    public static void main(String[] args) {
 //        EditUserData t1 = new EditUserData();
 //        t1.ChangePassword("Ball", "456");

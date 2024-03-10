@@ -10,5 +10,7 @@ public abstract class UserData extends My_sql{
     public abstract boolean CheckEmail(String email);
     public abstract void ChangeUsername(String oldusername, String newusername);
     public abstract void ChangePassword(String username, String password);
+    public abstract void ChangeFirstname(String oldfirstname, String newfirstname);
+    public abstract void ChangeLastname(String oldlastname, String newlastname);
     
 }
