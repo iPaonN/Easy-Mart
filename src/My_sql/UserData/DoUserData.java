@@ -262,7 +262,7 @@ public class DoUserData extends UserData{
     
 //    public static void main(String[] args) {
 //        DoUserData t1 = new DoUserData();
-//        ImportFile file = new ImportFile();
+//        ImportFile file = new ImportFile("png");
 //        System.out.println(file.getPath());
 //        t1.ChangeProfileImage("Test1", file.getPath());
 //    }
