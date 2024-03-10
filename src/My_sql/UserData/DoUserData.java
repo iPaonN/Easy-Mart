@@ -27,25 +27,19 @@ public class DoUserData extends UserData{
                 data.connect();
                 Connection conn = data.get_Connection();
                 
-                try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + "staff_info" + " (first_name, last_name, email, image) VALUES (?, ?, ?, ?)")) {
-                
-                    pstmt.setString(1, firstname);
-                    pstmt.setString(2, lastname);
-                    pstmt.setString(3, email);
-                    pstmt.setBinaryStream(4, inputStream);
-                
-                    pstmt.executeUpdate();
+                try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + "staff_info" + " (staff_user, staff_pass, first_name, last_name, email, image) VALUES (?, ?, ?, ?, ?, ?)")) {
                     
-                    System.out.println("Add data 1 completed.");
-                    
-                }
-                try(PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + "staff_login" + " (staff_user, staff_pass) VALUES (?, ?)")){
                     pstmt.setString(1, username);
                     pstmt.setString(2, BCrypt.hashpw(password, BCrypt.gensalt()));
-                    
+                    pstmt.setString(3, firstname);
+                    pstmt.setString(4, lastname);
+                    pstmt.setString(5, email);
+                    pstmt.setBinaryStream(6, inputStream);
+                
                     pstmt.executeUpdate();
                     
-                    System.out.println("Add data 2 completed.");
+                    System.out.println("Add data completed.");
+                    
                 }
             } catch (IOException | SQLException e) {
                 e.printStackTrace();
@@ -61,7 +55,7 @@ public class DoUserData extends UserData{
             data.connect();
             Connection conn = data.get_Connection();
             
-            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM staff_login WHERE staff_user = ?")){
+            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM staff_info WHERE staff_user = ?")){
                 pstmt.setString(1, username);
                 
                 try(ResultSet rs = pstmt.executeQuery()){
@@ -99,7 +93,7 @@ public class DoUserData extends UserData{
             data.connect();
             Connection conn = data.get_Connection();
             
-            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM staff_login WHERE staff_user = ?")){
+            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM staff_info WHERE staff_user = ?")){
                 pstmt.setString(1, username);
                 
                 try(ResultSet rs = pstmt.executeQuery()){
@@ -158,7 +152,7 @@ public class DoUserData extends UserData{
             data.connect();
             Connection conn = data.get_Connection();
             
-            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_login SET staff_user = ? WHERE staff_user = ?")){
+            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET staff_user = ? WHERE staff_user = ?")){
                 
                 pstmt.setString(1, newusername);
                 pstmt.setString(2, oldusername);
@@ -180,7 +174,7 @@ public class DoUserData extends UserData{
             data.connect();
             Connection conn = data.get_Connection();
             
-            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_login SET staff_pass = ? WHERE staff_user = ?")){
+            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET staff_pass = ? WHERE staff_user = ?")){
                 
                 pstmt.setString(1, BCrypt.hashpw(password, BCrypt.gensalt()));
                 pstmt.setString(2, username);
@@ -242,6 +236,6 @@ public class DoUserData extends UserData{
     
     public static void main(String[] args) {
         DoUserData t1 = new DoUserData();
-        t1.InsertData("Test1", "6666@gmail.com", "1234", "Hello", "World");
+        t1.InsertData("Test1", "test1gmail.com", "1234", "test1", "1test");
     }
 }
