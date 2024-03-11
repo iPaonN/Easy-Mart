@@ -8,6 +8,7 @@ public class Login {
 
     private JFrame fr1;
     private JLabel j1, j2, j3, j4, j5, j6, j7, j8, j9, j10, j11, j12, j13, j14, j15, j16, j17;
+    private JLabel jaletusername;
     private JTextField tf1;
     private JPasswordField pf1;
     private JCheckBox jb1;
@@ -78,7 +79,8 @@ public class Login {
         j15 = new JLabel("S I G N  I N");
         j16 = new JLabel();
         j17 = new JLabel();
-
+        jaletusername = new JLabel("Don't have Username.");
+        
         //Set component 
         fr1.setLayout(new GridLayout(1, 1));
         p1.setLayout(new BorderLayout());
@@ -114,7 +116,10 @@ public class Login {
         P8.add(p12);
         j2.setHorizontalAlignment(SwingConstants.RIGHT);
         jb1.setHorizontalAlignment(SwingConstants.RIGHT);
+        jaletusername.setHorizontalAlignment(SwingConstants.LEFT);
         p12.add(j2);
+        p12.add(new JLabel());
+        p12.add(jaletusername);
         P8.add(p14);
         p14.add(pf1);
         P8.add(p15);
@@ -207,6 +212,8 @@ public class Login {
         j14.setForeground(Color.WHITE);
         j15.setFont(new Font("Arial", Font.CENTER_BASELINE, 40));
         j15.setForeground(Color.WHITE);
+        jaletusername.setFont(new Font("Arial", Font.CENTER_BASELINE, 11));
+        jaletusername.setForeground(new Color(250, 199, 16));
 
         //Set TextField and JPasswordField
         tf1.setForeground(Color.WHITE);
