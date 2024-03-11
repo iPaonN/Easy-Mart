@@ -186,7 +186,7 @@ public class MainPage implements ActionListener{
         frame.add(mainbg);
         frame.setIconImage(scaleicon2.getImage());
         frame.setSize(1280,720);
-        frame.setVisible(false);
+        frame.setVisible(true);
         
     }
     public static void main(String[] args){
