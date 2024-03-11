@@ -55,11 +55,8 @@ public class LoginController implements MouseListener, ActionListener{
                 new MainPage();
                 view.getFr1().dispose();
             }
-            else if (model.CheckUsername(view.getTf1().getText()) == true){
-                view.getJaletusername().setText("Your password was not correct.");
-            }
             else{
-                view.getJaletusername().setText("Don't have this username.");
+                view.getJaletusername().setText("Your username or password are wrong.");
             }
         }
     }
