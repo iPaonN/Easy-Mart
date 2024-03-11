@@ -1,12 +1,12 @@
 
 package My_sql.UserData;
 
-import Import_Export.ImportFile;
 import My_sql.My_sql;
 import java.sql.*;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.*;
 import java.io.*;
+import com.google.gson.*;
 
 public class DoUserData extends UserData{
     
@@ -158,7 +158,7 @@ public class DoUserData extends UserData{
                 pstmt.setString(1, newusername);
                 pstmt.setString(2, oldusername);
                 
-                pstmt.execute();
+                pstmt.executeUpdate();
                 
                 System.out.println("Change Username completed.");
             }
@@ -180,7 +180,7 @@ public class DoUserData extends UserData{
                 pstmt.setString(1, BCrypt.hashpw(password, BCrypt.gensalt()));
                 pstmt.setString(2, username);
                 
-                pstmt.execute();
+                pstmt.executeUpdate();
                 
                 System.out.println("Change Password completed.");
             }
@@ -202,7 +202,7 @@ public class DoUserData extends UserData{
                 pstmt.setString(1, newfirstname);
                 pstmt.setString(2, oldfirstname);
                 
-                pstmt.execute();
+                pstmt.executeUpdate();
                 
                 System.out.println("Change Username completed.");
             }
@@ -224,7 +224,7 @@ public class DoUserData extends UserData{
                 pstmt.setString(1, newlastname);
                 pstmt.setString(2, oldlastname);
                 
-                pstmt.execute();
+                pstmt.executeUpdate();
                 
                 System.out.println("Change Username completed.");
             }
@@ -248,7 +248,7 @@ public class DoUserData extends UserData{
                 pstmt.setBinaryStream(1, inputStream);
                 pstmt.setString(2, username);
                 
-                pstmt.execute();
+                pstmt.executeUpdate();
                 
                 System.out.println("Change Image completed.");
                 
@@ -260,10 +260,100 @@ public class DoUserData extends UserData{
         }
     }
     
+    @Override
+    public ArrayList<String> GetProjecList(String username){
+        ArrayList<String> projectList = new ArrayList<>();
+        try{
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT project FROM staff_info WHERE staff_user = ?")){
+                
+                pstmt.setString(1, username);
+                
+                ResultSet rs = pstmt.executeQuery();
+                
+                while(rs.next()){
+                    projectList.add(rs.getString("project"));
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+            return projectList;
+        }
+    }
+    
+    @Override
+    public void UpdataProjectList(String username, ArrayList<String> projectList){
+        Gson gson = new Gson();
+        String projecString = gson.toJson(projectList);
+        
+        try{
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET project = ? WHERE staff_user = ?")){
+                
+                pstmt.setString(1, projecString);
+                pstmt.setString(2, username);
+                
+                pstmt.executeUpdate();
+                
+                System.out.println("Update project completed.");
+            }
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    //Overload
+    public void UpdataProjectList(String username, ArrayList<String> projectList, String project){
+        
+        projectList.removeIf(item -> item == null);
+        projectList.add(project);
+        
+        ArrayList<String> newprojecList = new ArrayList<>();
+        
+        for (int i = 0; i < projectList.size(); i++) {
+            String current = projectList.get(i);
+            current = current.replace("[","").replace("]","").replace("\\","").replace("\"","");
+            String[] splitStrings = current.split(",");
+            newprojecList.addAll(Arrays.asList(splitStrings));
+        }
+        
+        Gson gson = new Gson();
+        String projecString = gson.toJson(newprojecList);
+        
+        try{
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET project = ? WHERE staff_user = ?")){
+                
+                pstmt.setString(1, projecString);
+                pstmt.setString(2, username);
+                
+                pstmt.executeUpdate();
+                
+                System.out.println("Update project completed.");
+            }
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
 //    public static void main(String[] args) {
 //        DoUserData t1 = new DoUserData();
-//        ImportFile file = new ImportFile("png");
-//        System.out.println(file.getPath());
-//        t1.ChangeProfileImage("Test1", file.getPath());
+//        //t1.InsertData("Test1", "Test1@gmail.com", "1234", "Test", "Test");
+//        ArrayList l1 = t1.GetProjecList("Test1");
+//        t1.UpdataProjectList("Test1", l1,"Hello4");
 //    }
 }
