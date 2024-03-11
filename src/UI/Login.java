@@ -20,7 +20,7 @@ public class Login {
         //Create component 
         fr1 = new JFrame("EasyMart");
         c1 = new Circle();
-//        c1.LoadImage("src/UI/Image/3.jpg");
+        c1.LoadImage("src/UI/Image/3.jpg");
         p1 = new JPanel();
         p2 = new JPanel();
         p3 = new JPanel();
