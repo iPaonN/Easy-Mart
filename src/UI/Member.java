@@ -2,14 +2,15 @@ package UI;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 
-public class Member extends JPanel{
+public class Member extends JPanel {
+
     private JFrame fr;
     private JLabel label, uns1, j1, j2;
     private JLabel Jicon1, Jicon2, Jicon3, member;
     private JButton bn1, bn2, bn3, bn4, bn5, bn6, bn9, bn10, add;
-    private JPanel panel, panel2, panel3, pane14, panel5, panel6 , panel7, tablePanel;
+    private JPanel panel, panel2, panel3, pane14, panel5, panel6, panel7, tablePanel;
     private JPanel bg1, bg2, bg3, bg4, white1, white2, white3, white4, mainbg, empty, searchPanel;
     private ImageIcon icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9;
     private ImageIcon reicon1, reicon2, reicon3, reicon4, reicon5, reicon6, reicon9, reicon10, reicon11;
@@ -18,9 +19,11 @@ public class Member extends JPanel{
     private JScrollPane scrollPane;
     private DefaultTableModel model;
     private JTextField search;
+    private DefaultTableCellRenderer renderer;
+
     public Member() {
         fr = new JFrame("menu");
-        fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gb1 = new GridBagConstraints();
         icon1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         icon2 = new ImageIcon("src/UI/Image/eweweewew.jpg");
@@ -69,11 +72,12 @@ public class Member extends JPanel{
         white3 = new JPanel();
         white4 = new JPanel();
         mainbg = new JPanel();
-        member = new JLabel("Member");
+        member = new JLabel("MEMBER");
         empty = new JPanel();
-        search = new JTextField(50);
+        search = new JTextField(30);
         searchPanel = new JPanel();
         add = new JButton("+Add Member");
+        renderer = new DefaultTableCellRenderer();
 
         //Button
         bn1 = new JButton("Dashboard");
@@ -150,19 +154,19 @@ public class Member extends JPanel{
         bg4.setBackground(new Color(101, 113, 132));
         bg4.setPreferredSize(new Dimension(25, 0));
         white1.setBackground(Color.white);
-        white1.setPreferredSize(new Dimension(60, 0));
+        white1.setPreferredSize(new Dimension(65, 0));
         white2.setBackground(Color.white);
         white2.setPreferredSize(new Dimension(300, 160));
         white3.setBackground(Color.white);
         white3.setPreferredSize(new Dimension(0, 60));
         white4.setBackground(Color.white);
         white4.setPreferredSize(new Dimension(60, 0));
-        tablePanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-        scrollPane.setPreferredSize(new Dimension(500,500));
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollPane.setPreferredSize(new Dimension(500, 500));
         tablePanel.setBackground(Color.white);
         tablePanel.setLayout(new BorderLayout());
         tablePanel.add(scrollPane);
-        tablePanel.setBorder(new LineBorder(new Color(69, 104, 159),4));
+        tablePanel.setBorder(new LineBorder(new Color(69, 104, 159), 4));
         this.setBackground(Color.red);
         this.setLayout(new BorderLayout());
         this.add(bg1, BorderLayout.WEST);
@@ -170,7 +174,7 @@ public class Member extends JPanel{
         this.add(bg3, BorderLayout.SOUTH);
         this.add(bg4, BorderLayout.EAST);
         this.add(tablePanel);
-        
+
         //Inner
         tablePanel.add(white1, BorderLayout.WEST);
         tablePanel.add(white2, BorderLayout.NORTH);
@@ -179,37 +183,49 @@ public class Member extends JPanel{
         empty.setBackground(Color.white);
         white2.add(member);
         white2.add(searchPanel);
-        white2.setLayout(new GridLayout(2,0));
+        white2.setLayout(new GridLayout(2, 0));
         member.setFont(new Font("Arial", Font.BOLD, 48));
-        white2.setBorder(BorderFactory.createEmptyBorder(20,60,0,0));
+        white2.setBorder(BorderFactory.createEmptyBorder(20, 60, 0, 0));
         searchPanel.setLayout(new BorderLayout());
         searchPanel.setBackground(Color.white);
         searchPanel.add(empty, BorderLayout.WEST);
-        search.setPreferredSize(new Dimension(300,30));
-        add.setPreferredSize(new Dimension(120,30));
+        search.setPreferredSize(new Dimension(300, 30));
+        add.setPreferredSize(new Dimension(120, 30));
         add.setBackground(Color.white);
         empty.add(search);
         empty.add(add);
         empty.setBackground(Color.white);
         member.setForeground(new Color(69, 104, 159));
         add.setForeground(new Color(69, 104, 159));
-        search.setBorder(new LineBorder(new Color(69, 104, 159),2));
-        add.setBorder(new LineBorder(new Color(69, 104, 159),2));
+        add.setHideActionText(true);
+        search.setBorder(new LineBorder(new Color(101, 113, 132), 3));
+        add.setBorder(new LineBorder(new Color(101, 113, 132), 3));
         add.setFont(new Font("Arial", Font.BOLD, 12));
-        
+        table.setForeground(new Color(69, 104, 159));
+        table.setGridColor(new Color(101, 113, 132));
+        table.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        scrollPane.setBorder(new LineBorder(new Color(101, 113, 132), 3));
+
         //TABLE
         scrollPane.setViewportView(table);
         table.setModel(model);
         table.setDefaultEditor(Object.class, null);
-        table.setFont(new Font("Arial", Font.BOLD, 16));
-        //table.getColumnModel().getColumn(0).setPreferredWidth(800);
+        table.setFont(new Font("Arial", Font.BOLD, 20));
         table.setRowHeight(50);
+        search.setFont(new Font("Arial", Font.PLAIN, 20));
+        search.setForeground(new Color(69, 104, 159));
         model.addColumn("Name");
         model.addColumn("Role");
         model.addRow(new Object[]{"Thanapat"});
         model.addRow(new Object[]{"Tibet"});
         model.addRow(new Object[]{"Nutthawat"});
-        
+        table.getColumnModel().getColumn(0).setPreferredWidth(800);
+        table.setValueAt("Manager", 0, 1);
+        table.setValueAt("Front-end", 1, 1);
+        table.setValueAt("Front-end", 2, 1);
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        table.getColumnModel().getColumn(1).setCellRenderer(renderer);
+
         //JFrame
         fr.setIconImage(icon1.getImage());
         fr.setLayout(new BorderLayout());
@@ -217,10 +233,10 @@ public class Member extends JPanel{
         fr.add(this);
         //fr.add(panel, BorderLayout.WEST);
         fr.setSize(1280, 720);
-        fr.setVisible(false);
+        fr.setVisible(true);
     }
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
