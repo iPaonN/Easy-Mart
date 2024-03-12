@@ -10,6 +10,7 @@ public class MainPage implements ActionListener, MouseListener{
     private JFrame frame;
     private JPanel mainbg, top, bgwhite, bd1, bd2, bd3, bd4, bd5, searchPanel, tablePanel, topPanel;
     private JPanel profilePanel, white1, white2, white3, bottom, btnPanel, martPanel;
+    private JPanel pempty1;
     private JLabel martname, username, iconLabel, help, support, iconLabel2;
     private JTextField search;
     private JButton btnNew, btnImport;
@@ -20,10 +21,13 @@ public class MainPage implements ActionListener, MouseListener{
     private ImageIcon usericon, scaleicon, marticon, scaleicon2;
     private Addproject addproject;
     private JInternalFrame helpFrame, supportFrame, addProject;
+    private CircleProfile cp1;
     private final Object[] columnName = {"Name", "Option"};
 
     public MainPage(){
         //CREATE OBJECT
+        cp1 = new CircleProfile();
+        cp1.LoadImage("src/UI/Image/3.jpg");
         frame = new JFrame("PROJECT");
         mainbg = new JPanel();
         top = new JPanel();
@@ -53,6 +57,7 @@ public class MainPage implements ActionListener, MouseListener{
         white1 = new JPanel();
         white2 = new JPanel();
         white3 = new JPanel();
+        pempty1 = new JPanel();
         iconLabel = new JLabel();
         iconLabel2 = new JLabel();
         bottom = new JPanel();
@@ -76,11 +81,11 @@ public class MainPage implements ActionListener, MouseListener{
         bottom.setLayout(new FlowLayout());
         white2.setLayout(new BorderLayout());
         btnPanel.setLayout(new FlowLayout());
+        pempty1.setLayout(new BorderLayout());
         
         //TOP
         martname.setFont(new Font("Arial", Font.BOLD, 40));
         martname.setForeground(Color.white);
-        martname.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         username.setFont(new Font("Arial", Font.PLAIN, 14));
         username.setForeground(Color.white);
         top.setBackground(new Color(69, 104, 159));
@@ -105,6 +110,7 @@ public class MainPage implements ActionListener, MouseListener{
         bd3.setPreferredSize(new Dimension(20, 0));
         bd4.setPreferredSize(new Dimension(20, 0));
         bd5.setBorder(new LineBorder(new Color(69, 104, 159), 5));
+        pempty1.setBackground(new Color(69, 104, 159));
         
         //INNER
         searchPanel.setBackground(Color.white);
@@ -180,7 +186,11 @@ public class MainPage implements ActionListener, MouseListener{
         top.add(martPanel, BorderLayout.WEST);
         martPanel.add(martname);
         profilePanel.add(username, BorderLayout.WEST);
-        profilePanel.add(iconLabel);
+        cp1.setPreferredSize(new Dimension(45, 50));
+        profilePanel.add(pempty1);
+        pempty1.add(cp1);
+        pempty1.add(new JLabel("    "), BorderLayout.SOUTH);
+        pempty1.add(new JLabel("    "), BorderLayout.NORTH);
         top.add(profilePanel, BorderLayout.EAST);
         bgwhite.add(bd1, BorderLayout.SOUTH);
         bgwhite.add(bd2, BorderLayout.NORTH);
@@ -236,7 +246,7 @@ public class MainPage implements ActionListener, MouseListener{
             supportFrame.setVisible(true);
         }
     }
-      
+    
     @Override
     public void mousePressed(MouseEvent e) {
         //
