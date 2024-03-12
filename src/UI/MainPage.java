@@ -149,7 +149,7 @@ public class MainPage implements ActionListener, MouseListener{
         table.setForeground(new Color(69, 104, 159));
         table.setRowHeight(50);
         table.setCellSelectionEnabled(false);
-        table.setFont(new Font("Aria^l", Font.BOLD, 16));
+        table.setFont(new Font("Arial", Font.BOLD, 16));
         table.getColumnModel().getColumn(0).setPreferredWidth(800);
         table.getColumnModel().getColumn(1).setCellRenderer(new MainRenderer());
         table.getColumnModel().getColumn(1).setCellEditor(new MainEditor(new JCheckBox()));
