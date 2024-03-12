@@ -10,7 +10,7 @@ public class Assistance extends JPanel{
     private JLabel label, label2, label3, label4, label5;
     private JButton bn1, bn2;
     private JPanel panel, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel10, pa1, pa2, pa3, pa4;
-    private JPanel pempty1, pempty2, pempty3, pempty4;
+    private JPanel pempty1, pempty2, pempty3, pempty4, pempty5;
     private ImageIcon i1, i2;
     public Assistance() {
         i1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
