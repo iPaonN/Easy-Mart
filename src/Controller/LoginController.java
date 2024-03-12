@@ -53,7 +53,8 @@ public class LoginController implements MouseListener, ActionListener{
             new RegisterController();
         }
         else if (e.getSource().equals(view.getJ3())){
-            new JOptionPane("Please contact admin 66070082@kmitl.ac.th");
+            JOptionPane.showMessageDialog(null, "Please contact admin 66070082@kmitl.ac.th");
+            System.out.println("forget");
         }
     }
 
