@@ -94,7 +94,10 @@ public class RegisterController implements DocumentListener, MouseListener, Focu
             }
         }
         else if (e.getSource().equals(view.getTfemail())){
-            if (model.CheckEmail(view.getTfemail().getText()) == true){
+            if (view.getTfemail().getText().contains("@") == false){
+                view.getJaletemail().setText("Please input your email again.");
+            }
+            else if (model.CheckEmail(view.getTfemail().getText()) == true){
                 view.getJaletemail().setText("This email has used.");
             }
             else {
