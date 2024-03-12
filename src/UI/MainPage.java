@@ -150,7 +150,6 @@ public class MainPage implements ActionListener, MouseListener{
             model.insertRow(model.getRowCount(), dataRow);
         }
         table.setGridColor(new Color(69, 104, 159));
-        table.setBorder(new LineBorder(new Color(69, 104, 159), 3));
         table.setBackground(Color.white);
         table.setForeground(new Color(69, 104, 159));
         table.setRowHeight(50);
@@ -163,7 +162,7 @@ public class MainPage implements ActionListener, MouseListener{
         table.setDefaultEditor(Object.class, null);
         tablePanel.add(scrollPane);
         tablePanel.setBackground(Color.white);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        scrollPane.setBorder(new LineBorder(new Color(69, 104, 159), 4));
         white1.setBackground(Color.white);
         white1.setPreferredSize(new Dimension(35,0));
         white2.setBackground(Color.white);
