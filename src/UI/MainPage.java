@@ -1,12 +1,12 @@
 package UI;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 
-public class MainPage implements ActionListener{
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.table.*;
+
+public class MainPage implements ActionListener, MouseListener{
     private JFrame frame;
     private JPanel mainbg, top, bgwhite, bd1, bd2, bd3, bd4, bd5, searchPanel, tablePanel, topPanel;
     private JPanel profilePanel, white1, white2, white3, bottom, btnPanel, martPanel;
@@ -15,11 +15,14 @@ public class MainPage implements ActionListener{
     private JButton btnNew, btnImport;
     private JTable table;
     private JScrollPane scrollPane;
-    private DefaultTableModel model;
-    private int count = 0;
+    protected DefaultTableModel model;
+    protected int count = 0;
     private ImageIcon usericon, scaleicon, marticon, scaleicon2;
+    private Addproject addproject;
+    private JInternalFrame helpFrame, supportFrame, addProject;
+    private final Object[] columnName = {"Name", "Option"};
+
     public MainPage(){
-        
         //CREATE OBJECT
         frame = new JFrame("PROJECT");
         mainbg = new JPanel();
@@ -56,25 +59,28 @@ public class MainPage implements ActionListener{
         martPanel = new JPanel();
         help = new JLabel("Help");
         support = new JLabel("Support");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        helpFrame = new JInternalFrame("Help", false, true);
+        supportFrame = new JInternalFrame("Support", false, true);
+        //addProject = new JInternalFrame(new Addproject());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //SET LAYOUT
         top.setLayout(new BorderLayout());
         mainbg.setLayout(new BorderLayout());
         bgwhite.setLayout(new BorderLayout());
         bd5.setLayout(new BorderLayout());
-        searchPanel.setLayout(new BorderLayout());
+        searchPanel.setLayout(new FlowLayout());
         topPanel.setLayout(new BorderLayout());
         profilePanel.setLayout(new BorderLayout());
         tablePanel.setLayout(new BorderLayout());
         bottom.setLayout(new FlowLayout());
         white2.setLayout(new BorderLayout());
-        btnPanel.setLayout(new BorderLayout());
+        btnPanel.setLayout(new FlowLayout());
         
         //TOP
         martname.setFont(new Font("Arial", Font.BOLD, 40));
         martname.setForeground(Color.white);
-        martname.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        martname.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         username.setFont(new Font("Arial", Font.PLAIN, 14));
         username.setForeground(Color.white);
         top.setBackground(new Color(69, 104, 159));
@@ -84,7 +90,6 @@ public class MainPage implements ActionListener{
         username.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
         iconLabel.setIcon(scaleicon);
         iconLabel2.setIcon(scaleicon2);
-        //martPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
         martPanel.setBackground(new Color(69, 104, 159));
         
         //BACKGROUND
@@ -104,11 +109,11 @@ public class MainPage implements ActionListener{
         //INNER
         searchPanel.setBackground(Color.white);
         search.setFont(new Font("Arial", Font.PLAIN, 18));
-        search.setBorder(new LineBorder(new Color(69, 104, 159), 2));
-        search.setPreferredSize(new Dimension(300, 20));
+        search.setBorder(new LineBorder(new Color(69, 104, 159), 3));
+        search.setPreferredSize(new Dimension(350, 33));
         btnNew.setFont(new Font("Arial", Font.BOLD, 18));
         btnNew.setBackground(new Color(69, 104, 159));
-        btnNew.setForeground(new Color(69, 104, 159));        
+        btnNew.setForeground(new Color(69, 104, 159));
         btnImport.setFont(new Font("Arial", Font.BOLD, 18));
         btnImport.setBackground(new Color(69, 104, 159));
         btnImport.setForeground(new Color(69, 104, 159));
@@ -122,17 +127,28 @@ public class MainPage implements ActionListener{
         support.setFont(new Font("Arial", Font.BOLD, 12));
         support.setForeground(new Color(69, 104, 159));
         topPanel.setBorder(BorderFactory.createEmptyBorder(20,30,15,0));
+        search.setFont(new Font("Arial", Font.PLAIN, 20));
+        search.setForeground(new Color(69, 104, 159));
         
         //TABLE
         scrollPane.setViewportView(table);
         table.setModel(model);
-        model.addColumn("Name");
-        model.addColumn("Option");
+        model.setColumnIdentifiers(columnName);
+        Object[][] dataRows = {
+            {"NutthawatInwza"},
+            {"TibetInwza"},
+            {"ThanapatInwza"}
+        };
+        model.setColumnIdentifiers(columnName);
+        for (Object[] dataRow : dataRows) {
+            model.insertRow(model.getRowCount(), dataRow);
+        }
         table.setGridColor(new Color(69, 104, 159));
-        table.setBorder(new LineBorder(new Color(69, 104, 159)));
+        table.setBorder(new LineBorder(new Color(69, 104, 159), 3));
         table.setBackground(Color.white);
         table.setForeground(new Color(69, 104, 159));
         table.setRowHeight(50);
+        table.setCellSelectionEnabled(false);
         table.setFont(new Font("Aria^l", Font.BOLD, 16));
         table.getColumnModel().getColumn(0).setPreferredWidth(800);
         table.getColumnModel().getColumn(1).setCellRenderer(new MainRenderer());
@@ -141,23 +157,27 @@ public class MainPage implements ActionListener{
         table.setDefaultEditor(Object.class, null);
         tablePanel.add(scrollPane);
         tablePanel.setBackground(Color.white);
-        scrollPane.setBorder(new LineBorder(new Color(69, 104, 159), 2));
         scrollPane.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
         white1.setBackground(Color.white);
-        white1.setPreferredSize(new Dimension(30,0));
+        white1.setPreferredSize(new Dimension(35,0));
         white2.setBackground(Color.white);
         white2.setPreferredSize(new Dimension(0,35));
         white3.setBackground(Color.white);
         white3.setPreferredSize(new Dimension(30,0));
         
-        
-        //HANDLER
+        //HANDLER, HELP and SUPPORT
         btnNew.addActionListener(this);
+        help.addMouseListener(this);
+        support.addMouseListener(this);
+        helpFrame.setSize(400,250);
+        helpFrame.setLocation(600, 320);
+        supportFrame.setSize(400,250);
+        supportFrame.setLocation(300, 300);
+        frame.add(helpFrame);
+        frame.add(supportFrame);
         
         //ADD
         top.add(martPanel, BorderLayout.WEST);
-        
-        //martPanel.add(iconLabel2);
         martPanel.add(martname);
         profilePanel.add(username, BorderLayout.WEST);
         profilePanel.add(iconLabel);
@@ -187,22 +207,67 @@ public class MainPage implements ActionListener{
         frame.setIconImage(scaleicon2.getImage());
         frame.setSize(1280,720);
         frame.setVisible(true);
-        
     }
+    
     public static void main(String[] args){
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
             new MainPage();
         });
     }
+
     @Override
-    public void actionPerformed(ActionEvent ev){
-        model.addRow(new Object[0]);
-        model.setValueAt(" Project Name", count, 0);
-        count++;
+    public void actionPerformed(ActionEvent e){
+        if (e.getSource().equals(btnNew)){
+            addproject = new Addproject();
+        }
+    }
+    
+    @Override
+      public void mouseClicked(MouseEvent e) {
+        if (e.getSource().equals(help)){
+            helpFrame.setVisible(true);
+        }
+        if (e.getSource().equals(support)){
+            supportFrame.setVisible(true);
+        }
+    }
+      
+    @Override
+    public void mousePressed(MouseEvent e) {
+        //
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        //
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if (e.getSource().equals(help)){
+            help.setForeground(new Color(69, 104, 159));
+            help.setFont(new Font("Arial", Font.BOLD, 14));
+        }
+        if (e.getSource().equals(support)){
+            support.setForeground(new Color(69, 104, 159));
+            support.setFont(new Font("Arial", Font.BOLD, 14));
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if (e.getSource().equals(help)){
+            help.setForeground(new Color(69, 104, 159));
+            help.setFont(new Font("Arial", Font.BOLD, 12));
+        }
+        if (e.getSource().equals(support)){
+            support.setForeground(new Color(69, 104, 159));
+            support.setFont(new Font("Arial", Font.BOLD, 12));
+        }
     }
 }
