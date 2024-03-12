@@ -16,6 +16,7 @@ class MainRenderer extends JButton implements TableCellRenderer {
         this.setText("Option");
         this.setForeground(new Color(69, 104, 159));
         this.setFont(new Font("Arial", Font.BOLD, 16));
+        this.setBackground(new Color(69, 104, 159));
         return this;
     }
 }
