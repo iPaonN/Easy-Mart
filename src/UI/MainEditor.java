@@ -13,6 +13,7 @@ class MainEditor extends DefaultCellEditor implements ActionListener {
         optionBtn.addActionListener(this);
         optionBtn.setForeground(new Color(69, 104, 159));
         optionBtn.setFont(new Font("Arial", Font.BOLD, 16));
+        optionBtn.setBackground(new Color(69, 104, 159));
     }
 
     @Override
