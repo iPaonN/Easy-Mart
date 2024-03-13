@@ -1,4 +1,4 @@
-package Event.Model;
+package UI.Model;
 
 import java.io.Serializable;
 

@@ -1,6 +1,4 @@
-package Event.Controller;
-import My_sql.UserData.DoUserData;
-import View.MainPage;
+package UI.Controller;
 
 public class MainPageController {
     

@@ -1,6 +1,5 @@
-package View;
+package UI.View;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 public class RoundRectangle extends JPanel{
    private JFrame main;

@@ -1,7 +1,6 @@
-package Event.Controller;
-import View.Register;
+package UI.Controller;
+import UI.View.Register;
 import My_sql.UserData.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
 import javax.swing.*;

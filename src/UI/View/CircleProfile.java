@@ -1,4 +1,4 @@
-package View;
+package UI.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;

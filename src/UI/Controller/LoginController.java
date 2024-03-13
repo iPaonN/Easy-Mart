@@ -1,8 +1,8 @@
-package Event.Controller;
-import Event.Model.LoginModel;
+package UI.Controller;
+import UI.Model.LoginModel;
 import My_sql.UserData.*;
-import View.Login;
-import View.MainPage;
+import UI.View.Login;
+import UI.View.MainPage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
