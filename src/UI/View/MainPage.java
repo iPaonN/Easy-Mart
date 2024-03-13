@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
-public class MainPage implements ActionListener, MouseListener{
+public class MainPage {
     private JFrame frame;
     private JPanel mainbg, top, bgwhite, bd1, bd2, bd3, bd4, bd5, searchPanel, tablePanel, topPanel;
     private JPanel profilePanel, white1, white2, white3, bottom, btnPanel, martPanel;
@@ -170,10 +170,7 @@ public class MainPage implements ActionListener, MouseListener{
         white3.setBackground(Color.white);
         white3.setPreferredSize(new Dimension(30,0));
         
-        //HANDLER, HELP and SUPPORT
-        btnNew.addActionListener(this);
-        help.addMouseListener(this);
-        support.addMouseListener(this);
+        //HANDLER, HELP and SUPPOR
         helpFrame.setSize(400,250);
         helpFrame.setLocation(600, 320);
         supportFrame.setSize(400,250);
@@ -217,6 +214,342 @@ public class MainPage implements ActionListener, MouseListener{
         frame.setSize(1280,720);
         frame.setVisible(true);
     }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+
+    public JPanel getMainbg() {
+        return mainbg;
+    }
+
+    public void setMainbg(JPanel mainbg) {
+        this.mainbg = mainbg;
+    }
+
+    public JPanel getTop() {
+        return top;
+    }
+
+    public void setTop(JPanel top) {
+        this.top = top;
+    }
+
+    public JPanel getBgwhite() {
+        return bgwhite;
+    }
+
+    public void setBgwhite(JPanel bgwhite) {
+        this.bgwhite = bgwhite;
+    }
+
+    public JPanel getBd1() {
+        return bd1;
+    }
+
+    public void setBd1(JPanel bd1) {
+        this.bd1 = bd1;
+    }
+
+    public JPanel getBd2() {
+        return bd2;
+    }
+
+    public void setBd2(JPanel bd2) {
+        this.bd2 = bd2;
+    }
+
+    public JPanel getBd3() {
+        return bd3;
+    }
+
+    public void setBd3(JPanel bd3) {
+        this.bd3 = bd3;
+    }
+
+    public JPanel getBd4() {
+        return bd4;
+    }
+
+    public void setBd4(JPanel bd4) {
+        this.bd4 = bd4;
+    }
+
+    public JPanel getBd5() {
+        return bd5;
+    }
+
+    public void setBd5(JPanel bd5) {
+        this.bd5 = bd5;
+    }
+
+    public JPanel getSearchPanel() {
+        return searchPanel;
+    }
+
+    public void setSearchPanel(JPanel searchPanel) {
+        this.searchPanel = searchPanel;
+    }
+
+    public JPanel getTablePanel() {
+        return tablePanel;
+    }
+
+    public void setTablePanel(JPanel tablePanel) {
+        this.tablePanel = tablePanel;
+    }
+
+    public JPanel getTopPanel() {
+        return topPanel;
+    }
+
+    public void setTopPanel(JPanel topPanel) {
+        this.topPanel = topPanel;
+    }
+
+    public JPanel getProfilePanel() {
+        return profilePanel;
+    }
+
+    public void setProfilePanel(JPanel profilePanel) {
+        this.profilePanel = profilePanel;
+    }
+
+    public JPanel getWhite1() {
+        return white1;
+    }
+
+    public void setWhite1(JPanel white1) {
+        this.white1 = white1;
+    }
+
+    public JPanel getWhite2() {
+        return white2;
+    }
+
+    public void setWhite2(JPanel white2) {
+        this.white2 = white2;
+    }
+
+    public JPanel getWhite3() {
+        return white3;
+    }
+
+    public void setWhite3(JPanel white3) {
+        this.white3 = white3;
+    }
+
+    public JPanel getBottom() {
+        return bottom;
+    }
+
+    public void setBottom(JPanel bottom) {
+        this.bottom = bottom;
+    }
+
+    public JPanel getBtnPanel() {
+        return btnPanel;
+    }
+
+    public void setBtnPanel(JPanel btnPanel) {
+        this.btnPanel = btnPanel;
+    }
+
+    public JPanel getMartPanel() {
+        return martPanel;
+    }
+
+    public void setMartPanel(JPanel martPanel) {
+        this.martPanel = martPanel;
+    }
+
+    public JPanel getPempty1() {
+        return pempty1;
+    }
+
+    public void setPempty1(JPanel pempty1) {
+        this.pempty1 = pempty1;
+    }
+
+    public JLabel getMartname() {
+        return martname;
+    }
+
+    public void setMartname(JLabel martname) {
+        this.martname = martname;
+    }
+
+    public JLabel getUsername() {
+        return username;
+    }
+
+    public void setUsername(JLabel username) {
+        this.username = username;
+    }
+
+    public JLabel getIconLabel() {
+        return iconLabel;
+    }
+
+    public void setIconLabel(JLabel iconLabel) {
+        this.iconLabel = iconLabel;
+    }
+
+    public JLabel getHelp() {
+        return help;
+    }
+
+    public void setHelp(JLabel help) {
+        this.help = help;
+    }
+
+    public JLabel getSupport() {
+        return support;
+    }
+
+    public void setSupport(JLabel support) {
+        this.support = support;
+    }
+
+    public JLabel getIconLabel2() {
+        return iconLabel2;
+    }
+
+    public void setIconLabel2(JLabel iconLabel2) {
+        this.iconLabel2 = iconLabel2;
+    }
+
+    public JTextField getSearch() {
+        return search;
+    }
+
+    public void setSearch(JTextField search) {
+        this.search = search;
+    }
+
+    public JButton getBtnNew() {
+        return btnNew;
+    }
+
+    public void setBtnNew(JButton btnNew) {
+        this.btnNew = btnNew;
+    }
+
+    public JButton getBtnImport() {
+        return btnImport;
+    }
+
+    public void setBtnImport(JButton btnImport) {
+        this.btnImport = btnImport;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public void setTable(JTable table) {
+        this.table = table;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
+
+    public DefaultTableModel getModel() {
+        return model;
+    }
+
+    public void setModel(DefaultTableModel model) {
+        this.model = model;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public ImageIcon getUsericon() {
+        return usericon;
+    }
+
+    public void setUsericon(ImageIcon usericon) {
+        this.usericon = usericon;
+    }
+
+    public ImageIcon getScaleicon() {
+        return scaleicon;
+    }
+
+    public void setScaleicon(ImageIcon scaleicon) {
+        this.scaleicon = scaleicon;
+    }
+
+    public ImageIcon getMarticon() {
+        return marticon;
+    }
+
+    public void setMarticon(ImageIcon marticon) {
+        this.marticon = marticon;
+    }
+
+    public ImageIcon getScaleicon2() {
+        return scaleicon2;
+    }
+
+    public void setScaleicon2(ImageIcon scaleicon2) {
+        this.scaleicon2 = scaleicon2;
+    }
+
+    public Addproject getAddproject() {
+        return addproject;
+    }
+
+    public void setAddproject(Addproject addproject) {
+        this.addproject = addproject;
+    }
+
+    public JInternalFrame getHelpFrame() {
+        return helpFrame;
+    }
+
+    public void setHelpFrame(JInternalFrame helpFrame) {
+        this.helpFrame = helpFrame;
+    }
+
+    public JInternalFrame getSupportFrame() {
+        return supportFrame;
+    }
+
+    public void setSupportFrame(JInternalFrame supportFrame) {
+        this.supportFrame = supportFrame;
+    }
+
+    public JInternalFrame getAddProject() {
+        return addProject;
+    }
+
+    public void setAddProject(JInternalFrame addProject) {
+        this.addProject = addProject;
+    }
+
+    public CircleProfile getCp1() {
+        return cp1;
+    }
+
+    public void setCp1(CircleProfile cp1) {
+        this.cp1 = cp1;
+    }
     
     public static void main(String[] args){
         try {
@@ -229,54 +562,5 @@ public class MainPage implements ActionListener, MouseListener{
         });
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e){
-        if (e.getSource().equals(btnNew)){
-            addproject = new Addproject();
-        }
-    }
     
-    @Override
-      public void mouseClicked(MouseEvent e) {
-        if (e.getSource().equals(help)){
-            helpFrame.setVisible(true);
-        }
-        if (e.getSource().equals(support)){
-            supportFrame.setVisible(true);
-        }
-    }
-    
-    @Override
-    public void mousePressed(MouseEvent e) {
-        //
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        //
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        if (e.getSource().equals(help)){
-            help.setForeground(new Color(69, 104, 159));
-            help.setFont(new Font("Arial", Font.BOLD, 14));
-        }
-        if (e.getSource().equals(support)){
-            support.setForeground(new Color(69, 104, 159));
-            support.setFont(new Font("Arial", Font.BOLD, 14));
-        }
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        if (e.getSource().equals(help)){
-            help.setForeground(new Color(69, 104, 159));
-            help.setFont(new Font("Arial", Font.BOLD, 12));
-        }
-        if (e.getSource().equals(support)){
-            support.setForeground(new Color(69, 104, 159));
-            support.setFont(new Font("Arial", Font.BOLD, 12));
-        }
-    }
 }

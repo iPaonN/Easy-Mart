@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
-class MainRenderer extends JButton implements TableCellRenderer {
+public class MainRenderer extends JButton implements TableCellRenderer {
 
     public MainRenderer() {
         super();
