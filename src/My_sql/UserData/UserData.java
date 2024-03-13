@@ -4,7 +4,7 @@ import My_sql.My_sql;
 import java.io.*;
 import java.util.*;
 
-public abstract class UserData extends My_sql{
+public sealed abstract class UserData extends My_sql permits DoUserData{
     
     public abstract void InsertData(String username, String email, String password, String firstname, String lastname);
     public abstract boolean CheckLogin(String username, String password);

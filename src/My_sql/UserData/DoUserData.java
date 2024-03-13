@@ -8,7 +8,7 @@ import java.util.*;
 import java.io.*;
 import com.google.gson.*;
 
-public class DoUserData extends UserData{
+public final class DoUserData extends UserData{
     
     private My_sql data = new My_sql("staff","");
     
