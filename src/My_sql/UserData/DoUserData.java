@@ -1,7 +1,6 @@
 
 package My_sql.UserData;
 
-import My_sql.My_sql;
 import java.sql.*;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.*;
@@ -10,7 +9,6 @@ import com.google.gson.*;
 
 public final class DoUserData extends UserData{
     
-    private My_sql data = new My_sql("staff","");
     
     @Override
     public void InsertData(String username, String email, String password, String firstname, String lastname) {
@@ -25,8 +23,8 @@ public final class DoUserData extends UserData{
                 File imageFile = new File("src/My_sql/UserData/Image/image"+random_number+".png");
                 FileInputStream inputStream = new FileInputStream(imageFile);
 
-                data.connect();
-                Connection conn = data.get_Connection();
+                DATA.connect();
+                Connection conn = DATA.get_Connection();
                 
                 try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO " + "staff_info" + " (staff_user, staff_pass, first_name, last_name, email, image) VALUES (?, ?, ?, ?, ?, ?)")) {
                     
@@ -45,7 +43,7 @@ public final class DoUserData extends UserData{
             } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }finally{
-                data.disconnect();
+                DATA.disconnect();
             }
         }
     }
@@ -53,8 +51,8 @@ public final class DoUserData extends UserData{
     @Override
     public boolean CheckLogin(String username, String password) {
         try {
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM staff_info WHERE staff_user = ?")){
                 pstmt.setString(1, username);
@@ -84,15 +82,15 @@ public final class DoUserData extends UserData{
             e.printStackTrace();
             return false;
         }finally{
-            data.disconnect();
+            DATA.disconnect();
         }
     }
 
     @Override
     public boolean CheckUsername(String username) {
         try {
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM staff_info WHERE staff_user = ?")){
                 pstmt.setString(1, username);
@@ -115,15 +113,15 @@ public final class DoUserData extends UserData{
             e.printStackTrace();
             return false;
         }finally{
-            data.disconnect();
+            DATA.disconnect();
         }
     }
 
     @Override
     public boolean CheckEmail(String email) {
         try {
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM staff_info WHERE email = ?")){
                 pstmt.setString(1, email);
@@ -143,15 +141,15 @@ public final class DoUserData extends UserData{
             e.printStackTrace();
             return false;
         }finally{
-            data.disconnect();
+            DATA.disconnect();
         }
     }
 
     @Override
     public void ChangeUsername(String oldusername, String newusername) {
         try{
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET staff_user = ? WHERE staff_user = ?")){
                 
@@ -165,15 +163,15 @@ public final class DoUserData extends UserData{
         } catch(SQLException e){
             e.printStackTrace();
         }finally{
-            data.disconnect();
+            DATA.disconnect();
         }
     }
 
     @Override
     public void ChangePassword(String username, String password) {
         try{
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET staff_pass = ? WHERE staff_user = ?")){
                 
@@ -187,15 +185,15 @@ public final class DoUserData extends UserData{
         } catch(SQLException e){
             e.printStackTrace();
         }finally{
-            data.disconnect();
+            DATA.disconnect();
         }
     }
     
     @Override
     public void ChangeFirstname(String oldfirstname, String newfirstname){
         try{
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET first_name = ? WHERE first_name = ?")){
                 
@@ -209,15 +207,15 @@ public final class DoUserData extends UserData{
         } catch(SQLException e){
             e.printStackTrace();
         }finally{
-            data.disconnect();
+            DATA.disconnect();
         }
     }
     
     @Override
     public void ChangeLastname(String oldlastname, String newlastname){
         try{
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET last_name = ? WHERE last_name = ?")){
                 
@@ -231,7 +229,7 @@ public final class DoUserData extends UserData{
         } catch(SQLException e){
             e.printStackTrace();
         }finally{
-            data.disconnect();
+            DATA.disconnect();
         }
     }
     
@@ -240,8 +238,8 @@ public final class DoUserData extends UserData{
         try{
             FileInputStream inputStream = new FileInputStream(pathFile);
             
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET image = ? WHERE staff_user = ?")){
                 
@@ -256,7 +254,7 @@ public final class DoUserData extends UserData{
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }finally{
-            data.disconnect();
+            DATA.disconnect();
         }
     }
     
@@ -264,8 +262,8 @@ public final class DoUserData extends UserData{
     public ArrayList<String> GetProjecList(String username){
         ArrayList<String> projectList = new ArrayList<>();
         try{
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try(PreparedStatement pstmt = conn.prepareStatement("SELECT project FROM staff_info WHERE staff_user = ?")){
                 
@@ -280,7 +278,7 @@ public final class DoUserData extends UserData{
         } catch (SQLException e){
             e.printStackTrace();
         }finally{
-            data.disconnect();
+            DATA.disconnect();
             return projectList;
         }
     }
@@ -291,8 +289,8 @@ public final class DoUserData extends UserData{
         String projecString = gson.toJson(projectList);
         
         try{
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET project = ? WHERE staff_user = ?")){
                 
@@ -307,7 +305,7 @@ public final class DoUserData extends UserData{
         } catch (SQLException e){
             e.printStackTrace();
         }finally{
-            data.disconnect();
+            DATA.disconnect();
         }
     }
     
@@ -330,8 +328,8 @@ public final class DoUserData extends UserData{
         String projecString = gson.toJson(newprojecList);
         
         try{
-            data.connect();
-            Connection conn = data.get_Connection();
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
             
             try(PreparedStatement pstmt = conn.prepareStatement("UPDATE staff_info SET project = ? WHERE staff_user = ?")){
                 
@@ -346,7 +344,7 @@ public final class DoUserData extends UserData{
         } catch (SQLException e){
             e.printStackTrace();
         }finally{
-            data.disconnect();
+            DATA.disconnect();
         }
     }
     
