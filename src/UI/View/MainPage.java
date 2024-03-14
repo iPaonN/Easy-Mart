@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
-public class MainPage {
+public class MainPage implements MouseListener, ActionListener{
     private JFrame frame;
     private JPanel mainbg, top, bgwhite, bd1, bd2, bd3, bd4, bd5, searchPanel, tablePanel, topPanel;
     private JPanel profilePanel, white1, white2, white3, bottom, btnPanel, martPanel;
@@ -70,6 +70,9 @@ public class MainPage {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //SET LAYOUT
+        btnNew.addActionListener(this);
+        help.addMouseListener(this);
+        support.addMouseListener(this);
         top.setLayout(new BorderLayout());
         mainbg.setLayout(new BorderLayout());
         bgwhite.setLayout(new BorderLayout());
@@ -549,6 +552,55 @@ public class MainPage {
 
     public void setCp1(CircleProfile cp1) {
         this.cp1 = cp1;
+    }
+    public void actionPerformed(ActionEvent e){
+        if (e.getSource().equals(btnNew)){
+            addproject = new Addproject();
+        }
+    }
+    
+    @Override
+      public void mouseClicked(MouseEvent e) {
+        if (e.getSource().equals(help)){
+            helpFrame.setVisible(true);
+        }
+        if (e.getSource().equals(support)){
+            supportFrame.setVisible(true);
+        }
+    }
+    
+    @Override
+    public void mousePressed(MouseEvent e) {
+        //
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        //
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if (e.getSource().equals(help)){
+            help.setForeground(new Color(69, 104, 159));
+            help.setFont(new Font("Arial", Font.BOLD, 14));
+        }
+        if (e.getSource().equals(support)){
+            support.setForeground(new Color(69, 104, 159));
+            support.setFont(new Font("Arial", Font.BOLD, 14));
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if (e.getSource().equals(help)){
+            help.setForeground(new Color(69, 104, 159));
+            help.setFont(new Font("Arial", Font.BOLD, 12));
+        }
+        if (e.getSource().equals(support)){
+            support.setForeground(new Color(69, 104, 159));
+            support.setFont(new Font("Arial", Font.BOLD, 12));
+        }
     }
     
     public static void main(String[] args){
