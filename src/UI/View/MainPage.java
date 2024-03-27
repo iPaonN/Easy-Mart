@@ -26,7 +26,7 @@ public class MainPage implements MouseListener, ActionListener{
     public MainPage(){
         //CREATE OBJECT
         cp1 = new CircleProfile();
-        cp1.LoadImage("src/UI/Image/3.jpg");
+        //cp1.LoadImage("src/UI/Image/3.jpg");
         frame = new JFrame("PROJECT");
         mainbg = new JPanel();
         top = new JPanel();
@@ -256,6 +256,14 @@ public class MainPage implements MouseListener, ActionListener{
         frame.setIconImage(scaleicon2.getImage());
         frame.setSize(1280,720);
         frame.setVisible(true);
+    }
+    
+    public CircleProfile getCp1() {
+        return cp1;
+    }
+
+    public void setCp1(CircleProfile cp1) {
+        this.cp1 = cp1;
     }
     public void actionPerformed(ActionEvent e){
         if (e.getSource().equals(btnNew)){

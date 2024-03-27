@@ -2,9 +2,13 @@ package UI.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
-
+import java.io.File;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 public class CircleProfile extends JPanel {
-
     private JFrame fr1;
     private ImageIcon i1, i2;
     private Image im1;
@@ -17,6 +21,21 @@ public class CircleProfile extends JPanel {
         fr1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr1.setVisible(false);
     }
+    
+      public static Image fileToImage(File file) {
+        try {
+            BufferedImage bufferedImage = ImageIO.read(file);
+            // Optionally, you can resize the image if needed
+            // For example, resizing to 100x100 pixels:
+            int width = bufferedImage.getWidth(null);
+            int height = bufferedImage.getHeight(null);
+            Image resizedImage = bufferedImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            return resizedImage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public Image LoadImage(String link){
         i1 = new ImageIcon(link);
         im1 = i1.getImage();
@@ -25,6 +44,11 @@ public class CircleProfile extends JPanel {
     //Overload
     public Image LoadImage(Image im1){
         i1 = new ImageIcon(im1);
+        im1 = i1.getImage();
+        return im1;
+    }
+    public Image LoadImage(File f1){
+        i1 = new ImageIcon(fileToImage(f1));
         im1 = i1.getImage();
         return im1;
     }

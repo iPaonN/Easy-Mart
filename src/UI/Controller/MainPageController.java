@@ -1,6 +1,6 @@
 package UI.Controller;
 
-import UI.Model.Account;
+import My_sql.UserData.DoUserData;
 import UI.View.Addproject;
 import UI.View.MainPage;
 import UI.View.MainRenderer;
@@ -14,13 +14,15 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class MainPageController{
-    private Account user;
+    private String username;
     private MainPage main;
     private MainRenderer render;
-    public MainPageController(Account user){
-        this.user = user;
+    private DoUserData manager;
+    public MainPageController(String username){
+        this.manager = new DoUserData();
+        this.username = username;
         main = new MainPage();
-        
+        main.getCp1().LoadImage(manager.GetProfileImage(this.username));
     }
     public static void main(String[] args){
         try {

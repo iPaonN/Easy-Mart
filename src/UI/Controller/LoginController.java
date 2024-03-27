@@ -1,7 +1,6 @@
 package UI.Controller;
 import UI.Model.LoginModel;
 import My_sql.UserData.*;
-import UI.Model.Account;
 import UI.View.Login;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 public class LoginController implements MouseListener, ActionListener{
-    private Account user;
+    private String username;
     private DoUserData model;
     private Login view;
     
@@ -103,7 +102,7 @@ public class LoginController implements MouseListener, ActionListener{
                     i.printStackTrace();
                 }
                 }
-                new MainPageController(new Account(view.getTf1().getText()));
+                new MainPageController(view.getTf1().getText());
                 view.getFr1().dispose();
             }
             else{
