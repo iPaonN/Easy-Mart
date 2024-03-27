@@ -1,4 +1,5 @@
 package UI.View;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -79,6 +80,7 @@ public class SubProduct extends JPanel {
         psubcenter.setBackground(new Color(69, 104, 159));
         psubsouth.setBackground(new Color(69, 104, 159));
         pImage.setBackground(Color.WHITE);
+        pImage.setPreferredSize(new Dimension(160,120));
         pempty1.setBackground(new Color(69, 104, 159));
         pempty2.setBackground(new Color(69, 104, 159));
         pempty3.setBackground(new Color(69, 104, 159));
@@ -109,10 +111,10 @@ public class SubProduct extends JPanel {
 
         //Psubcenter
         psubcenter.setLayout(new BorderLayout());
-        psubcenter.setBackground(Color.WHITE);
+        psubcenter.setBackground(new Color(69, 104, 159));
         psubcenter.setBorder(new LineBorder(new Color(69, 104, 159), 20));
         pImage.setBorder(new LineBorder(new Color(101, 113, 132), 5));
-        pImage.setLayout(new BorderLayout()); 
+        pImage.setLayout(new FlowLayout()); 
         psubcenter.add(pImage);
         
         //Mainpanel
@@ -122,14 +124,7 @@ public class SubProduct extends JPanel {
         this.add(psubsouth, BorderLayout.SOUTH);
         this.setBackground(new Color(69, 104, 159));
         this.setBorder(new LineBorder(new Color(101, 113, 132), 5));
-
-        //JFrame
-        mainf.setIconImage(i2.getImage());
-        mainf.add(this);
-        mainf.setSize(300, 400);
-        mainf.setResizable(true);
-        mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        mainf.setVisible(true);
+        this.setSize(300, 400);
     }
 
     public static void main(String[] args) {
