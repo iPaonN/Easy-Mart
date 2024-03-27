@@ -101,7 +101,6 @@ public final class DoProjectData extends ProjectData{
     }
     
 //    public static void main(String[] args) {
-//        DoProjectData p1 = new DoProjectData();
-//        p1.Createtemplate("zedl3all", "Project1");
+//        DoProjectData p1 = new DoProjectData("zedl3all", "Project1");
 //    }
 }
