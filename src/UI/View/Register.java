@@ -17,486 +17,6 @@ public class Register{
     private ImageIcon iusername, iemail, ifirstname, ilastname, inewpassword, iconfirmpassword;
     private ImageIcon itryframe, iframe, itryeye, ieye;
 
-    public void setMainf(JFrame mainf) {
-        this.mainf = mainf;
-    }
-
-    public void setPnorth(JPanel pnorth) {
-        this.pnorth = pnorth;
-    }
-
-    public void setPcenter(JPanel pcenter) {
-        this.pcenter = pcenter;
-    }
-
-    public void setPsouth(JPanel psouth) {
-        this.psouth = psouth;
-    }
-
-    public void setPmain(JPanel pmain) {
-        this.pmain = pmain;
-    }
-
-    public void setPempty1(JPanel pempty1) {
-        this.pempty1 = pempty1;
-    }
-
-    public void setPempty2(JPanel pempty2) {
-        this.pempty2 = pempty2;
-    }
-
-    public void setPempty3(JPanel pempty3) {
-        this.pempty3 = pempty3;
-    }
-
-    public void setPempty4(JPanel pempty4) {
-        this.pempty4 = pempty4;
-    }
-
-    public void setPempty5(JPanel pempty5) {
-        this.pempty5 = pempty5;
-    }
-
-    public void setPempty6(JPanel pempty6) {
-        this.pempty6 = pempty6;
-    }
-
-    public void setPempty7(JPanel pempty7) {
-        this.pempty7 = pempty7;
-    }
-
-    public void setPempty8(JPanel pempty8) {
-        this.pempty8 = pempty8;
-    }
-
-    public void setPempty9(JPanel pempty9) {
-        this.pempty9 = pempty9;
-    }
-
-    public void setPempty10(JPanel pempty10) {
-        this.pempty10 = pempty10;
-    }
-
-    public void setPempty11(JPanel pempty11) {
-        this.pempty11 = pempty11;
-    }
-
-    public void setPempty12(JPanel pempty12) {
-        this.pempty12 = pempty12;
-    }
-
-    public void setPempty13(JPanel pempty13) {
-        this.pempty13 = pempty13;
-    }
-
-    public void setPempty14(JPanel pempty14) {
-        this.pempty14 = pempty14;
-    }
-
-    public void setPempty15(JPanel pempty15) {
-        this.pempty15 = pempty15;
-    }
-
-    public void setPempty16(JPanel pempty16) {
-        this.pempty16 = pempty16;
-    }
-
-    public void setPempty17(JPanel pempty17) {
-        this.pempty17 = pempty17;
-    }
-
-    public void setPempty18(JPanel pempty18) {
-        this.pempty18 = pempty18;
-    }
-
-    public void setPempty19(JPanel pempty19) {
-        this.pempty19 = pempty19;
-    }
-
-    public void setPempty20(JPanel pempty20) {
-        this.pempty20 = pempty20;
-    }
-
-    public void setJaccount(JLabel jaccount) {
-        this.jaccount = jaccount;
-    }
-
-    public void setJusername(JLabel jusername) {
-        this.jusername = jusername;
-    }
-
-    public void setJemail(JLabel jemail) {
-        this.jemail = jemail;
-    }
-
-    public void setJfirstname(JLabel jfirstname) {
-        this.jfirstname = jfirstname;
-    }
-
-    public void setJlastname(JLabel jlastname) {
-        this.jlastname = jlastname;
-    }
-
-    public void setJnewpassword(JLabel jnewpassword) {
-        this.jnewpassword = jnewpassword;
-    }
-
-    public void setJconfirmpassword(JLabel jconfirmpassword) {
-        this.jconfirmpassword = jconfirmpassword;
-    }
-
-    public void setJaletusername(JLabel jaletusername) {
-        this.jaletusername = jaletusername;
-    }
-
-    public void setJaletpassword(JLabel jaletpassword) {
-        this.jaletpassword = jaletpassword;
-    }
-
-    public void setJaletemail(JLabel jaletemail) {
-        this.jaletemail = jaletemail;
-    }
-
-    public void setTfusername(JTextField tfusername) {
-        this.tfusername = tfusername;
-    }
-
-    public void setTfemail(JTextField tfemail) {
-        this.tfemail = tfemail;
-    }
-
-    public void setTffirstname(JTextField tffirstname) {
-        this.tffirstname = tffirstname;
-    }
-
-    public void setTflastname(JTextField tflastname) {
-        this.tflastname = tflastname;
-    }
-
-    public void setTfnewpassword(JPasswordField tfnewpassword) {
-        this.tfnewpassword = tfnewpassword;
-    }
-
-    public void setTfconfirmpassword(JPasswordField tfconfirmpassword) {
-        this.tfconfirmpassword = tfconfirmpassword;
-    }
-
-    public void setJcreate(JButton jcreate) {
-        this.jcreate = jcreate;
-    }
-
-    public void setJeyepassword(JButton jeyepassword) {
-        this.jeyepassword = jeyepassword;
-    }
-
-    public void setJeyeconfirmword(JButton jeyeconfirmword) {
-        this.jeyeconfirmword = jeyeconfirmword;
-    }
-
-    public void setItryusername(ImageIcon itryusername) {
-        this.itryusername = itryusername;
-    }
-
-    public void setItryemail(ImageIcon itryemail) {
-        this.itryemail = itryemail;
-    }
-
-    public void setItryfirstname(ImageIcon itryfirstname) {
-        this.itryfirstname = itryfirstname;
-    }
-
-    public void setItrylastname(ImageIcon itrylastname) {
-        this.itrylastname = itrylastname;
-    }
-
-    public void setItrynewpassword(ImageIcon itrynewpassword) {
-        this.itrynewpassword = itrynewpassword;
-    }
-
-    public void setItryconfirmword(ImageIcon itryconfirmword) {
-        this.itryconfirmword = itryconfirmword;
-    }
-
-    public void setIusername(ImageIcon iusername) {
-        this.iusername = iusername;
-    }
-
-    public void setIemail(ImageIcon iemail) {
-        this.iemail = iemail;
-    }
-
-    public void setIfirstname(ImageIcon ifirstname) {
-        this.ifirstname = ifirstname;
-    }
-
-    public void setIlastname(ImageIcon ilastname) {
-        this.ilastname = ilastname;
-    }
-
-    public void setInewpassword(ImageIcon inewpassword) {
-        this.inewpassword = inewpassword;
-    }
-
-    public void setIconfirmpassword(ImageIcon iconfirmpassword) {
-        this.iconfirmpassword = iconfirmpassword;
-    }
-
-    public void setItryframe(ImageIcon itryframe) {
-        this.itryframe = itryframe;
-    }
-
-    public void setIframe(ImageIcon iframe) {
-        this.iframe = iframe;
-    }
-
-    public void setItryeye(ImageIcon itryeye) {
-        this.itryeye = itryeye;
-    }
-
-    public void setIeye(ImageIcon ieye) {
-        this.ieye = ieye;
-    }
-
-    public JFrame getMainf() {
-        return mainf;
-    }
-
-    public JPanel getPnorth() {
-        return pnorth;
-    }
-
-    public JPanel getPcenter() {
-        return pcenter;
-    }
-
-    public JPanel getPsouth() {
-        return psouth;
-    }
-
-    public JPanel getPmain() {
-        return pmain;
-    }
-
-    public JPanel getPempty1() {
-        return pempty1;
-    }
-
-    public JPanel getPempty2() {
-        return pempty2;
-    }
-
-    public JPanel getPempty3() {
-        return pempty3;
-    }
-
-    public JPanel getPempty4() {
-        return pempty4;
-    }
-
-    public JPanel getPempty5() {
-        return pempty5;
-    }
-
-    public JPanel getPempty6() {
-        return pempty6;
-    }
-
-    public JPanel getPempty7() {
-        return pempty7;
-    }
-
-    public JPanel getPempty8() {
-        return pempty8;
-    }
-
-    public JPanel getPempty9() {
-        return pempty9;
-    }
-
-    public JPanel getPempty10() {
-        return pempty10;
-    }
-
-    public JPanel getPempty11() {
-        return pempty11;
-    }
-
-    public JPanel getPempty12() {
-        return pempty12;
-    }
-
-    public JPanel getPempty13() {
-        return pempty13;
-    }
-
-    public JPanel getPempty14() {
-        return pempty14;
-    }
-
-    public JPanel getPempty15() {
-        return pempty15;
-    }
-
-    public JPanel getPempty16() {
-        return pempty16;
-    }
-
-    public JPanel getPempty17() {
-        return pempty17;
-    }
-
-    public JPanel getPempty18() {
-        return pempty18;
-    }
-
-    public JPanel getPempty19() {
-        return pempty19;
-    }
-
-    public JPanel getPempty20() {
-        return pempty20;
-    }
-
-    public JLabel getJaccount() {
-        return jaccount;
-    }
-
-    public JLabel getJusername() {
-        return jusername;
-    }
-
-    public JLabel getJemail() {
-        return jemail;
-    }
-
-    public JLabel getJfirstname() {
-        return jfirstname;
-    }
-
-    public JLabel getJlastname() {
-        return jlastname;
-    }
-
-    public JLabel getJnewpassword() {
-        return jnewpassword;
-    }
-
-    public JLabel getJconfirmpassword() {
-        return jconfirmpassword;
-    }
-
-    public JLabel getJaletusername() {
-        return jaletusername;
-    }
-
-    public JLabel getJaletpassword() {
-        return jaletpassword;
-    }
-
-    public JLabel getJaletemail() {
-        return jaletemail;
-    }
-
-    public JTextField getTfusername() {
-        return tfusername;
-    }
-
-    public JTextField getTfemail() {
-        return tfemail;
-    }
-
-    public JTextField getTffirstname() {
-        return tffirstname;
-    }
-
-    public JTextField getTflastname() {
-        return tflastname;
-    }
-
-    public JPasswordField getTfnewpassword() {
-        return tfnewpassword;
-    }
-
-    public JPasswordField getTfconfirmpassword() {
-        return tfconfirmpassword;
-    }
-
-    public JButton getJcreate() {
-        return jcreate;
-    }
-
-    public JButton getJeyepassword() {
-        return jeyepassword;
-    }
-
-    public JButton getJeyeconfirmword() {
-        return jeyeconfirmword;
-    }
-
-    public ImageIcon getItryusername() {
-        return itryusername;
-    }
-
-    public ImageIcon getItryemail() {
-        return itryemail;
-    }
-
-    public ImageIcon getItryfirstname() {
-        return itryfirstname;
-    }
-
-    public ImageIcon getItrylastname() {
-        return itrylastname;
-    }
-
-    public ImageIcon getItrynewpassword() {
-        return itrynewpassword;
-    }
-
-    public ImageIcon getItryconfirmword() {
-        return itryconfirmword;
-    }
-
-    public ImageIcon getIusername() {
-        return iusername;
-    }
-
-    public ImageIcon getIemail() {
-        return iemail;
-    }
-
-    public ImageIcon getIfirstname() {
-        return ifirstname;
-    }
-
-    public ImageIcon getIlastname() {
-        return ilastname;
-    }
-
-    public ImageIcon getInewpassword() {
-        return inewpassword;
-    }
-
-    public ImageIcon getIconfirmpassword() {
-        return iconfirmpassword;
-    }
-
-    public ImageIcon getItryframe() {
-        return itryframe;
-    }
-
-    public ImageIcon getIframe() {
-        return iframe;
-    }
-
-    public ImageIcon getItryeye() {
-        return itryeye;
-    }
-
-    public ImageIcon getIeye() {
-        return ieye;
-    }
-
     public Register() {
 
         //Create
@@ -751,6 +271,117 @@ public class Register{
         mainf.setSize(350, 700);
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainf.setVisible(true);
+    }
+    public JFrame getMainf() {
+        return mainf;
+    }
+
+    public void setMainf(JFrame mainf) {
+        this.mainf = mainf;
+    }
+
+    public JLabel getJconfirmpassword() {
+        return jconfirmpassword;
+    }
+
+    public void setJconfirmpassword(JLabel jconfirmpassword) {
+        this.jconfirmpassword = jconfirmpassword;
+    }
+
+    public JLabel getJaletusername() {
+        return jaletusername;
+    }
+
+    public void setJaletusername(JLabel jaletusername) {
+        this.jaletusername = jaletusername;
+    }
+
+    public JLabel getJaletpassword() {
+        return jaletpassword;
+    }
+
+    public void setJaletpassword(JLabel jaletpassword) {
+        this.jaletpassword = jaletpassword;
+    }
+
+    public JLabel getJaletemail() {
+        return jaletemail;
+    }
+
+    public void setJaletemail(JLabel jaletemail) {
+        this.jaletemail = jaletemail;
+    }
+
+    public JTextField getTfusername() {
+        return tfusername;
+    }
+
+    public void setTfusername(JTextField tfusername) {
+        this.tfusername = tfusername;
+    }
+
+    public JTextField getTfemail() {
+        return tfemail;
+    }
+
+    public void setTfemail(JTextField tfemail) {
+        this.tfemail = tfemail;
+    }
+
+    public JTextField getTffirstname() {
+        return tffirstname;
+    }
+
+    public void setTffirstname(JTextField tffirstname) {
+        this.tffirstname = tffirstname;
+    }
+
+    public JTextField getTflastname() {
+        return tflastname;
+    }
+
+    public void setTflastname(JTextField tflastname) {
+        this.tflastname = tflastname;
+    }
+
+    public JPasswordField getTfnewpassword() {
+        return tfnewpassword;
+    }
+
+    public void setTfnewpassword(JPasswordField tfnewpassword) {
+        this.tfnewpassword = tfnewpassword;
+    }
+
+    public JPasswordField getTfconfirmpassword() {
+        return tfconfirmpassword;
+    }
+
+    public void setTfconfirmpassword(JPasswordField tfconfirmpassword) {
+        this.tfconfirmpassword = tfconfirmpassword;
+    }
+
+    public JButton getJcreate() {
+        return jcreate;
+    }
+
+    public void setJcreate(JButton jcreate) {
+        this.jcreate = jcreate;
+    }
+
+    public JButton getJeyepassword() {
+        return jeyepassword;
+    }
+
+    public void setJeyepassword(JButton jeyepassword) {
+        this.jeyepassword = jeyepassword;
+    }
+
+    public JButton getJeyeconfirmword() {
+        return jeyeconfirmword;
+    }
+
+    public void setJeyeconfirmword(JButton jeyeconfirmword) {
+        this.jeyeconfirmword = jeyeconfirmword;
     }
     
 
