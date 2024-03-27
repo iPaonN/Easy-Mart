@@ -6,8 +6,16 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class Addproject implements ActionListener{
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
     private JFrame frame;
-    private JPanel mainPanel, innerPanel, btnPanel;
+    private JPanel mainPanel, innerPanel, enPanel;
     private JTextField insertname;
     private JLabel nameLabel;
     private JButton enter;
@@ -18,7 +26,7 @@ public class Addproject implements ActionListener{
         nameLabel = new JLabel("PROJECT NAME");
         innerPanel = new JPanel();
         enter = new JButton("ENTER");
-        btnPanel = new JPanel();
+        enPanel = new JPanel();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         nameLabel.setFont(new Font("Arial", Font.BOLD, 36));
@@ -37,16 +45,16 @@ public class Addproject implements ActionListener{
         innerPanel.add(insertname);
         enter.setPreferredSize(new Dimension(150,40));
         enter.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-        btnPanel.setBorder(BorderFactory.createEmptyBorder(20,0,0,0));
+        enPanel.setBorder(BorderFactory.createEmptyBorder(20,0,0,0));
         enter.setBackground(new Color(69, 104, 159));
         enter.setForeground(new Color(69, 104, 159));
         enter.setBorder(new LineBorder(Color.white, 3));
         enter.setFont(new Font("Arial", Font.BOLD, 20));
         enter.setFocusPainted(false);
-        btnPanel.setLayout(new FlowLayout());
-        btnPanel.add(enter);
-        btnPanel.setBackground(new Color(69, 104, 159));
-        innerPanel.add(btnPanel, BorderLayout.SOUTH);
+        enPanel.setLayout(new FlowLayout());
+        enPanel.add(enter);
+        enPanel.setBackground(new Color(69, 104, 159));
+        innerPanel.add(enPanel, BorderLayout.SOUTH);
         mainPanel.add(innerPanel);
         mainPanel.setBackground(new Color(69, 104, 159));
         enter.addActionListener(this);
