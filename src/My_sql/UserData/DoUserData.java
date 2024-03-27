@@ -259,7 +259,46 @@ public final class DoUserData extends UserData{
     }
     
     @Override
-    public ArrayList<String> GetProjecList(String username){
+    public File GetProfileImage(String username){
+        File imgFile = null;
+        try{
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT image FROM staff_info WHERE staff_user = ?")){
+                
+                pstmt.setString(1, username);
+                
+                ResultSet rs = pstmt.executeQuery();
+                
+                if(rs.next()){
+                    InputStream is = rs.getBinaryStream("image");
+                    
+                    imgFile = new File("Profile_image_"+username+".png");
+                    
+                    try(OutputStream os = new FileOutputStream(imgFile)){
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        
+                        while((bytesRead = is.read(buffer)) != -1){
+                            os.write(buffer, 0, bytesRead);
+                        }
+                    }
+                    
+                }
+                
+            }
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }finally{
+            DATA.disconnect();
+            return imgFile;
+        }
+    }
+    
+    
+    @Override
+    public ArrayList<String> GetProjectList(String username){
         ArrayList<String> projectList = new ArrayList<>();
         try{
             DATA.connect();
