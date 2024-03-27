@@ -3,9 +3,12 @@ package My_sql.ProjectData;
 import My_sql.My_sql;
 import java.sql.*;
 
-
 public final class DoProjectData extends ProjectData{
     private My_sql data = new My_sql();
+    
+    public DoProjectData(String username, String projectname){
+        Createtemplate(username, projectname);
+    }
     
     @Override
     public void Createtemplate(String username, String projectname){
