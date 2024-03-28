@@ -3,12 +3,12 @@ package UI.View;
 import javax.swing.*;
 import java.awt.*;
 
-public class RoundedButton extends JButton {
+public class RoundedButton2 extends JButton {
 
     private JFrame mainf;
     private String number = "1";
 
-    public RoundedButton() {
+    public RoundedButton2() {
         mainf = new JFrame("Rounded Button Example");
         this.setFont(new Font("Arial", Font.BOLD, 16));
         setContentAreaFilled(false);
