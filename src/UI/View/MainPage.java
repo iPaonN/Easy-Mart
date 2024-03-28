@@ -338,6 +338,14 @@ public class MainPage implements MouseListener{
     public void setFrame(JFrame frame) {
         this.frame = frame;
     }
+
+    public DefaultTableModel getModel() {
+        return model;
+    }
+
+    public void setModel(DefaultTableModel model) {
+        this.model = model;
+    }
     
     public void showProject(ArrayList<String> projectlist){
     }
@@ -353,6 +361,14 @@ public class MainPage implements MouseListener{
         return username;
     }
 
+    public JTable getTable() {
+        return table;
+    }
+
+    public void setTable(JTable table) {
+        this.table = table;
+    }
+    
     public void setUsername(JLabel username) {
         this.username = username;
     }

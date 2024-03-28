@@ -3,6 +3,7 @@ package UI.Controller;
 import My_sql.ProjectData.DoProjectData;
 import My_sql.UserData.DoUserData;
 import UI.View.Addproject;
+import UI.View.MainMenu;
 import UI.View.MainPage;
 import UI.View.MainRenderer;
 import java.awt.Color;
@@ -18,10 +19,11 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.event.*;
+import javax.swing.table.DefaultTableModel;
 
-public class MainPageController implements MouseListener, FocusListener, ActionListener, DocumentListener{
+
+public class MainPageController implements MouseListener, FocusListener, ActionListener, DocumentListener, ListSelectionListener{
     private String username;
     private ArrayList<String> projectlist;
     private MainPage main;
@@ -62,6 +64,8 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
         main.getBtnNew().addActionListener(this);
         main.getEnter().addActionListener(this);
         main.getSearch().getDocument().addDocumentListener(this);
+        main.getTable().getSelectionModel().addListSelectionListener(this);
+        main.getTable().addMouseListener(this);
     }
     public static void main(String[] args){
         try {
@@ -87,8 +91,12 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
                 pop.setFocusable(true);
                 pop.grabFocus();
             }
-                            
- 
+        }
+        else if(e.getSource().equals(main.getTable())){
+            int selectedRow = main.getTable().getSelectedRow();
+            DefaultTableModel model = (DefaultTableModel)main.getTable().getModel();
+            new MenuController(username, (String)model.getValueAt(selectedRow, 0));
+            this.main.getFrame().dispose();
         }
         
         
@@ -163,6 +171,7 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
                 main.addRow(this.projectlist);
             }
         }
+        
     
     }
 
@@ -207,6 +216,11 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
 
     @Override
     public void changedUpdate(DocumentEvent e) {
+        
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
         
     }
 }

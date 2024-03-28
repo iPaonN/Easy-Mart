@@ -12,22 +12,17 @@ public class MainMenu {
     private ImageIcon icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9;
     private ImageIcon reicon1, reicon2, reicon3, reicon4, reicon5, reicon6, reicon9, reicon10, reicon11;
     private GridBagConstraints gb1;
-    private StockProduct Sp1;
-    private History h1;
-    private Member m1;
+
     private CircleProfile cp1;
 
     public MainMenu() {
 
         //Create
         cp1 = new CircleProfile();
-        cp1.LoadImage("src/UI/Image/3.jpg");
+        //cp1.LoadImage("src/UI/Image/3.jpg");
         fr = new JFrame("MENU");
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gb1 = new GridBagConstraints();
-        Sp1 = new StockProduct();
-        h1 = new History();
-        m1 = new Member();
         icon1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         icon2 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         icon3 = new ImageIcon("src/UI/Image/eweweewew.jpg");
@@ -143,11 +138,35 @@ public class MainMenu {
         fr.setLayout(new BorderLayout());
         fr.add(panel2, BorderLayout.NORTH);
         fr.add(panel, BorderLayout.WEST);
-        fr.add(h1, BorderLayout.CENTER);
+
         fr.setSize(1280, 720);
         fr.setVisible(true);
     }
 
+    public JFrame getFr() {
+        return fr;
+    }
+
+    public void setFr(JFrame fr) {
+        this.fr = fr;
+    }
+
+    public JLabel getUns1() {
+        return uns1;
+    }
+
+    public void setUns1(JLabel uns1) {
+        this.uns1 = uns1;
+    }
+
+    public CircleProfile getCp1() {
+        return cp1;
+    }
+
+    public void setCp1(CircleProfile cp1) {
+        this.cp1 = cp1;
+    }
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
