@@ -1,6 +1,7 @@
 package My_sql.ProjectData;
 
 import My_sql.My_sql;
+import java.io.*;
 import java.sql.*;
 
 public final class DoProjectData extends ProjectData{
@@ -35,63 +36,41 @@ public final class DoProjectData extends ProjectData{
             
             conn.createStatement().executeUpdate("""
                                                  CREATE TABLE `memberteam` (
-                                                   `staff_id` int NOT NULL,
+                                                   `staff_id` int NOT NULL AUTO_INCREMENT,
                                                    `staff_user` varchar(255) DEFAULT NULL,
                                                    `first_name` varchar(50) DEFAULT NULL,
                                                    `last_name` varchar(50) DEFAULT NULL,
                                                    `email` varchar(50) DEFAULT NULL,
                                                    `image` blob,
-                                                   `staff_access` tinyint DEFAULT NULL,
+                                                   `staff_access` varchar(50) DEFAULT NULL,
                                                    PRIMARY KEY (`staff_id`)
                                                  )""");
             System.out.println("Create memberteam table complete!");
             
             conn.createStatement().executeUpdate("""
-                                                 CREATE TABLE `producttype` (
-                                                   `type_id` int NOT NULL AUTO_INCREMENT,
-                                                   `type_name` varchar(50) NOT NULL,
-                                                   PRIMARY KEY (`type_id`)
-                                                 ) """);
-            System.out.println("Create producttype table complete!");
-            
-            conn.createStatement().executeUpdate("""
                                                  CREATE TABLE `product` (
-                                                   `product_id` int NOT NULL,
+                                                   `product_id` int NOT NULL ,
                                                    `product_name` varchar(50) DEFAULT NULL,
-                                                   `type_id` int DEFAULT NULL,
-                                                   `price` int DEFAULT NULL,
-                                                   `weight` int DEFAULT NULL,
+                                                   `type` varchar(50) NOT NULL,
+                                                   `price` double DEFAULT NULL,
+                                                   `weight` double DEFAULT NULL,
                                                    `quantity` int DEFAULT NULL,
-                                                   `added_time` datetime DEFAULT NULL,
-                                                   PRIMARY KEY (`product_id`),
-                                                   KEY `type_id` (`type_id`),
-                                                   CONSTRAINT `product_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `producttype` (`type_id`)
+                                                   `product_image` blob DEFAULT NULL,
+                                                   PRIMARY KEY (`product_id`)
                                                  )""");
             System.out.println("Create product table complete!");
             
             conn.createStatement().executeUpdate("""
-                                                 CREATE TABLE `typeaction` (
-                                                   `type_id` int NOT NULL AUTO_INCREMENT,
-                                                   `type_name` varchar(50) NOT NULL,
-                                                   PRIMARY KEY (`type_id`)
-                                                 )""");
-            System.out.println("Create typeaction table complete!");
-            
-            conn.createStatement().executeUpdate("""
                                                  CREATE TABLE `history` (
-                                                   `history_id` int NOT NULL,
+                                                   `history_id` int NOT NULL AUTO_INCREMENT,
                                                    `product_id` int DEFAULT NULL,
                                                    `product_name` varchar(50) DEFAULT NULL,
                                                    `quantity` int DEFAULT NULL,
-                                                   `type_id` int DEFAULT NULL,
+                                                   `type` varchar(50) DEFAULT NULL,
+                                                   `action` varchar(50) DEFAULT NULL,
                                                    `action_time` datetime DEFAULT NULL,
                                                    `staff_user` varchar(255) DEFAULT NULL,
-                                                   PRIMARY KEY (`history_id`),
-                                                   KEY `type_id` (`type_id`),
-                                                   KEY `product_id` (`product_id`),
-                                                   KEY `staff_id` (`staff_user`),
-                                                   CONSTRAINT `history_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `typeaction` (`type_id`),
-                                                   CONSTRAINT `history_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+                                                   PRIMARY KEY (`history_id`)
                                                  ) """);
             System.out.println("Create history table complete!");
         
@@ -102,7 +81,7 @@ public final class DoProjectData extends ProjectData{
         }
     }
 
-      public ResultSet getRS(String schema, String table) throws SQLException{
+    public ResultSet getRS(String schema, String table) throws SQLException{
         data.set_Schema(schema);
         data.connect();
         Connection conn = data.get_Connection();
@@ -134,8 +113,69 @@ public final class DoProjectData extends ProjectData{
         return null;
     }
     
+    public void set_product(String schema, int product_id, String product_name, String type, double price, double weight, int quantity, File product_image, String user){
+        try{
+            FileInputStream inputStream = new FileInputStream(product_image);
+            
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("INSERT INTO product (product_id, product_name, type, price, weight, quantity, product_image) VALUES (?, ?, ?, ?, ?, ?, ?)")){
+
+                pstmt.setInt(1, product_id);
+                pstmt.setString(2, product_name);
+                pstmt.setString(3, type);
+                pstmt.setDouble(4, price);
+                pstmt.setDouble(5, weight);
+                pstmt.setInt(6, quantity);
+                pstmt.setBinaryStream(7, inputStream);
+                
+                pstmt.executeUpdate();
+                    
+                System.out.println("Add product data completed.");
+                
+                this.set_history(schema, product_id, product_name, quantity, type, "add", user);
+                
+            }
+        }catch (IOException | SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public void set_history(String schema, int product_id, String product_name, int quantity, String type, String action, String user){
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("INSERT INTO history (product_id, product_name, quantity, type, action, action_time, staff_user) VALUES (?, ?, ?, ?, ?, ?, ?)")){
+
+                pstmt.setInt(1, product_id);
+                pstmt.setString(2, product_name); 
+                pstmt.setInt(3, quantity); 
+                pstmt.setString(4, type); 
+                pstmt.setString(5, action); 
+                pstmt.setTimestamp(6, new Timestamp(System.currentTimeMillis())); 
+                pstmt.setString(7, user); 
+                
+                pstmt.executeUpdate();
+                    
+                System.out.println("Add history data completed.");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
 //    public static void main(String[] args) {
-//        DoProjectData p1 = new DoProjectData("zedl3all", "Project1");
+//        DoProjectData p1 = new DoProjectData("p","pj1");
+//        p1.set_product("p_pj1", 101, "Coke", "Drink", 12.5, 15.5, 100, new File("src/My_sql/UserData/Image/image1.png"), "zedl3all");
+    
 //        try {
 //        ResultSet rs = p1.getRS("zedl3all_Project1", "history");
 //        System.out.println(p1.getIntdata(rs, "product_name", "", ""));
@@ -143,5 +183,5 @@ public final class DoProjectData extends ProjectData{
 //    } catch (Exception e){
 //        e.printStackTrace();
 //    }
-//    }
+//  }
 }
