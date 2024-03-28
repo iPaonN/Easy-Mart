@@ -291,6 +291,14 @@ public class MainPage implements MouseListener{
         model.setRowCount(0);
     }
 
+    public JTextField getSearch() {
+        return search;
+    }
+
+    public void setSearch(JTextField search) {
+        this.search = search;
+    }
+    
     public JTextField getInsertname() {
         return insertname;
     }

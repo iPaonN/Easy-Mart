@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class MainPageController implements MouseListener, FocusListener, ActionListener{
+public class MainPageController implements MouseListener, FocusListener, ActionListener, DocumentListener{
     private String username;
     private ArrayList<String> projectlist;
     private MainPage main;
@@ -59,6 +61,7 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
         pop.addFocusListener(this);
         main.getBtnNew().addActionListener(this);
         main.getEnter().addActionListener(this);
+        main.getSearch().getDocument().addDocumentListener(this);
     }
     public static void main(String[] args){
         try {
@@ -161,5 +164,49 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
             }
         }
     
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        String word = main.getSearch().getText();
+        if (word.equals("") == false){
+           ArrayList<String> issub = new ArrayList<String>();
+        for (String n : this.projectlist){
+            if(n.contains(word) == true){
+                issub.add(n);
+            }
+        }
+        main.removeAllRow();
+        main.addRow(issub); 
+        }
+        else{
+            main.removeAllRow();
+            main.addRow(this.projectlist);
+        }
+        
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        String word = main.getSearch().getText();
+        if (word.equals("") == false){
+           ArrayList<String> issub = new ArrayList<String>();
+        for (String n : this.projectlist){
+            if(n.contains(word) == true){
+                issub.add(n);
+            }
+        }
+        main.removeAllRow();
+        main.addRow(issub); 
+        }
+        else{
+            main.removeAllRow();
+            main.addRow(this.projectlist);
+        }
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        
     }
 }
