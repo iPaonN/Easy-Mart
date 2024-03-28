@@ -2,6 +2,7 @@ package UI.View;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
@@ -22,6 +23,7 @@ public class MainPage implements MouseListener, ActionListener{
     private JInternalFrame helpFrame, supportFrame, addProject;
     private CircleProfile cp1;
     private final Object[] columnName = {"Name", "Option"};
+    private ArrayList<String> projectlist;
 
     public MainPage(){
         //CREATE OBJECT
@@ -35,7 +37,7 @@ public class MainPage implements MouseListener, ActionListener{
         marticon = new ImageIcon("src/UI/Image/eweweewew.jpg");
         scaleicon2 = new ImageIcon(marticon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH));
         martname = new JLabel("EASY MART", scaleicon2, 0);
-        username = new JLabel("Nutthawat Chotpanjawong");
+        username = new JLabel();
         bgwhite = new JPanel();
         bd1 = new JPanel();
         bd2 = new JPanel();
@@ -142,14 +144,14 @@ public class MainPage implements MouseListener, ActionListener{
         scrollPane.setViewportView(table);
         table.setModel(model);
         model.setColumnIdentifiers(columnName);
-        Object[][] dataRows = {
-            {"NutthawatInwza"},
-            {"TibetInwza"},
-            {"ThanapatInwza"}
-        };
+        projectlist = new ArrayList<String>();
+        projectlist.add("a");
+        projectlist.add("b");
         model.setColumnIdentifiers(columnName);
-        for (Object[] dataRow : dataRows) {
-            model.insertRow(model.getRowCount(), dataRow);
+        for (int i = 0; i < projectlist.size(); i++){
+            Object[] adder = new Object[1];
+            adder[0] = projectlist.get(i);
+            model.insertRow(i, adder);
         }
         table.setGridColor(new Color(69, 104, 159));
         table.setBackground(Color.white);
@@ -220,8 +222,8 @@ public class MainPage implements MouseListener, ActionListener{
         addProject.setSize(450,300);
         frame.add(addProject);
         
-        //ADD
         
+        //ADD
         top.add(martPanel, BorderLayout.WEST);
         martPanel.add(martname);
         profilePanel.add(username, BorderLayout.WEST);
@@ -257,6 +259,23 @@ public class MainPage implements MouseListener, ActionListener{
         frame.setSize(1280,720);
         frame.setVisible(true);
     }
+    public void showProject(ArrayList<String> projectlist){
+    }
+    public ArrayList<String> getProjectlist() {
+        return projectlist;
+    }
+
+    public void setProjectlist(ArrayList<String> projectlist) {
+        this.projectlist = projectlist;
+    }
+    
+    public JLabel getUsername() {
+        return username;
+    }
+
+    public void setUsername(JLabel username) {
+        this.username = username;
+    }
     
     public CircleProfile getCp1() {
         return cp1;
@@ -265,6 +284,9 @@ public class MainPage implements MouseListener, ActionListener{
     public void setCp1(CircleProfile cp1) {
         this.cp1 = cp1;
     }
+
+
+    
     public void actionPerformed(ActionEvent e){
         if (e.getSource().equals(btnNew)){
             addProject.setVisible(true);
