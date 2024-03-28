@@ -94,11 +94,22 @@ public final class DoProjectData extends ProjectData{
         return rs;
         
     }
-    public int getIntdata(ResultSet rs, String pointer_column, String  pointer_data, String want_data) throws SQLException{
+    public int getIntdata(ResultSet rs, String pointer_column, String  pointer_data, String want_column) throws SQLException{
         while(rs.next()) {
             String column = rs.getString(pointer_column);
             if (column.equals(pointer_data)) {
-                int want = rs.getInt(want_data);
+                int want = rs.getInt(want_column);
+                return want;
+            }
+        }
+        return -1;
+    }
+    
+    public double getdoubledata(ResultSet rs, String pointer_column, String  pointer_data, String want_column) throws SQLException{
+        while(rs.next()) {
+            String column = rs.getString(pointer_column);
+            if (column.equals(pointer_data)) {
+                double want = rs.getDouble(want_column);
                 return want;
             }
         }
@@ -142,6 +153,252 @@ public final class DoProjectData extends ProjectData{
                 
             }
         }catch (IOException | SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public void remove_product(String schema, String user, String product_name){
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement his_pstmt = conn.prepareStatement("SELECT * FROM product WHERE product_name = ?")){
+            
+                his_pstmt.setString(1, product_name);
+                
+                ResultSet rs = his_pstmt.executeQuery();
+                
+                while(rs.next()){
+                    this.set_history(schema, rs.getInt("product_id"), product_name, -1, rs.getString("type"), "remove", user);
+                }
+                
+            }
+            
+            try(PreparedStatement del_pstmt = conn.prepareStatement("DELETE FROM product WHERE product_name = ?")){
+                
+                del_pstmt.setString(1, product_name);
+                
+                del_pstmt.executeUpdate();
+                
+                System.out.println("remove product completed.");
+                
+            }
+        
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public void remove_product(String schema, String user, int product_id){
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement his_pstmt = conn.prepareStatement("SELECT * FROM product WHERE product_id = ?")){
+            
+                his_pstmt.setInt(1, product_id);
+                
+                ResultSet rs = his_pstmt.executeQuery();
+                
+                while(rs.next()){
+                    this.set_history(schema, product_id, rs.getString("product_name"), -1, rs.getString("type"), "remove", user);
+                }
+                
+            }
+            
+            try(PreparedStatement del_pstmt = conn.prepareStatement("DELETE FROM product WHERE product_id = ?")){
+                
+                del_pstmt.setInt(1, product_id);
+                
+                del_pstmt.executeUpdate();
+                
+                System.out.println("remove product completed.");
+                
+            }
+        
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public void decrease_product(String schema, String user, String product_name, int amount){
+        
+        int quantity = 0;
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement get_pstmt = conn.prepareStatement("SELECT * FROM product WHERE product_name = ?")){
+            
+                get_pstmt.setString(1, product_name);
+                
+                ResultSet rs = get_pstmt.executeQuery();
+                
+                while(rs.next()){
+                    quantity = rs.getInt("quantity");
+                    if(quantity-amount >= 0){
+                        this.set_history(schema, rs.getInt("product_id"), product_name, amount, rs.getString("type"), "decrease", user);
+                    }
+                }
+                
+            }
+            
+            try(PreparedStatement update_pstmt = conn.prepareStatement("UPDATE product SET quantity = ? WHERE product_name = ?")){
+                
+                if(quantity-amount < 0){
+                    System.out.println("can't decrease.");
+                }else{
+                    update_pstmt.setInt(1, (quantity-amount));
+                    update_pstmt.setString(2, product_name);
+                
+                    update_pstmt.executeUpdate();
+                
+                    System.out.println("decrease product completed.");
+                }
+                
+            }
+        
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public void decrease_product(String schema, String user, int product_id, int amount){
+        
+        int quantity = 0;
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement get_pstmt = conn.prepareStatement("SELECT * FROM product WHERE product_id = ?")){
+            
+                get_pstmt.setInt(1, product_id);
+                
+                ResultSet rs = get_pstmt.executeQuery();
+                
+                while(rs.next()){
+                    quantity = rs.getInt("quantity");
+                    if(quantity-amount >= 0){
+                        this.set_history(schema, product_id, rs.getString("product_name"), amount, rs.getString("type"), "decrease", user);
+                    }
+                }
+                
+            }
+            
+            try(PreparedStatement update_pstmt = conn.prepareStatement("UPDATE product SET quantity = ? WHERE product_id = ?")){
+                
+                if(quantity-amount < 0){
+                    System.out.println("can't decrease.");
+                }else{
+                    update_pstmt.setInt(1, (quantity-amount));
+                    update_pstmt.setInt(2, product_id);
+                
+                    update_pstmt.executeUpdate();
+                
+                    System.out.println("decrease product completed.");
+                }
+                
+            }
+        
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public void Increase_product(String schema, String user, String product_name, int amount){
+                int quantity = 0;
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement get_pstmt = conn.prepareStatement("SELECT * FROM product WHERE product_name = ?")){
+            
+                get_pstmt.setString(1, product_name);
+                
+                ResultSet rs = get_pstmt.executeQuery();
+                
+                while(rs.next()){
+                    quantity = rs.getInt("quantity");
+                    
+                    this.set_history(schema, rs.getInt("product_id"), product_name, amount, rs.getString("type"), "increase", user);
+                    
+                }
+                
+            }
+            
+            try(PreparedStatement update_pstmt = conn.prepareStatement("UPDATE product SET quantity = ? WHERE product_name = ?")){
+                
+                update_pstmt.setInt(1, (quantity+amount));
+                update_pstmt.setString(2, product_name);
+                
+                update_pstmt.executeUpdate();
+                
+                System.out.println("increase product completed.");
+                
+            }
+        
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public void Increase_product(String schema, String user, int product_id, int amount){
+        int quantity = 0;
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement get_pstmt = conn.prepareStatement("SELECT * FROM product WHERE product_id = ?")){
+            
+                get_pstmt.setInt(1, product_id);
+                
+                ResultSet rs = get_pstmt.executeQuery();
+                
+                while(rs.next()){
+                    quantity = rs.getInt("quantity");
+
+                    this.set_history(schema, product_id, rs.getString("product_name"), amount, rs.getString("type"), "increase", user);
+                    
+                }
+                
+            }
+            
+            try(PreparedStatement update_pstmt = conn.prepareStatement("UPDATE product SET quantity = ? WHERE product_id = ?")){
+                
+
+                update_pstmt.setInt(1, (quantity+amount));
+                update_pstmt.setInt(2, product_id);
+                
+                update_pstmt.executeUpdate();
+                
+                System.out.println("decrease product completed.");
+                
+                
+            }
+        
+        }catch (SQLException e){
             e.printStackTrace();
         }finally{
             data.disconnect();
