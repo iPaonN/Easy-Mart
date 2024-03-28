@@ -99,8 +99,36 @@ public final class DoProjectData extends ProjectData{
             data.disconnect();
         }
     }
+
+      public ResultSet getRS(String schema, String table) throws SQLException{
+        data.set_Schema(schema);
+        data.connect();
+        Connection conn = data.get_Connection();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM " + table);
+
+        return rs;
+        
+    }
+    public int getIntdata(ResultSet rs, String pointer_column, String  pointer_data, String want_data) throws SQLException{
+        while(rs.next()) {
+            String column = rs.getString(pointer_column);
+            if (column.equals(pointer_data)) {
+                int want = rs.getInt(want_data);
+                return want;
+            }
+        }
+        return -1;
+    }
     
 //    public static void main(String[] args) {
 //        DoProjectData p1 = new DoProjectData("zedl3all", "Project1");
+//        try {
+//        ResultSet rs = p1.getRS("zedl3all_Project1", "history");
+//        System.out.println(p1.getIntdata(rs, "product_name", "", ""));
+//        rs.getStatement().getConnection().close();
+//    } catch (Exception e){
+//        e.printStackTrace();
+//    }
 //    }
 }
