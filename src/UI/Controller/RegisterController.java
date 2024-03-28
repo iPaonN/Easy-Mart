@@ -85,12 +85,28 @@ public class RegisterController implements DocumentListener, MouseListener, Focu
     @Override
     public void focusLost(FocusEvent e) {
         if (e.getSource().equals(view.getTfusername())){
-            if (model.CheckUsername(view.getTfusername().getText()) == true){
-                view.getJaletusername().setText("This username has used.");
+            String name = view.getTfusername().getText();
+            if (name.equals("null")){
+                JOptionPane.showMessageDialog(null, "Don't set null to username");
+                view.getTfusername().setText("");
             }
+            else if (name.equals("")){
+                JOptionPane.showMessageDialog(null, "Input your username");
+                view.getTfusername().setText("");
+            }
+            else if (this.checkPJName(name) == false){
+                JOptionPane.showMessageDialog(null, "UserName must have only letter or digit");
+                view.getTfusername().setText("");
+            }
+            else{
+                if (model.CheckUsername(view.getTfusername().getText()) == true){
+                view.getJaletusername().setText("This username has used.");
+                }
             else {
                 view.getJaletusername().setText("");
+                }
             }
+            
         }
         else if (e.getSource().equals(view.getTfemail())){
             if (view.getTfemail().getText().contains("@") == false){
@@ -122,6 +138,14 @@ public class RegisterController implements DocumentListener, MouseListener, Focu
         }
         }
         
+    }
+    public boolean checkPJName(String pjn){
+        for (char c : pjn.toCharArray()){
+            if (Character.isLetterOrDigit(c) == false){
+                return false;
+            } 
+        }
+        return true;
     }
     public static void main(String[] args) {
         try {
