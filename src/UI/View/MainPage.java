@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
-public class MainPage implements MouseListener, ActionListener{
+public class MainPage implements MouseListener{
     private JFrame frame;
     private JPanel mainbg, top, bgwhite, bd1, bd2, bd3, bd4, bd5, searchPanel, tablePanel, topPanel;
     private JPanel profilePanel, white1, white2, white3, bottom, btnPanel, martPanel;
@@ -71,7 +71,6 @@ public class MainPage implements MouseListener, ActionListener{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //SET LAYOUT
-        btnNew.addActionListener(this);
         help.addMouseListener(this);
         support.addMouseListener(this);
         top.setLayout(new BorderLayout());
@@ -259,6 +258,79 @@ public class MainPage implements MouseListener, ActionListener{
         frame.setSize(1280,720);
         frame.setVisible(true);
     }
+    public void addRow(ArrayList<String> list){
+        if (list.contains(null) == true){
+            list.remove(null);
+        }
+        for (int i = 0; i < list.size(); i++){
+                Object[] adder = new Object[1];
+                adder[0] = list.get(i);
+                model.insertRow(i, adder);   
+        }
+    }
+    public void removeRow(){
+        if (model.getRowCount() != 0){
+            for (int i = 0; i < (model.getRowCount() + 1); i++) {
+                model.removeRow(0);
+            }
+        }
+    }
+
+    public JInternalFrame getAddProject() {
+        return addProject;
+    }
+
+    public void setAddProject(JInternalFrame addProject) {
+        this.addProject = addProject;
+    }
+    
+    public void removeSelectedRow(int rowSelected){
+        model.removeRow(rowSelected);
+    }
+    public void removeAllRow(){
+        model.setRowCount(0);
+    }
+
+    public JTextField getInsertname() {
+        return insertname;
+    }
+
+    public void setInsertname(JTextField insertname) {
+        this.insertname = insertname;
+    }
+
+    public JButton getBtnNew() {
+        return btnNew;
+    }
+
+    public void setBtnNew(JButton btnNew) {
+        this.btnNew = btnNew;
+    }
+
+    public JButton getEnter() {
+        return enter;
+    }
+
+    public void setEnter(JButton enter) {
+        this.enter = enter;
+    }
+
+    public JInternalFrame getHelpFrame() {
+        return helpFrame;
+    }
+
+    public void setHelpFrame(JInternalFrame helpFrame) {
+        this.helpFrame = helpFrame;
+    }
+    
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+    
     public void showProject(ArrayList<String> projectlist){
     }
     public ArrayList<String> getProjectlist() {
@@ -283,14 +355,6 @@ public class MainPage implements MouseListener, ActionListener{
 
     public void setCp1(CircleProfile cp1) {
         this.cp1 = cp1;
-    }
-
-
-    
-    public void actionPerformed(ActionEvent e){
-        if (e.getSource().equals(btnNew)){
-            addProject.setVisible(true);
-        }
     }
     
     @Override
