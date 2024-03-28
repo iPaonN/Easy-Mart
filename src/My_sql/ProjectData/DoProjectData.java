@@ -121,6 +121,17 @@ public final class DoProjectData extends ProjectData{
         return -1;
     }
     
+    public String getStringdata(ResultSet rs, String pointer_column, String  pointer_data, String want_data) throws SQLException{
+        while(rs.next()) {
+            String column = rs.getString(pointer_column);
+            if (column.equals(pointer_data)) {
+                String want = rs.getString(want_data);
+                return want;
+            }
+        }
+        return null;
+    }
+    
 //    public static void main(String[] args) {
 //        DoProjectData p1 = new DoProjectData("zedl3all", "Project1");
 //        try {
