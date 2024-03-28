@@ -19,6 +19,7 @@ public sealed abstract class UserData permits DoUserData{
     public abstract void ChangeProfileImage(String username, File pathFile);
     public abstract File GetProfileImage(String username);
     public abstract ArrayList<String> GetProjectList(String username);
-    public abstract void UpdataProjectList(String username, ArrayList<String> projectList);
+    public abstract void UpdateProjectList(String username, ArrayList<String> projectList);
+    public abstract void RemoveProject(String username, String project_name);
     
 }

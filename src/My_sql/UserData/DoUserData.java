@@ -311,7 +311,19 @@ public final class DoUserData extends UserData{
                 ResultSet rs = pstmt.executeQuery();
                 
                 while(rs.next()){
-                    projectList.add(rs.getString("project"));
+                    
+                    String preout = rs.getString("project");
+                    
+                    String current = preout.replace("[","").replace("]","").replace("\\","").replace("\"","");
+                    current = current.trim();
+                    
+                    String[] splitStrings = current.split(",");
+                    
+                    for(String i:splitStrings){
+                        i = i.trim();
+                        projectList.add(i);
+                    }
+                    
                 }
             }
         } catch (SQLException e){
@@ -323,7 +335,7 @@ public final class DoUserData extends UserData{
     }
     
     @Override
-    public void UpdataProjectList(String username, ArrayList<String> projectList){
+    public void UpdateProjectList(String username, ArrayList<String> projectList){
         Gson gson = new Gson();
         String projecString = gson.toJson(projectList);
         
@@ -349,7 +361,7 @@ public final class DoUserData extends UserData{
     }
     
     //Overload
-    public void UpdataProjectList(String username, ArrayList<String> projectList, String project){
+    public void UpdateProjectList(String username, ArrayList<String> projectList, String project){
         
         projectList.removeIf(item -> item == null);
         projectList.add(project);
@@ -387,10 +399,25 @@ public final class DoUserData extends UserData{
         }
     }
     
+    public void RemoveProject(String username, String project_name){
+        ArrayList<String> projectList = this.GetProjectList(username);
+        
+        if(projectList.contains(project_name)){
+            projectList.remove(project_name);
+            this.UpdateProjectList(username, projectList);
+        }else{
+            System.out.println("Don't have project.");
+        }
+    }
+    
 //    public static void main(String[] args) {
 //        DoUserData t1 = new DoUserData();
 //        //t1.InsertData("Test1", "Test1@gmail.com", "1234", "Test", "Test");
-//        ArrayList l1 = t1.GetProjecList("Test1");
-//        t1.UpdataProjectList("Test1", l1,"Hello4");
+//        ArrayList l1 = t1.GetProjectList("Test1");
+//        System.out.println(l1);
+//        t1.RemoveProject("Test1", "Hello4");
+//        l1 = t1.GetProjectList("Test1");
+//        System.out.println(l1);
+//        ///t1.UpdataProjectList("Test1", l1,"Hello4");
 //    }
 }
