@@ -6,6 +6,8 @@ import java.sql.*;
 public final class DoProjectData extends ProjectData{
     private My_sql data = new My_sql();
     
+    public DoProjectData(){}
+    
     public DoProjectData(String username, String projectname){
         Createtemplate(username, projectname);
     }
