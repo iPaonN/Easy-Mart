@@ -3,6 +3,7 @@ package My_sql.ProjectData;
 import My_sql.My_sql;
 import java.io.*;
 import java.sql.*;
+import java.util.*;
 
 public final class DoProjectData extends ProjectData{
     private My_sql data = new My_sql();
@@ -30,9 +31,11 @@ public final class DoProjectData extends ProjectData{
             
             conn.createStatement().executeUpdate("""
                                                  CREATE TABLE `project_icon` (
-                                                   `Icon` blob
+                                                   `Icon` blob DEFAULT NULL
                                                  )""");
             System.out.println("Create history table complete!");
+            
+            this.INSERT_PROFILE(schema);
             
             conn.createStatement().executeUpdate("""
                                                  CREATE TABLE `memberteam` (
@@ -169,6 +172,95 @@ public final class DoProjectData extends ProjectData{
             e.printStackTrace();
         }finally{
             data.disconnect();
+        }
+    }
+    
+    private final void INSERT_PROFILE(String schema){
+        try{
+            
+            Random random = new Random();
+            int random_number = random.nextInt(4)+1;
+                
+            File imageFile = new File("src/My_sql/UserData/Image/image"+random_number+".png");
+            FileInputStream inputStream = new FileInputStream(imageFile);
+            
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("INSERT INTO project_icon (Icon) VALUES (?)")){
+
+                pstmt.setBinaryStream(1, inputStream);
+                
+                pstmt.executeUpdate();
+                    
+                System.out.println("Add history project_icon completed.");
+            }
+        }catch (IOException | SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public void update_profile(String schema, File pathFile){
+        try{
+            FileInputStream inputStream = new FileInputStream(pathFile);
+            
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE project_icon SET ICON = ?")){
+                
+                pstmt.setBinaryStream(1, inputStream);
+                
+                pstmt.executeUpdate();
+                
+                System.out.println("Change Image completed.");
+                
+            }
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public File Get_Profile(String schema){
+        File imgFile = null;
+        try{
+            
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT Icon FROM project_icon")){
+                
+                ResultSet rs = pstmt.executeQuery();
+                
+                if(rs.next()){
+                    InputStream is = rs.getBinaryStream("image");
+                    
+                    imgFile = new File(schema+".png");
+                    
+                    try(OutputStream os = new FileOutputStream(imgFile)){
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        
+                        while((bytesRead = is.read(buffer)) != -1){
+                            os.write(buffer, 0, bytesRead);
+                        }
+                    }
+                    
+                }
+                
+            }
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+            return imgFile;
         }
     }
     
