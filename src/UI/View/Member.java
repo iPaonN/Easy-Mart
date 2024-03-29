@@ -20,7 +20,7 @@ public class Member extends JPanel{
     private JTextField search;
     private DefaultTableCellRenderer renderer;
     private final Object[] columnName = {"Name", "Role"};
-    
+    private Object[][] dataRows;
     public Member() {
         fr = new JFrame("menu");
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -206,11 +206,14 @@ public class Member extends JPanel{
         scrollPane.setViewportView(table);
         table.setModel(model);
         model.setColumnIdentifiers(columnName);
-        Object[][] dataRows = {
-            {"NutthawatInwza", "hai kum rung jai"},
-            {"TibetInwza", "zuzu zaza"},
-            {"ThanapatInwza", "tuainw"}
-        };
+        // NEW
+        Object[][] dataRows = {};
+        // OLD
+//        Object[][] dataRows = {
+//            {"NutthawatInwza", "hai kum rung jai"},
+//            {"TibetInwza", "zuzu zaza"},
+//            {"ThanapatInwza", "tuainw"}
+//        };
         model.setColumnIdentifiers(columnName);
         for (Object[] dataRow : dataRows) {
             model.insertRow(model.getRowCount(), dataRow);
@@ -236,6 +239,33 @@ public class Member extends JPanel{
         //fr.add(panel, BorderLayout.WEST);
         fr.setSize(1280, 720);
         fr.setVisible(true);
+    }
+    
+    public Object[][] getDataRows() {
+        return dataRows;
+    }
+
+    public void setDataRows(Object[][] dataRows) {
+        this.dataRows = dataRows;
+    }
+    
+    public void displaydata(Object[][] dataRows) {
+        model.setColumnIdentifiers(columnName);
+        for (Object[] dataRow : dataRows) {
+            model.insertRow(model.getRowCount(), dataRow);
+            table.setDefaultEditor(Object.class, null);
+            table.setFont(new Font("Arial", Font.BOLD, 20));
+            table.setRowHeight(50);
+            table.setCellSelectionEnabled(false);
+            table.setForeground(new Color(69, 104, 159));
+            table.setGridColor(new Color(69, 104, 159));
+            table.getColumnModel().getColumn(0).setPreferredWidth(500);
+            table.getColumnModel().getColumn(1).setCellRenderer(renderer);
+            renderer.setHorizontalAlignment(SwingConstants.CENTER);
+            search.setFont(new Font("Arial", Font.PLAIN, 20));
+            search.setForeground(new Color(69, 104, 159));
+            scrollPane.setBorder(new LineBorder(new Color(69, 104, 159), 4));
+        }
     }
     
     public static void main(String[] args){
