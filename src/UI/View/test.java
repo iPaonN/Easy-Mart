@@ -1,66 +1,72 @@
 package UI.View;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
-public class test extends JFrame {
-    private JLabel notificationBadge;
-    private int notificationCount = 10;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
+import org.knowm.xchart.demo.charts.ExampleChart;
+import org.knowm.xchart.style.Styler;
+import org.knowm.xchart.style.Styler.LegendPosition;
 
-    public test() {
-        setTitle("Button Notification Example");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-        JButton button = new JButton("Notifications");
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Reset notification count and update badge
-                notificationCount = 0;
-                updateNotificationBadge();
-                
-                // You can add your notification handling logic here
-                // For example, opening a notification popup, etc.
-            }
-        });
-        
-        notificationBadge = new JLabel();
-        notificationBadge.setForeground(Color.RED);
-        notificationBadge.setHorizontalAlignment(SwingConstants.CENTER);
-        notificationBadge.setPreferredSize(new Dimension(20, 20));
-        updateNotificationBadge();
-        
-        JPanel panel = new JPanel();
-        panel.add(button);
-        panel.add(notificationBadge);
-        
-        getContentPane().add(panel);
-        
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
-    
-    private void updateNotificationBadge() {
-        if (notificationCount > 0) {
-            notificationBadge.setText(Integer.toString(notificationCount));
-            notificationBadge.setVisible(true);
-        } else {
-            notificationBadge.setText("");
-            notificationBadge.setVisible(false);
-        }
-    }
-    
-    // Method to increment notification count
-    public void incrementNotificationCount() {
-        notificationCount++;
-        updateNotificationBadge();
-    }
+/**
+ * Cursor
+ *
+ * <p>Demonstrates the following:
+ *
+ * <ul>
+ *   <li>Cursor
+ *   <li>Setting custom cursor tool tip text
+ *   <li>Building a Chart with ChartBuilder
+ */
+public class test implements ExampleChart<XYChart> {
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new test();
-            }
-        });
-    }
+  public static void main(String[] args) {
+
+    ExampleChart<XYChart> exampleChart = new test();
+    XYChart chart = exampleChart.getChart();
+    new SwingWrapper<>(chart).displayChart();
+  }
+
+  @Override
+  public XYChart getChart() {
+
+    // Create Chart
+    XYChart chart =
+        new XYChartBuilder()
+            .width(800)
+            .height(600)
+            .title(getClass().getSimpleName())
+            .xAxisTitle("X")
+            .yAxisTitle("Y")
+            .build();
+
+    // Customize Chart
+    chart.getStyler().setLegendPosition(LegendPosition.OutsideE);
+    chart.getStyler().setAxisTitlesVisible(false);
+    chart.getStyler().setLegendPosition(LegendPosition.OutsideS);
+    chart.getStyler().setLegendLayout(Styler.LegendLayout.Horizontal);
+
+    chart.getStyler().setCursorEnabled(true);
+    //    chart.getStyler().setCursorColor(Color.GREEN);
+    //    chart.getStyler().setCursorLineWidth(30f);
+    //    chart.getStyler().setCursorFont(new Font("Verdana", Font.BOLD, 12));
+    //    chart.getStyler().setCursorFontColor(Color.ORANGE);
+    //    chart.getStyler().setCursorBackgroundColor(Color.BLUE);
+    //    chart.getStyler().setCustomCursorXDataFormattingFunction(x -> "hello xvalue: " + x);
+    //    chart
+    //        .getStyler()
+    //        .setCustomCursorYDataFormattingFunction(y -> "hello yvalue divided by 2: " + y / 2);
+
+    // Series
+    chart.addSeries("a", new double[] {0, 3, 5, 7, 9}, new double[] {-3, 5, 9, 6, 5});
+    chart.addSeries("b", new double[] {0, 2.7, 4.8, 6, 9}, new double[] {-1, 6, 4, 0, 4});
+    chart.addSeries("c", new double[] {0, 1.5, 5, 8, 9}, new double[] {-2, -1, 1, 0, 1});
+
+    return chart;
+  }
+
+  @Override
+  public String getExampleChartName() {
+
+    return getClass().getSimpleName() + " - Cursor";
+  }
 }

@@ -68,7 +68,7 @@ public class SubDashBoard_1 extends JPanel{
         
         this.add(pmain);
         pmain.setBorder(new LineBorder(Color.WHITE, 15));
-        this.setBorder(new LineBorder(new Color(69, 104, 159), 5));
+        this.setBorder(new LineBorder(new Color(69, 104, 159), 2));
         
         
         //JFrame

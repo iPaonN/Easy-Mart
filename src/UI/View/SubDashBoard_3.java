@@ -7,8 +7,8 @@ import javax.swing.border.LineBorder;
 
 public class SubDashBoard_3 extends JPanel{
     private JFrame mainf;
-    private JPanel pmain, pempty1;
-    private JLabel jcompare, jcompareprice;
+    private JPanel pmain, pempty1, pempty2;
+    private JLabel jcompare, jcompareprice, jincrease, jdecrease;
     private JButton bday, bweek, bYear;
     public SubDashBoard_3(){
         
@@ -16,6 +16,9 @@ public class SubDashBoard_3 extends JPanel{
         mainf = new JFrame();
         pmain = new JPanel();
         pempty1 = new JPanel();
+        pempty2 = new JPanel();
+        jincrease = new JLabel("▲");
+        jdecrease = new JLabel("▼");
         jcompare = new JLabel("Compare Income");
         jcompareprice = new JLabel("1500฿");
         bday = new JButton("Day");
@@ -32,8 +35,11 @@ public class SubDashBoard_3 extends JPanel{
         pmain.setBackground(Color.WHITE);
         mainf.setBackground(Color.WHITE);
         pempty1.setBackground(Color.WHITE);
+        pempty2.setBackground(Color.WHITE);
         
         //SetFont
+        jdecrease.setForeground(Color.RED.darker());
+        jincrease.setForeground(Color.GREEN.darker());
         jcompare.setFont(new Font("Aria", Font.BOLD, 16));
         jcompare.setForeground(new Color(69, 104, 159));
         jcompareprice.setFont(new Font("Aria", Font.BOLD, 16));
@@ -56,7 +62,9 @@ public class SubDashBoard_3 extends JPanel{
         pmain.add(jcompare);
         jcompare.setHorizontalAlignment(SwingConstants.CENTER);
         pmain.add(new JLabel());
-        pmain.add(jcompareprice);
+        pmain.add(pempty2);
+        pempty2.add(jcompareprice);
+        pempty2.add(jincrease);
         jcompareprice.setHorizontalAlignment(SwingConstants.CENTER);
         pmain.add(new JLabel());
         pmain.add(pempty1);
@@ -68,7 +76,7 @@ public class SubDashBoard_3 extends JPanel{
         
         this.add(pmain);
         pmain.setBorder(new LineBorder(Color.WHITE, 15));
-        this.setBorder(new LineBorder(new Color(69, 104, 159), 5));
+        this.setBorder(new LineBorder(new Color(69, 104, 159), 2));
         
         
         //JFrame
