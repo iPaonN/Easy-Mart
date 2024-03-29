@@ -48,6 +48,7 @@ public class IncomeCompareGraph extends JPanel{
         psouth.add(byear);
         
         //JFrame
+        psouth.setBackground(Color.WHITE);
         this.setLayout(new BorderLayout());
         this.add(jchart, BorderLayout.CENTER);
         this.add(psouth, BorderLayout.SOUTH);

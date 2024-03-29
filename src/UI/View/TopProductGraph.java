@@ -52,6 +52,7 @@ public class TopProductGraph extends JPanel {
         //JFrame
         this.setBorder(new LineBorder(new Color(69, 104, 159), 2));
         this.setLayout(new BorderLayout());
+        psouth.setBackground(Color.WHITE);
         this.add(jchart, BorderLayout.CENTER);
         this.add(psouth, BorderLayout.SOUTH);
         mainf.add(this);

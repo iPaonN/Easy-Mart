@@ -51,6 +51,7 @@ public class IncomeGraph extends JPanel {
         psouth.add(byear);
         
         //JFrame
+        psouth.setBackground(Color.WHITE);
         this.setLayout(new BorderLayout());
         this.setBorder(new LineBorder(new Color(69, 104, 159), 3));
         this.add(jchart, BorderLayout.CENTER);
