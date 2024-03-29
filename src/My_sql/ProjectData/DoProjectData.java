@@ -83,6 +83,32 @@ public final class DoProjectData extends ProjectData{
             data.disconnect();
         }
     }
+    
+    public void rename_schema(String user, String oldSchema, String newSchema){
+        
+        String oldname = user+"_"+oldSchema;
+        String newname = user+"_"+newSchema;
+        
+        try{
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("ALTER SCHEMA ? RENAME TO ?")){
+            
+                pstmt.setString(1, oldname);
+                pstmt.setString(2, newname);
+                
+                pstmt.executeUpdate();
+                
+                System.out.println("Schema renamed successfully.");
+                
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
 
     public ResultSet getRS(String schema, String table) throws SQLException{
         data.set_Schema(schema);
