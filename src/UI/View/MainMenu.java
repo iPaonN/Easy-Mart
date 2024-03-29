@@ -12,6 +12,7 @@ public class MainMenu {
     private ImageIcon icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9;
     private ImageIcon reicon1, reicon2, reicon3, reicon4, reicon5, reicon6, reicon9, reicon10, reicon11;
     private GridBagConstraints gb1;
+    Object h1;
 
     private CircleProfile cp1;
 
@@ -132,17 +133,21 @@ public class MainMenu {
         panel2.add(panel6, BorderLayout.SOUTH);
         panel3.setLayout(new BorderLayout());
         panel3.setBackground(new java.awt.Color(101, 113, 132));
-
+        
+        
+        
         //JFrame
         fr.setIconImage(icon1.getImage());
         fr.setLayout(new BorderLayout());
         fr.add(panel2, BorderLayout.NORTH);
         fr.add(panel, BorderLayout.WEST);
+        h1 = new DashBoard();
+        fr.add((DashBoard)h1, BorderLayout.CENTER);
 
         fr.setSize(1280, 720);
         fr.setVisible(true);
     }
-
+    
     public JFrame getFr() {
         return fr;
     }

@@ -2,7 +2,9 @@ package UI.Controller;
 
 import My_sql.ProjectData.DoProjectData;
 import My_sql.UserData.DoUserData;
+import UI.View.DashBoard;
 import UI.View.MainMenu;
+import java.awt.BorderLayout;
 
 
 public class MenuController {
@@ -10,6 +12,7 @@ public class MenuController {
     private DoProjectData pjm;
     private MainMenu main;
     private String username, projectname;
+    private DashBoard dash;
     
     public MenuController(String username, String projectname){
         manager = new DoUserData();
@@ -19,5 +22,8 @@ public class MenuController {
         this.projectname = projectname;
         main.getCp1().LoadImage(manager.GetProfileImage(this.username));
         main.getUns1().setText(this.username);
+        
+        dash = new DashBoard();
+        
     }
 }

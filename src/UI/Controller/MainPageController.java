@@ -153,6 +153,10 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
                 JOptionPane.showMessageDialog(null, "Don't set null to Project name");
                 main.getInsertname().setText("");
             }
+            else if (this.projectlist.contains(npj) == true){
+                JOptionPane.showMessageDialog(null, "You already have this projectname.");
+                main.getInsertname().setText("");
+            }
             else if (npj.equals("")){
                 JOptionPane.showMessageDialog(null, "Input your project name");
                 main.getInsertname().setText("");
