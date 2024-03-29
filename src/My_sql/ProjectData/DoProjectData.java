@@ -4,6 +4,8 @@ import My_sql.My_sql;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
+import My_sql.UserData.User;
+import My_sql.UserData.DoUserData;
 
 public final class DoProjectData extends ProjectData{
     private My_sql data = new My_sql();
@@ -49,6 +51,8 @@ public final class DoProjectData extends ProjectData{
                                                    PRIMARY KEY (`staff_id`)
                                                  )""");
             System.out.println("Create memberteam table complete!");
+            
+            this.insert_member(schema, username, "Owner");
             
             conn.createStatement().executeUpdate("""
                                                  CREATE TABLE `product` (
@@ -617,6 +621,65 @@ public final class DoProjectData extends ProjectData{
         }finally{
             data.disconnect();
             return imgFile;
+        }
+    }
+    
+    public ArrayList<Member> Get_Members(String schema){
+        
+        ArrayList<Member> allmember = new ArrayList<>();
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM memberteam")){
+            
+                ResultSet rs = pstmt.executeQuery();
+                
+                while(rs.next()){
+                    allmember.add(new Member(rs.getInt("staff_id"), rs.getString("staff_user"), 
+                            rs.getString("first_name"), rs.getString("last_name"), 
+                            rs.getString("email"), rs.getString("staff_access")));
+                }
+                
+            }
+           
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+            return allmember;
+        }
+    }
+    
+    public void insert_member(String schema, String username, String access){
+        
+        DoUserData user = new DoUserData();
+        User p1 = user.Get_User(username);
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("INSERT INTO memberteam (staff_user, first_name, last_name, email, image, staff_access) VALUES (?, ?, ?, ?, ?, ?)")){
+
+                pstmt.setString(1, p1.getUser_name());
+                pstmt.setString(2, p1.getFirst_name());
+                pstmt.setString(3, p1.getLast_name());
+                pstmt.setString(4, p1.getEmail());
+                pstmt.setBinaryStream(5, new FileInputStream(user.GetProfileImage(username)));
+                pstmt.setString(6, access);
+                
+                pstmt.executeUpdate();
+                    
+                System.out.println("Insert member completed.");
+            }
+        }catch (IOException|SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
         }
     }
     
