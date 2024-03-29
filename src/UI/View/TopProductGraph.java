@@ -33,20 +33,22 @@ public class TopProductGraph extends JPanel {
             .build();
         
         //Add Line
-        IncomeChart.addSeries("Product", product, price).setFillColor(new Color(69, 104, 159));
+        IncomeChart.addSeries("Product", product, price).setFillColor(Color.WHITE);
         IncomeChart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
         JPanel IncomechartPanel = new XChartPanel<>(IncomeChart);
         
         //Decorate Chart
         CategoryStyler cs1 = IncomeChart.getStyler();
+        cs1.setLegendBorderColor(new Color(101, 113, 132));
+        cs1.setLegendBackgroundColor(Color.GREEN);
         cs1.setAvailableSpaceFill(0.4);
-        cs1.setChartTitleFont(new Font("Aria", Font.BOLD, 30));
+        cs1.setChartTitleFont(new Font("Aria", Font.BOLD, 20));
         cs1.setChartFontColor(new Color(101, 113, 132));
         cs1.setBaseFont(new Font("Aria", Font.BOLD, 14));
         cs1.setAxisTickLabelsColor(new Color(69, 104, 159));
-        cs1.setPlotBackgroundColor(Color.WHITE);
+        cs1.setPlotBackgroundColor(new Color(101, 113, 132));
         cs1.setPlotBorderColor(new Color(69, 104, 159));
-        cs1.setPlotGridLinesColor(new Color(69, 104, 159));
+        cs1.setPlotGridLinesColor(Color.WHITE);
         cs1.setChartBackgroundColor(Color.WHITE);
         cs1.setLegendFont(new Font("Aria", Font.BOLD, 13));
         

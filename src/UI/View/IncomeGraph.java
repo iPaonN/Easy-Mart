@@ -40,7 +40,7 @@ public class IncomeGraph extends JPanel {
         //Decorate Chart
         CategoryStyler cs1 = IncomeChart.getStyler();
         cs1.setAvailableSpaceFill(0.4);
-        cs1.setChartTitleFont(new Font("Aria", Font.BOLD, 30));
+        cs1.setChartTitleFont(new Font("Aria", Font.BOLD, 20));
         cs1.setChartFontColor(new Color(101, 113, 132));
         cs1.setBaseFont(new Font("Aria", Font.BOLD, 14));
         cs1.setAxisTickLabelsColor(new Color(69, 104, 159));

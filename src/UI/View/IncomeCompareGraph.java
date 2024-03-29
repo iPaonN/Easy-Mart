@@ -46,7 +46,7 @@ public class IncomeCompareGraph extends JPanel {
         XYSeries Linesaturday = IncomeCompare.addSeries("Saturay", xhours, ymoneysaturday);
         XYSeries Linesunday = IncomeCompare.addSeries("Sunday", xhours, ymoneysunday);
         
-        Linemonday.setLineColor(Color.MAGENTA);
+        Linemonday.setLineColor(Color.GREEN.darker());
         Linemonday.setLineWidth(3);
         Linemonday.setShowInLegend(true);
         Linemonday.setMarkerColor(Color.BLACK);
@@ -61,7 +61,7 @@ public class IncomeCompareGraph extends JPanel {
         Linewedenesday.setShowInLegend(true);
         Linewedenesday.setMarkerColor(Color.BLACK);
         
-        Linethurday.setLineColor(new Color(255, 153, 23));
+        Linethurday.setLineColor(Color.yellow.darker());
         Linethurday.setLineWidth(3);
         Linethurday.setShowInLegend(true);
         Linethurday.setMarkerColor(Color.BLACK);
@@ -71,7 +71,7 @@ public class IncomeCompareGraph extends JPanel {
         Linefriday.setShowInLegend(true);
         Linefriday.setMarkerColor(Color.BLACK);
         
-        Linesaturday.setLineColor(new Color(253, 113, 199));
+        Linesaturday.setLineColor(Color.CYAN.darker());
         Linesaturday.setLineWidth(3);
         Linesaturday.setShowInLegend(true);
         Linesaturday.setMarkerColor(Color.BLACK);
@@ -83,8 +83,9 @@ public class IncomeCompareGraph extends JPanel {
         
         
         //DocorateGraph
+        IncomeCompare.getStyler().setLegendVisible(true);
         IncomeCompare.getStyler().setLegendBorderColor(new Color(101, 113, 132));
-        IncomeCompare.getStyler().setLegendPadding(5);
+        IncomeCompare.getStyler().setLegendPadding(2);
         IncomeCompare.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
         IncomeCompare.getStyler().setLegendFont(new Font("Aria", Font.BOLD, 13));
         IncomeCompare.getStyler().setPlotBorderColor(new Color(69, 104, 159));
@@ -92,9 +93,10 @@ public class IncomeCompareGraph extends JPanel {
         IncomeCompare.getStyler().setAxisTickLabelsColor(new Color(69, 104, 159));
         IncomeCompare.getStyler().setPlotGridLinesColor(Color.WHITE);
         IncomeCompare.getStyler().setChartBackgroundColor(Color.WHITE);
-        IncomeCompare.getStyler().setChartFontColor(new Color(69, 104, 159));
-        IncomeCompare.getStyler().setChartTitleFont(new Font("Aria", Font.BOLD, 25));
+        IncomeCompare.getStyler().setChartFontColor(new Color(101, 113, 132));
+        IncomeCompare.getStyler().setChartTitleFont(new Font("Aria", Font.BOLD, 20));
         IncomeCompare.getStyler().setBaseFont(new Font("Aria", Font.BOLD, 14));
+
         
         //SetFont
         bday.setForeground(new Color(69, 104, 159));

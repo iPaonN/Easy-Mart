@@ -34,20 +34,20 @@ public class SubDashBoard_3 extends JPanel{
         pempty1.setBackground(Color.WHITE);
         
         //SetFont
-        jcompare.setFont(new Font("Aria", Font.BOLD, 20));
+        jcompare.setFont(new Font("Aria", Font.BOLD, 16));
         jcompare.setForeground(new Color(69, 104, 159));
-        jcompareprice.setFont(new Font("Aria", Font.BOLD, 20));
+        jcompareprice.setFont(new Font("Aria", Font.BOLD, 16));
         jcompareprice.setForeground(new Color(69, 104, 159));
         
-        bday.setFont(new Font("Aria", Font.BOLD, 18));
+        bday.setFont(new Font("Aria", Font.BOLD, 14));
         bday.setForeground(new Color(69, 104, 159));
         bday.setBackground(Color.WHITE);
         bday.setBorder(new LineBorder(new Color(69, 104, 159), 3));
-        bweek.setFont(new Font("Aria", Font.BOLD, 18));
+        bweek.setFont(new Font("Aria", Font.BOLD, 14));
         bweek.setForeground(new Color(69, 104, 159));
         bweek.setBackground(Color.WHITE);
         bweek.setBorder(new LineBorder(new Color(69, 104, 159), 3));
-        bYear.setFont(new Font("Aria", Font.BOLD, 18));
+        bYear.setFont(new Font("Aria", Font.BOLD, 14));
         bYear.setForeground(new Color(69, 104, 159));
         bYear.setBackground(Color.WHITE);
         bYear.setBorder(new LineBorder(new Color(69, 104, 159), 3));

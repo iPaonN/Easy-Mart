@@ -31,6 +31,7 @@ public class DashBoard extends JPanel{
         pempty1 = new JPanel();
         pempty2 = new JPanel();
         jdashboard = new JLabel("DASH BOARD");
+        jdashboard.setHorizontalAlignment(SwingConstants.CENTER);
         
         //SetLayout
         this.setLayout(new BorderLayout());
@@ -45,7 +46,7 @@ public class DashBoard extends JPanel{
         this.setBackground(Color.WHITE);
         this.setBorder(new LineBorder(new Color(101, 113, 132), 25));
         psubmain.setBorder(new LineBorder(new Color(69, 104, 159), 7));
-        pmain.setBorder(new LineBorder(Color.WHITE, 35));
+        pmain.setBorder(new LineBorder(Color.WHITE, 25));
         pmain.setBackground(Color.WHITE);
         psubmain.setBackground(Color.WHITE);
         pempty1.setBackground(Color.WHITE);
@@ -67,6 +68,7 @@ public class DashBoard extends JPanel{
         pempty1.add(ig1);
         pempty1.add(tpg1);
         
+        pempty2.setPreferredSize(new Dimension(200, 150));
         pcenter.add(pempty2, BorderLayout.SOUTH); 
         pempty2.add(sdb3);
         pempty2.add(sdb1);
