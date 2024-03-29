@@ -424,6 +424,35 @@ public final class DoUserData extends UserData{
         }
     }
     
+    public User Get_User(String username){
+        User user = new User();
+        
+        try{
+            DATA.connect();
+            Connection conn = DATA.get_Connection();
+            
+            try(PreparedStatement get_pstmt = conn.prepareStatement("SELECT * FROM staff_info WHERE staff_user = ?")){
+            
+                get_pstmt.setString(1, username);
+                
+                ResultSet rs = get_pstmt.executeQuery();
+                
+                while(rs.next()){
+                    user.setUser_name(rs.getString("staff_user"));
+                    user.setFirst_name(rs.getString("first_name"));
+                    user.setLast_name(rs.getString("last_name"));
+                    user.setEmail("email");
+                }
+            }
+        
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            DATA.disconnect();
+            return user;
+        }
+    }
+    
 //    public static void main(String[] args) {
 //        DoUserData t1 = new DoUserData();
 //        //t1.InsertData("Test1", "Test1@gmail.com", "1234", "Test", "Test");
