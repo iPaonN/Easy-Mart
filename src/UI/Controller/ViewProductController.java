@@ -20,8 +20,8 @@ public class ViewProductController implements ActionListener {
     public ViewProductController() {
         view = new ViewProduct();
         product = new ProductModel();
-        
-        //product.SetProducttype(1, "Book");
+        /// สร้าง ข้อมูล ใน SQL ใส่ comment ถ้าไม่สร้าง ใช้เพื่อเทส
+        product.SetProducttype(1, "Book");
         product.SetProductdata(1, "ABC", 1, 199, 2, 1);
         displayProductData(1);
         displayImage(1);
