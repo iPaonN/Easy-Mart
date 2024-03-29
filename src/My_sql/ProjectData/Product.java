@@ -9,7 +9,6 @@ public class Product {
     private int quantity;
     
     public Product(){
-        this(0, "", "", 0, 0, 0);
     }
 
     public Product(int id, String name, String type, double price, double weight, int quantity) {
