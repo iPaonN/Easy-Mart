@@ -6,6 +6,8 @@ import java.sql.*;
 import java.util.*;
 import My_sql.UserData.User;
 import My_sql.UserData.DoUserData;
+import java.text.SimpleDateFormat;
+import java.time.*;
 
 public final class DoProjectData extends ProjectData{
     private My_sql data = new My_sql();
@@ -535,6 +537,49 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
+    public ArrayList<History> get_Historys(String schema, String date){
+        ///dd-MM-YYYY///
+        ArrayList<History> allhisdata = new ArrayList<>();
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            java.util.Date utilDate = sdf.parse(date);
+            
+            String formattedDate = sdf.format(utilDate);
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM history WHERE DATE_FORMAT(action_time, '%d-%m-%Y') = ?")){
+            
+                pstmt.setString(1, formattedDate);
+                
+                ResultSet rs = pstmt.executeQuery();
+                
+                while(rs.next()){
+                    Timestamp actionTime = rs.getTimestamp("action_time");
+                    LocalDateTime localDateTime = actionTime.toLocalDateTime();
+                    allhisdata.add(new History(rs.getInt("history_id"), 
+                            rs.getInt("product_id"), rs.getString("product_name"), 
+                            rs.getInt("quantity"), rs.getString("type"), 
+                            rs.getString("action"), localDateTime, rs.getString("staff_user")));
+                    
+                    System.out.println("Get History completed.");
+                }
+                
+            }
+            
+        
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+            return allhisdata;
+        }
+        
+    } 
+    
     private final void INSERT_PROFILE(String schema){
         try{
             
@@ -684,9 +729,9 @@ public final class DoProjectData extends ProjectData{
     }
     
 //    public static void main(String[] args) {
-//        DoProjectData p1 = new DoProjectData("p","pj1");
-//        p1.set_product("p_pj1", 101, "Coke", "Drink", 12.5, 15.5, 100, new File("src/My_sql/UserData/Image/image1.png"), "zedl3all");
-    
+//        DoProjectData p1 = new DoProjectData();
+//        System.out.println(p1.get_Historys("p_pj1", "28-03-2024").get(0).getProduct_name());
+        
 //        try {
 //        ResultSet rs = p1.getRS("zedl3all_Project1", "history");
 //        System.out.println(p1.getIntdata(rs, "product_name", "", ""));
