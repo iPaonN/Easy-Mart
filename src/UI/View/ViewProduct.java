@@ -59,7 +59,7 @@ public class ViewProduct extends JPanel {
         bset = new JButton("SET");
         bplus = new JButton("+");
         bminus = new JButton("-");
-        tfprice = new JTextField(10);
+        tfprice = new JTextField();
         tfamount = new JTextField();
         bdelete = new JButton("   Delete   ");
 
@@ -251,6 +251,82 @@ public class ViewProduct extends JPanel {
         mainf.setSize(470, 450);
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainf.setVisible(true);
+    }
+    
+    public JPanel getImageLabel(){
+        return pnorthleft;
+    }
+    
+    public JFrame getmf() {
+        return mainf;
+    }
+    
+    public JButton getSaveimage() {
+        return bsave;
+    }
+    
+    public JButton getSaveButton() {
+        return bsavev2;
+    }
+
+    public JButton getOKButton() {
+        return bok;
+    }
+
+    public JButton getSetButton() {
+        return bset;
+    }
+
+    public JButton getPlusButton() {
+        return bplus;
+    }
+
+    public JButton getMinusButton() {
+        return bminus;
+    }
+
+    public JButton getDeleteButton() {
+        return bdelete;
+    }
+    
+    public JTextField gettfprice() {
+        return tfprice;
+    }
+    
+    public JTextField gettfamount() {
+        return tfamount;
+    }
+    
+    public void setProductName(String s) {
+        pproductname.setText(s);
+    }
+    public void setType(String s) {
+        ptypename.setText(s);
+    }
+    public void setPricePerPiece(String s) {
+        pnumpriceper.setText(s);
+    }
+    public void setWeight(String s) {
+        pnumweight.setText(s);
+    }
+    public void setAmount(String s) {
+        pnumamount.setText(s);
+    }
+    
+    public void settfamount(String s) {
+        tfamount.setText(s);
+    }
+    
+    public void settfprice(String s) {
+        tfprice.setText(s);
+    }
+    
+    public void setImage(ImageIcon i) {
+        mainf.setIconImage(i.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+    }
+    
+    public void close(){
+        mainf.setVisible(false);
     }
     
     public static void main(String[] args) {
