@@ -159,6 +159,43 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
+    public Product get_product(String schema, String product_name){
+        Product p1 = null;
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM product WHERE product_name = ?")){
+
+                pstmt.setString(1, product_name);
+                
+                ResultSet rs = pstmt.executeQuery();
+                
+                while(rs.next()){
+                    p1 = new Product();
+                    p1.setId(rs.getInt("product_id"));
+                    p1.setName(rs.getString("product_name"));
+                    p1.setType(rs.getString("type"));
+                    p1.setPrice(rs.getDouble("price"));
+                    p1.setWeight(rs.getDouble("weight"));
+                    p1.setQuantity(rs.getInt("quantity"));
+                }
+                    
+                System.out.println("get product data completed.");
+                
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+            return p1;
+        }
+    
+    }
+    
+    
     public void remove_product(String schema, String user, String product_name){
         try{
             data.set_Schema(schema);
