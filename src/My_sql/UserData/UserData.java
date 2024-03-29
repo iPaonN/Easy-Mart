@@ -21,5 +21,6 @@ public sealed abstract class UserData permits DoUserData{
     public abstract ArrayList<String> GetProjectList(String username);
     public abstract void UpdateProjectList(String username, ArrayList<String> projectList);
     public abstract void RemoveProject(String username, String project_name);
+    public abstract void RenameProject(String username, String old_project, String new_project);
     
 }

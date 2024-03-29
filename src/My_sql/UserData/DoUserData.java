@@ -410,6 +410,20 @@ public final class DoUserData extends UserData{
         }
     }
     
+    public void RenameProject(String username, String old_project, String new_project){
+        ArrayList<String> projectList = this.GetProjectList(username);
+        
+        int index = projectList.indexOf(old_project);
+        
+        if (index != -1){
+            projectList.set(index, new_project);
+            this.UpdateProjectList(username, projectList);
+            System.out.println("rename completed.");
+        }else{
+            System.out.println("can't find project");
+        }
+    }
+    
 //    public static void main(String[] args) {
 //        DoUserData t1 = new DoUserData();
 //        //t1.InsertData("Test1", "Test1@gmail.com", "1234", "Test", "Test");
