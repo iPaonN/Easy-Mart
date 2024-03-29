@@ -1,18 +1,19 @@
 package UI.View;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class MainMenu {
+public class MainMenu{
 
     private JFrame fr;
     private JLabel label, uns1, j1, j2;
     private JLabel Jicon1, Jicon2, Jicon3;
     private JButton bn1, bn2, bn3, bn4, bn5, bn6, bn9, bn10;
-    private JPanel panel, panel2, panel3, pane14, panel5, panel6, panel7, panel8;
+    private JPanel panel, panel2, panel3, pane14, panel5, panel6, panel7, panel8, cardpanel;
     private ImageIcon icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9;
     private ImageIcon reicon1, reicon2, reicon3, reicon4, reicon5, reicon6, reicon9, reicon10, reicon11;
     private GridBagConstraints gb1;
-    Object h1;
 
     private CircleProfile cp1;
 
@@ -58,6 +59,7 @@ public class MainMenu {
         panel6 = new JPanel();
         panel7 = new JPanel();
         panel8 = new JPanel();
+        cardpanel = new JPanel(new CardLayout());
         Jicon1 = new JLabel(reicon11);
 
         //Bottom
@@ -135,17 +137,23 @@ public class MainMenu {
         panel3.setBackground(new java.awt.Color(101, 113, 132));
         
         
-        
         //JFrame
         fr.setIconImage(icon1.getImage());
         fr.setLayout(new BorderLayout());
         fr.add(panel2, BorderLayout.NORTH);
         fr.add(panel, BorderLayout.WEST);
-        h1 = new DashBoard();
-        fr.add((DashBoard)h1, BorderLayout.CENTER);
+        fr.add(cardpanel, BorderLayout.CENTER);
 
         fr.setSize(1280, 720);
         fr.setVisible(true);
+    }
+
+    public JPanel getCardpanel() {
+        return cardpanel;
+    }
+
+    public void setCardpanel(JPanel cardpanel) {
+        this.cardpanel = cardpanel;
     }
     
     public JFrame getFr() {
@@ -171,6 +179,51 @@ public class MainMenu {
     public void setCp1(CircleProfile cp1) {
         this.cp1 = cp1;
     }
+
+    public JButton getBn1() {
+        return bn1;
+    }
+
+    public JButton getBn2() {
+        return bn2;
+    }
+
+    public void setBn2(JButton bn2) {
+        this.bn2 = bn2;
+    }
+
+    public JButton getBn3() {
+        return bn3;
+    }
+
+    public void setBn3(JButton bn3) {
+        this.bn3 = bn3;
+    }
+
+    public JButton getBn5() {
+        return bn5;
+    }
+
+    public void setBn5(JButton bn5) {
+        this.bn5 = bn5;
+    }
+
+    public JButton getBn6() {
+        return bn6;
+    }
+
+    public void setBn6(JButton bn6) {
+        this.bn6 = bn6;
+    }
+
+    public JButton getBn9() {
+        return bn9;
+    }
+
+    public void setBn9(JButton bn9) {
+        this.bn9 = bn9;
+    }
+    
     
     public static void main(String[] args) {
         try {
@@ -179,7 +232,10 @@ public class MainMenu {
             e.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
-            new MainMenu();
+            MainMenu test = new MainMenu();
+            
+            
         });
     }
+
 }

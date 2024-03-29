@@ -83,8 +83,17 @@ public class DashBoard extends JPanel{
         mainf.add(this);
         mainf.setSize(1280, 720);
         mainf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainf.setVisible(true);
+        mainf.setVisible(false);
     }
+
+    public JPanel getPsubmain() {
+        return psubmain;
+    }
+
+    public void setPsubmain(JPanel psubmain) {
+        this.psubmain = psubmain;
+    }
+    
     public static void main(String[] args) {
         new DashBoard();
     }

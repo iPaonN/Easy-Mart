@@ -238,7 +238,7 @@ public class Member extends JPanel{
         fr.add(this);
         //fr.add(panel, BorderLayout.WEST);
         fr.setSize(1280, 720);
-        fr.setVisible(true);
+        fr.setVisible(false);
     }
     
     public Object[][] getDataRows() {
