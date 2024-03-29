@@ -1,5 +1,8 @@
 package UI.View;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
@@ -18,10 +21,11 @@ public class History extends JPanel{
     private JTable table;
     private JScrollPane scrollPane;
     private DefaultTableModel model;
+    private final Object[] columnName = {"Date", "View"};
     public History() {
 
-        fr = new JFrame("menu");
-        fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fr = new JFrame("History");
+        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gb1 = new GridBagConstraints();
         icon1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         icon2 = new ImageIcon("src/UI/Image/eweweewew.jpg");
@@ -161,24 +165,29 @@ public class History extends JPanel{
         scrollPane.setPreferredSize(new Dimension(500,500));
         tablePanel.setBackground(Color.white);
         mainbg.setBackground(Color.white);
-        
+
         //TABLE
         scrollPane.setViewportView(table);
         table.setModel(model);
         table.setFont(new Font("Arial", Font.BOLD, 16));
-        model.addColumn("Date");
-        model.addColumn("View");
+        model.setColumnIdentifiers(columnName);
+        Object[][] dataRows = {
+            {"3/3/2024"},
+            {"2/3/2024"},
+            {"1/3/2024"}
+        };
+        for (Object[] dataRow : dataRows) {
+            model.insertRow(model.getRowCount(), dataRow);
+        }
         table.getColumnModel().getColumn(1).setCellRenderer(new HistoryRenderer());
         table.getColumnModel().getColumn(1).setCellEditor(new HistoryEditor(new JCheckBox()));
-        table.getColumnModel().getColumn(0).setPreferredWidth(750);
+        table.getColumnModel().getColumn(0).setPreferredWidth(650);
         table.setDefaultEditor(Object.class, null);
-        model.addRow(new Object[]{"04/03/2024"});
-        model.addRow(new Object[]{"03/03/2024"});
-        model.addRow(new Object[]{"02/03/2024"});
-        model.addRow(new Object[]{"01/03/2024"});
         table.setCellSelectionEnabled(false);
-        
+        table.setGridColor(new Color(69, 104, 159));
         table.setRowHeight(50);
+        table.setForeground(new Color(69, 104, 159));
+        table.setFont(new Font("Arial", Font.BOLD, 18));
         tablePanel.setLayout(new BorderLayout());
         this.setLayout(new BorderLayout());
         this.add(bg1, BorderLayout.WEST);
@@ -194,10 +203,7 @@ public class History extends JPanel{
         tablePanel.add(white2, BorderLayout.NORTH);
         tablePanel.add(white3, BorderLayout.SOUTH);
         tablePanel.add(white4, BorderLayout.WEST);
-        table.setForeground(new Color(69, 104, 159));
-        table.setFont(new Font("Arial", Font.BOLD, 18));
-        table.setGridColor(new Color(69, 104, 159));
-        scrollPane.setBorder(new LineBorder(new Color(101, 113, 132), 6));
+        scrollPane.setBorder(new LineBorder(new Color(69, 104, 159), 4));
 
         //JFrame
         fr.setIconImage(icon1.getImage());
@@ -206,7 +212,7 @@ public class History extends JPanel{
         fr.add(this);
         //fr.add(panel, BorderLayout.WEST);
         fr.setSize(1280, 720);
-        fr.setVisible(false);
+        fr.setVisible(true);
     }
     public static void main(String[] args) {
         try {
