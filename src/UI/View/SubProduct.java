@@ -137,4 +137,55 @@ public class SubProduct extends JPanel {
             new SubProduct();
         });
     }
+    
+    public JPanel psubcenter(){
+        return psubcenter;
+    }
+    
+    public JPanel getpImage(){
+        return pImage;
+    }
+    
+    public void setJnameproduct(String productName) {
+        Jnameproduct.setText(productName);
+        Jproduct.setText("Product Name : "+Jnameproduct.getText());
+    }
+
+    public String getJnameproduct() {
+        return Jnameproduct.getText();
+    }
+
+    public void setJnametype(String type) {
+        Jnametype.setText(type);
+        Jtype.setText("Type : "+Jnametype.getText());
+    }
+
+    public String getJnametype() {
+        return Jnametype.getText();
+    }
+
+    public void setJnumamount(int amount) {
+        Jnumamount.setText(String.valueOf(amount));
+        Jamount.setText("Amount : "+Jnumamount.getText());
+    }
+
+    public int getJnumamount() {
+        return Integer.parseInt(Jnumamount.getText());
+    }
+
+    public void setJnumprice(double price) {
+        Jnumprice.setText(String.valueOf(price));
+        Jprice.setText("Price : "+Jnumprice.getText());
+    }
+
+    public double getJnumprice() {
+        return Double.parseDouble(Jnumprice.getText());
+    }
+    
+    public void setAllData(String productName, String type, int amount, double price) {
+        setJnameproduct(productName);
+        setJnametype(type);
+        setJnumamount(amount);
+        setJnumprice(price);
+    }
 }
