@@ -7,39 +7,34 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 public class MemberModel {
-    private String name;
+    private String username;
     private String role;
+    private String projectname;
+    private String schema;
     Statement stmt = null;
     Connection conn = null;
     public MemberModel() {
 
     }
     
-    public MemberModel(String name, String role) {
-        this.name = name;
-        this.role = role;
+    public MemberModel(String name, String projectname) {
+        this.username = name;
+        this.projectname = projectname;
+        schema = this.username+"_"+this.projectname;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setUsername(String username) {
+        this.username = username;
     }
     
     public void setMemberdata(int staff_id, String staff_user, String first_name, String last_name, String email, int staff_access ){
       My_sql sql = new My_sql();
       try{
-        sql.set_Schema("zedl3all_Project1");
+        sql.set_Schema(this.schema);
         sql.connect();
         conn = sql.get_Connection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO memberteam (staff_id, staff_user, first_name, last_name, email, staff_access) VALUES (?, ?, ?, ?, ?, ?)");
