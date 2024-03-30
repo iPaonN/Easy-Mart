@@ -9,6 +9,8 @@ import My_sql.UserData.DoUserData;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import javax.imageio.ImageIO;
+import java.awt.Image;
 
 public final class DoProjectData extends ProjectData{
     private My_sql data = new My_sql();
@@ -92,22 +94,30 @@ public final class DoProjectData extends ProjectData{
     }
     
     public void rename_schema(String user, String oldSchema, String newSchema){
-        
+          
         String oldname = user+"_"+oldSchema;
         String newname = user+"_"+newSchema;
         
+        this.Createtemplate(user, newSchema);
+        
         try{
+            data.set_Schema(oldname);
             data.connect();
+            
             Connection conn = data.get_Connection();
+
             
-            try(PreparedStatement pstmt = conn.prepareStatement("ALTER SCHEMA ? RENAME TO ?")){
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM product")){
             
-                pstmt.setString(1, oldname);
-                pstmt.setString(2, newname);
+                ResultSet rs = pstmt.executeQuery();
                 
-                pstmt.executeUpdate();
+                while (rs.next()) {
+                    this.copy_product(newname, rs.getInt("product_id"), rs.getString("product_name"),
+                            rs.getString("type"), rs.getDouble("price"), rs.getDouble("weight"),
+                            rs.getInt("quantity"), rs.getBlob("product_image"));
+                }
                 
-                System.out.println("Schema renamed successfully.");
+                
                 
             }
         }catch (SQLException e){
@@ -192,6 +202,36 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
+    public void copy_product(String schema, int product_id, String product_name, String type, double price, double weight, int quantity, Blob product_image){
+        try{
+            
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("INSERT INTO product (product_id, product_name, type, price, weight, quantity, product_image) VALUES (?, ?, ?, ?, ?, ?, ?)")){
+
+                pstmt.setInt(1, product_id);
+                pstmt.setString(2, product_name);
+                pstmt.setString(3, type);
+                pstmt.setDouble(4, price);
+                pstmt.setDouble(5, weight);
+                pstmt.setInt(6, quantity);
+                pstmt.setBlob(7, product_image);
+                
+                pstmt.executeUpdate();
+                    
+                System.out.println("Add product data completed.");
+                
+                
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
     public Product get_product(String schema, String product_name){
         Product p1 = null;
         
@@ -214,6 +254,7 @@ public final class DoProjectData extends ProjectData{
                     p1.setPrice(rs.getDouble("price"));
                     p1.setWeight(rs.getDouble("weight"));
                     p1.setQuantity(rs.getInt("quantity"));
+                    p1.setImage(rs.getBlob("product_image"));
                 }
                     
                 System.out.println("get product data completed.");
@@ -250,6 +291,7 @@ public final class DoProjectData extends ProjectData{
                     p1.setPrice(rs.getDouble("price"));
                     p1.setWeight(rs.getDouble("weight"));
                     p1.setQuantity(rs.getInt("quantity"));
+                    p1.setImage(rs.getBlob("product_image"));
                 }
                     
                 System.out.println("get product data completed.");
@@ -635,8 +677,8 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
-    public File Get_Profile(String schema){
-        File imgFile = null;
+    public Image Get_Profile(String schema){
+        Image image = null;
         try{
             
             data.set_Schema(schema);
@@ -648,18 +690,10 @@ public final class DoProjectData extends ProjectData{
                 ResultSet rs = pstmt.executeQuery();
                 
                 if(rs.next()){
-                    InputStream is = rs.getBinaryStream("image");
-                    
-                    imgFile = new File(schema+".png");
-                    
-                    try(OutputStream os = new FileOutputStream(imgFile)){
-                        byte[] buffer = new byte[1024];
-                        int bytesRead;
-                        
-                        while((bytesRead = is.read(buffer)) != -1){
-                            os.write(buffer, 0, bytesRead);
-                        }
-                    }
+                    Blob blob = rs.getBlob("Icon");
+                    byte[] imageData = blob.getBytes(1, (int) blob.length());
+
+                    image = ImageIO.read(new ByteArrayInputStream(imageData));
                     
                 }
                 
@@ -668,7 +702,7 @@ public final class DoProjectData extends ProjectData{
             e.printStackTrace();
         }finally{
             data.disconnect();
-            return imgFile;
+            return image;
         }
     }
     
@@ -688,7 +722,7 @@ public final class DoProjectData extends ProjectData{
                 while(rs.next()){
                     allmember.add(new Member(rs.getInt("staff_id"), rs.getString("staff_user"), 
                             rs.getString("first_name"), rs.getString("last_name"), 
-                            rs.getString("email"), rs.getString("staff_access")));
+                            rs.getString("email"), rs.getBlob("image"), rs.getString("staff_access")));
                 }
                 
             }
@@ -717,14 +751,14 @@ public final class DoProjectData extends ProjectData{
                 pstmt.setString(2, p1.getFirst_name());
                 pstmt.setString(3, p1.getLast_name());
                 pstmt.setString(4, p1.getEmail());
-                pstmt.setBinaryStream(5, new FileInputStream(user.GetProfileImage(username)));
+                pstmt.setBlob(5, p1.getImage());
                 pstmt.setString(6, access);
                 
                 pstmt.executeUpdate();
                     
                 System.out.println("Insert member completed.");
             }
-        }catch (IOException|SQLException e){
+        }catch (SQLException e){
             e.printStackTrace();
         }finally{
             data.disconnect();

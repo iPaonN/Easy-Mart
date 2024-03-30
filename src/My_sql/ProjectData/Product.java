@@ -1,5 +1,7 @@
 package My_sql.ProjectData;
 
+import java.sql.*;
+
 public class Product {
     private int id;
     private String name;
@@ -7,17 +9,19 @@ public class Product {
     private double price;
     private double weight;
     private int quantity;
+    private Blob image;
     
     public Product(){
     }
 
-    public Product(int id, String name, String type, double price, double weight, int quantity) {
+    public Product(int id, String name, String type, double price, double weight, int quantity, Blob image) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.price = price;
         this.weight = weight;
         this.quantity = quantity;
+        this.image = image;
     }
 
     public int getId() {
@@ -66,6 +70,14 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Blob getImage() {
+        return image;
+    }
+
+    public void setImage(Blob image) {
+        this.image = image;
     }
     
     

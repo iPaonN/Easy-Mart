@@ -1,6 +1,6 @@
-
 package My_sql.ProjectData;
 
+import java.sql.*;
 
 public class Member {
     private int id;
@@ -8,18 +8,20 @@ public class Member {
     private String first_name;
     private String last_name;
     private String email;
+    private Blob image;
     private String access;
 
     public Member(){
         
     }
 
-    public Member(int id, String user_name, String first_name, String last_name, String email, String access) {
+    public Member(int id, String user_name, String first_name, String last_name, String email, Blob image, String access) {
         this.id = id;
         this.user_name = user_name;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
+        this.image = image;
         this.access = access;
     }
 
@@ -63,6 +65,14 @@ public class Member {
         this.email = email;
     }
 
+    public Blob getImage() {
+        return image;
+    }
+
+    public void setImage(Blob image) {
+        this.image = image;
+    }
+
     public String getAccess() {
         return access;
     }
@@ -70,5 +80,6 @@ public class Member {
     public void setAccess(String access) {
         this.access = access;
     }
+    
     
 }
