@@ -156,6 +156,26 @@ public final class DoProjectData extends ProjectData{
             data.disconnect();
         }
     }
+    
+    public void delete_project(String username, String projectname){
+        String schema = username + "_" + projectname;
+        
+        try{
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            String sql = "DROP DATABASE " + schema;
+            Statement stmt = conn.createStatement();
+            
+            stmt.executeUpdate(sql);
+            System.out.println("Schema is deleted!");
+            
+        }catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            data.disconnect();
+        }
+    }
 
     public ResultSet getRS(String schema, String table) throws SQLException{
         data.set_Schema(schema);
