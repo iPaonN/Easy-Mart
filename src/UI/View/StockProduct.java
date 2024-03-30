@@ -16,6 +16,7 @@ public class StockProduct extends JPanel implements ActionListener{
     private JScrollPane scrollPane;
     private JComboBox sort;
     private SubProduct subproduct;
+    private CreateProduct cp;
     
     public StockProduct(){
         frame = new JFrame();
@@ -157,13 +158,14 @@ public class StockProduct extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(create)){
-            subPanel.add(new SubProduct());
-            subPanel.revalidate();
+            cp = new CreateProduct();
         }
     }
     
     public JPanel getsubpanel(){
         return subPanel;
     }
-    
+    public JButton getcreate(){
+        return create;
+    }
 }
