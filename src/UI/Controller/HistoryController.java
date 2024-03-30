@@ -24,7 +24,7 @@ public class HistoryController {
         this.projectname = projectname;
         view = new History();
         datab = new DoProjectData();
-        this.schema = this.username+"_"+this.projectname;
+        this.schema = this.projectname;
         
 //        dataRows = new Object[][] {{"3/3/2024"}, {"2/3/2024"}, {"1/3/2024"}, {"123"}, {"456"}};
         

@@ -1,7 +1,10 @@
 package UI.Controller;
 
 import My_sql.My_sql;
+import My_sql.ProjectData.DoProjectData;
+import My_sql.UserData.DoUserData;
 import UI.Model.MemberModel;
+import UI.View.AddMember;
 import UI.View.Member;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -11,19 +14,25 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class MemberController{
-    private String username, projectname, schema;
+    private String username, projectname;
     private Member view;
+    private AddMember adder;
     private MemberModel model;
+    private DoProjectData promanager;
+    private DoUserData manager;
+    
 
     public MemberController(String username, String projectname) {
         this.username = username;
         this.projectname = projectname;
         view = new Member();
         model = new MemberModel(this.username, this.projectname);
-        this.schema = this.username+"_"+this.projectname;
+        promanager = new DoProjectData();
+        manager = new DoUserData();
         //model.setMemberdata(1, "Staff", "First", "Last", "MAIL", 1);
         view.displaydata(getDataRows());
     }
+    
 
     public Member getView() {
         return view;
@@ -40,7 +49,7 @@ public class MemberController{
         ResultSet rs = null;
 
         try {
-            sql.set_Schema(this.schema);
+            sql.set_Schema(this.projectname);
             sql.connect();
             conn = sql.get_Connection();
             String query = "SELECT first_name, last_name, staff_access FROM memberteam";

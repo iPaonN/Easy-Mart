@@ -57,7 +57,7 @@ public final class DoProjectData extends ProjectData{
                                                  )""");
             System.out.println("Create memberteam table complete!");
             
-            this.insert_member(schema, username, "Owner");
+            //this.insert_member(schema, username, "Owner");
             
             conn.createStatement().executeUpdate("""
                                                  CREATE TABLE `product` (

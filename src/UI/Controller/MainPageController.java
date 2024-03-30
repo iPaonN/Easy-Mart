@@ -166,8 +166,9 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
                 main.getInsertname().setText("");
             }
             else{
-                manager.UpdateProjectList(username, projectlist, npj);
+                manager.UpdateProjectList(username, projectlist, username+"_"+npj);
                 pmanager.Createtemplate(username, npj);
+                pmanager.insert_member(username+"_"+npj, this.username, "Owner");
                 main.getInsertname().setText("");
                 main.getAddProject().setVisible(false);
                 projectlist = manager.GetProjectList(username);

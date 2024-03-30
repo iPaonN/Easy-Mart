@@ -10,7 +10,6 @@ public class MemberModel {
     private String username;
     private String role;
     private String projectname;
-    private String schema;
     Statement stmt = null;
     Connection conn = null;
     public MemberModel() {
@@ -20,7 +19,6 @@ public class MemberModel {
     public MemberModel(String name, String projectname) {
         this.username = name;
         this.projectname = projectname;
-        schema = this.username+"_"+this.projectname;
     }
 
     public String getUsername() {
@@ -34,7 +32,7 @@ public class MemberModel {
     public void setMemberdata(int staff_id, String staff_user, String first_name, String last_name, String email, int staff_access ){
       My_sql sql = new My_sql();
       try{
-        sql.set_Schema(this.schema);
+        sql.set_Schema(this.projectname);
         sql.connect();
         conn = sql.get_Connection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO memberteam (staff_id, staff_user, first_name, last_name, email, staff_access) VALUES (?, ?, ?, ?, ?, ?)");
