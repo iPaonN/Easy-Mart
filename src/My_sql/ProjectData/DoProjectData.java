@@ -731,6 +731,46 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
+    public void remove_member(String schema, String username){
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("DELETE FROM memberteam WHERE staff_user = ?")){
+
+                pstmt.setString(1, username);
+
+                pstmt.executeUpdate();
+                    
+                System.out.println("Remove member completed.");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public void remove_project(String schema){
+        try{
+            data.set_Schema("");
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("DROP SCHEMA " + schema)){
+
+                pstmt.executeUpdate();
+                    
+                System.out.println("Remove project completed.");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
     public static void main(String[] args) {
         DoProjectData p1 = new DoProjectData();
         System.out.println(p1.get_Historys("p_pj1", "28-03-2024").get(0).getTime());
