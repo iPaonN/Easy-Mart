@@ -23,7 +23,7 @@ public class MenuController implements ActionListener{
     private Assistance assistance;
     private StockProduct stock;
     private MemberController member;
-    private History history;
+    private HistoryController history;
     private OptionController option;
     private CardLayout cardcontroll;
     public MenuController(String username, String projectname){
@@ -38,13 +38,13 @@ public class MenuController implements ActionListener{
         assistance = new Assistance();
         stock = new StockProduct();
         member = new MemberController(this.username, this.projectname);
-        history = new History();
+        history = new HistoryController(this.username, this.projectname);
         option = new OptionController(this.username, this.projectname);
         main.getCardpanel().add(dashboard, "DashBoard");
         main.getCardpanel().add(assistance, "Assistance");
         main.getCardpanel().add(stock, "Stock");
         main.getCardpanel().add(member.getView(), "Member");
-        main.getCardpanel().add(history, "History");
+        main.getCardpanel().add(history.getView(), "History");
         main.getCardpanel().add(option.getView(), "Option");
         
         //set inform

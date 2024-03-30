@@ -22,6 +22,7 @@ public class History extends JPanel{
     private JScrollPane scrollPane;
     private DefaultTableModel model;
     private final Object[] columnName = {"Date", "View"};
+    private Object[][] dataRows;
     public History() {
 
         fr = new JFrame("History");
@@ -171,11 +172,14 @@ public class History extends JPanel{
         table.setModel(model);
         table.setFont(new Font("Arial", Font.BOLD, 16));
         model.setColumnIdentifiers(columnName);
-        Object[][] dataRows = {
-            {"3/3/2024"},
-            {"2/3/2024"},
-            {"1/3/2024"}
-        };
+        //New
+        Object[][] dataRows = {};
+        //Old
+//        Object[][] dataRows = {
+//            {"3/3/2024"},
+//            {"2/3/2024"},
+//            {"1/3/2024"}
+//        };
         for (Object[] dataRow : dataRows) {
             model.insertRow(model.getRowCount(), dataRow);
         }
@@ -213,6 +217,45 @@ public class History extends JPanel{
         //fr.add(panel, BorderLayout.WEST);
         fr.setSize(1280, 720);
         fr.setVisible(false);
+    }
+    public Object[][] getDataRows() {
+        return dataRows;
+    }
+
+    public void setDataRows(Object[][] dataRows) {
+        this.dataRows = dataRows;
+    }
+    public void displaydata(Object[][] dataRows) {
+        model.setColumnIdentifiers(columnName);
+        for (Object[] dataRow : dataRows) {
+            model.insertRow(model.getRowCount(), dataRow);
+        
+            table.getColumnModel().getColumn(1).setCellRenderer(new HistoryRenderer());
+            table.getColumnModel().getColumn(1).setCellEditor(new HistoryEditor(new JCheckBox()));
+            table.getColumnModel().getColumn(0).setPreferredWidth(650);
+            table.setDefaultEditor(Object.class, null);
+            table.setCellSelectionEnabled(false);
+            table.setGridColor(new Color(69, 104, 159));
+            table.setRowHeight(50);
+            table.setForeground(new Color(69, 104, 159));
+            table.setFont(new Font("Arial", Font.BOLD, 18));
+            tablePanel.setLayout(new BorderLayout());
+            this.setLayout(new BorderLayout());
+            this.add(bg1, BorderLayout.WEST);
+            this.add(bg2, BorderLayout.NORTH);
+            this.add(bg3, BorderLayout.SOUTH);
+            this.add(bg4, BorderLayout.EAST);
+            mainbg.setLayout(new GridLayout());
+            mainbg.add(tablePanel);
+            this.add(mainbg);
+            mainbg.setBorder(new LineBorder(new Color(69, 104, 159), 5));
+            tablePanel.add(scrollPane);
+            tablePanel.add(white1, BorderLayout.EAST);
+            tablePanel.add(white2, BorderLayout.NORTH);
+            tablePanel.add(white3, BorderLayout.SOUTH);
+            tablePanel.add(white4, BorderLayout.WEST);
+            scrollPane.setBorder(new LineBorder(new Color(69, 104, 159), 4));
+        }
     }
     public static void main(String[] args) {
         try {
