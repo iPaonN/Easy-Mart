@@ -29,7 +29,29 @@ public class StockProductModel {
     
 
 
-    public void SetProductdata(int id,String productname,int type,double price,double weight,int amount){
+    public void SetProductdata(String productname, int type, double price, double weight, int amount) {
+    My_sql sql = new My_sql();
+    try {
+        sql.set_Schema(this.schema);
+        sql.connect();
+        conn = sql.get_Connection();
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO product (product_name, type_id, price, weight, quantity) VALUES (?, ?, ?, ?, ?)");
+        stmt.setString(1, productname);
+        stmt.setInt(2, type);
+        stmt.setDouble(3, price);
+        stmt.setDouble(4, weight);
+        stmt.setInt(5, amount);
+        int rowsInserted = stmt.executeUpdate();
+        if (rowsInserted > 0) {
+            System.out.println("A new row was inserted successfully!");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        sql.disconnect();
+    }
+}
+      public void SetProductdata(int id,String productname,int type,double price,double weight,int amount){
       My_sql sql = new My_sql();
       try{
         sql.set_Schema(this.schema);
@@ -52,5 +74,6 @@ public class StockProductModel {
             sql.disconnect();
         }
     }
+
 }
 
