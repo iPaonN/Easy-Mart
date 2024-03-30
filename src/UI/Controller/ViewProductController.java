@@ -1,3 +1,5 @@
+package UI.Controller;
+
 import My_sql.My_sql;
 import UI.Model.ProductModel;
 import UI.View.ViewProduct;

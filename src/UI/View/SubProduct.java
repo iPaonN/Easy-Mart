@@ -1,11 +1,12 @@
 package UI.View;
 
+import UI.Controller.ViewProductController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import UI.Controller.ViewProductController;
+import UI.Controller.*;
 
 public class SubProduct extends JPanel {
 
