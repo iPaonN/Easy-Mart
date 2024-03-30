@@ -1,10 +1,13 @@
 package UI.View;
+import UI.Model.StockProductModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class CreateProduct extends JPanel {
-
+    private String username, projectname, schema;
     private JFrame mainf;
     private JPanel pnorth, psouth, pnorthleft, pnorthright, pnorthinleft;
     private JPanel pempty1, pempty2, pempty3, pempty4, pempty5, pempty6, pempty7, pempty8, pempty9;
@@ -14,8 +17,10 @@ public class CreateProduct extends JPanel {
     private JComboBox jcbtype;
     private JTextField tfproduct, tfprice, tfweight, tfamount;
     private ImageIcon i1, i2;
+    private StockProductModel model;
     public CreateProduct() {
-
+        this.schema = this.username+"_"+this.projectname;
+        model = new StockProductModel("zedl3all", "project1");
         //Create
         mainf = new JFrame("CreatProduct");
         i1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
@@ -220,7 +225,19 @@ public class CreateProduct extends JPanel {
         pempty16.setBackground(new Color(69, 104, 159));
         pempty17.setBackground(new Color(69, 104, 159));
         this.setBorder(new LineBorder(new Color(101, 113, 132), 5));
-
+        
+        jsave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String name = tfproduct.getText();
+                String type = String.valueOf(jcbtype.getSelectedItem());
+                Double price = Double.parseDouble(tfprice.getText());
+                Double weight = Double.parseDouble(tfweight.getText());
+                int amount = Integer.parseInt(tfamount.getText());
+                model.SetProductdata( name, 1, price, weight, amount);
+                JOptionPane.showMessageDialog(mainf, "Done!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
         //JFrmae
         this.add(pnorth, BorderLayout.CENTER);
         this.add(psouth, BorderLayout.SOUTH);
@@ -241,4 +258,45 @@ public class CreateProduct extends JPanel {
             new CreateProduct();
         });
     }
+    
+    public void setTfproductText(String text) {
+        tfproduct.setText(text);
+    }
+
+    public String getTfproductText() {
+        return tfproduct.getText();
+    }
+
+    public void setTfpriceText(String text) {
+        tfprice.setText(text);
+    }
+
+    public String getTfpriceText() {
+        return tfprice.getText();
+    }
+
+    public void setTfweightText(String text) {
+        tfweight.setText(text);
+    }
+
+    public String getTfweightText() {
+        return tfweight.getText();
+    }
+
+    public void setTfamountText(String text) {
+        tfamount.setText(text);
+    }
+
+    public String getTfamountText() {
+        return tfamount.getText();
+    }
+    
+    public JButton getSave(){
+        return jsave;
+    }
+    
+    public JComboBox getType(){
+        return jcbtype;
+    }
+    
 }
