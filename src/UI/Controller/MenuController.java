@@ -24,7 +24,7 @@ public class MenuController implements ActionListener{
     private StockProduct stock;
     private Member member;
     private History history;
-    private Option option;
+    private OptionController option;
     private CardLayout cardcontroll;
     public MenuController(String username, String projectname){
         manager = new DoUserData();
@@ -39,7 +39,7 @@ public class MenuController implements ActionListener{
         stock = new StockProduct();
         member = new Member();
         history = new History();
-        option = new Option();
+        option = new OptionController(this.username, this.projectname);
         main.getCardpanel().add(dashboard, "DashBoard");
         main.getCardpanel().add(assistance, "Assistance");
         main.getCardpanel().add(stock, "Stock");

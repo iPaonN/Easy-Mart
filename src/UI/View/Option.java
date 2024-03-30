@@ -21,7 +21,7 @@ public class Option extends JPanel {
         i1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         i2 = new ImageIcon(i1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
         hcv1 = new HalfCirclev2();
-        hcv1.LoadImage("src/UI/Image/3.jpg");
+//        hcv1.LoadImage("src/UI/Image/3.jpg");
         mainf = new JFrame("Option");
         pinmain = new JPanel();
         pmain = new JPanel();
@@ -220,5 +220,26 @@ public class Option extends JPanel {
         mainf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainf.setVisible(false);
     }
+    
+    public JButton getSaveButton(){
+        return bsave1;
+    }
+    
+    public JButton getSaveButton2(){
+        return bsave2;
+    }
+    
+    public HalfCirclev2 getProfileicon(){
+        return hcv1;
+    }
+    
+    public JTextField getTFprojectname(){
+        return tfprojectname;
+    }
+    
+    public JTextField getTFprojectnameC(){
+        return tfconfirmprojectname;
+    }
+    
 }
 
