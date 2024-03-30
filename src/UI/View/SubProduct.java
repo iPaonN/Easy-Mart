@@ -1,8 +1,11 @@
 package UI.View;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import UI.Controller.ViewProductController;
 
 public class SubProduct extends JPanel {
 
@@ -13,7 +16,7 @@ public class SubProduct extends JPanel {
     private JLabel Jempty1, Jempty2, Jempty3, Jempty4, Jempty5, Jempty6;
     private JButton bview;
     private ImageIcon i1, i2;
-
+    private ViewProductController viewpd;
     public SubProduct() {
 
         //Create
@@ -108,7 +111,7 @@ public class SubProduct extends JPanel {
         bview.setFont(new Font("Aria", Font.BOLD, 13));
         bview.setForeground(new Color(69, 104, 159));
         bview.setBackground(Color.WHITE);
-
+        
         //Psubcenter
         psubcenter.setLayout(new BorderLayout());
         psubcenter.setBackground(new Color(69, 104, 159));
@@ -116,7 +119,12 @@ public class SubProduct extends JPanel {
         pImage.setBorder(new LineBorder(new Color(101, 113, 132), 5));
         pImage.setLayout(new FlowLayout()); 
         psubcenter.add(pImage);
-        
+        bview.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewpd = new ViewProductController();
+            }
+        });
         //Mainpanel
         this.setLayout(new BorderLayout());
         this.add(psubnorth, BorderLayout.NORTH);
@@ -188,4 +196,6 @@ public class SubProduct extends JPanel {
         setJnumamount(amount);
         setJnumprice(price);
     }
+    
+    
 }
