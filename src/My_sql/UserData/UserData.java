@@ -1,6 +1,7 @@
 package My_sql.UserData;
 
 import My_sql.My_sql;
+import java.awt.Image;
 import java.io.*;
 import java.util.*;
 
@@ -17,7 +18,7 @@ public sealed abstract class UserData permits DoUserData{
     public abstract void ChangeFirstname(String oldfirstname, String newfirstname);
     public abstract void ChangeLastname(String oldlastname, String newlastname);
     public abstract void ChangeProfileImage(String username, File pathFile);
-    public abstract File GetProfileImage(String username);
+    public abstract Image GetProfileImage(String username);
     public abstract ArrayList<String> GetProjectList(String username);
     public abstract void UpdateProjectList(String username, ArrayList<String> projectList);
     public abstract void RemoveProject(String username, String project_name);

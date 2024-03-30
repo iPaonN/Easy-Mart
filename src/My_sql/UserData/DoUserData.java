@@ -6,6 +6,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.*;
 import java.io.*;
 import com.google.gson.*;
+import java.awt.Image;
+import javax.imageio.ImageIO;
 
 public final class DoUserData extends UserData{
     
@@ -259,8 +261,8 @@ public final class DoUserData extends UserData{
     }
     
     @Override
-    public File GetProfileImage(String username){
-        File imgFile = null;
+    public Image GetProfileImage(String username){
+        Image imgFile = null;
         try{
             DATA.connect();
             Connection conn = DATA.get_Connection();
@@ -272,18 +274,11 @@ public final class DoUserData extends UserData{
                 ResultSet rs = pstmt.executeQuery();
                 
                 if(rs.next()){
-                    InputStream is = rs.getBinaryStream("image");
+                    Blob blob = rs.getBlob("image");
                     
-                    imgFile = new File("Profile_image_"+username+".png");
+                    byte[] imageData = blob.getBytes(1, (int) blob.length());
                     
-                    try(OutputStream os = new FileOutputStream(imgFile)){
-                        byte[] buffer = new byte[1024];
-                        int bytesRead;
-                        
-                        while((bytesRead = is.read(buffer)) != -1){
-                            os.write(buffer, 0, bytesRead);
-                        }
-                    }
+                    imgFile = ImageIO.read(new ByteArrayInputStream(imageData));
                     
                 }
                 
