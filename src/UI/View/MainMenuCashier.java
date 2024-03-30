@@ -9,6 +9,7 @@ public class MainMenuCashier {
     private JLabel Jicon1, Jicon2, Jicon3;
     private JButton bn1, bn2, bn3, bn4, bn5, bn6, bn9, bn10;
     private JPanel panel, panel2, panel3, pane14, panel5, panel6, panel7, panel8;
+    private JPanel pempty1;
     private ImageIcon icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9;
     private ImageIcon reicon1, reicon2, reicon3, reicon4, reicon5, reicon6, reicon9, reicon10, reicon11;
     private GridBagConstraints gb1;
@@ -58,6 +59,7 @@ public class MainMenuCashier {
         panel6 = new JPanel();
         panel7 = new JPanel();
         panel8 = new JPanel();
+        pempty1 = new JPanel();
         Jicon1 = new JLabel(reicon11);
 
         //Bottom
@@ -105,6 +107,7 @@ public class MainMenuCashier {
         panel2.setLayout(new BorderLayout());
         panel5.setLayout(new BorderLayout());
         panel6.setLayout(new BorderLayout());
+        pempty1.setLayout(new BorderLayout());
         panel5.setPreferredSize(new Dimension(200, 5));
         panel6.setPreferredSize(new Dimension(200, 5));
         panel2.setBackground(new java.awt.Color(69, 104, 159));
@@ -112,6 +115,7 @@ public class MainMenuCashier {
         panel6.setBackground(new java.awt.Color(69, 104, 159));
         panel7.setBackground(new java.awt.Color(69, 104, 159));
         panel8.setBackground(new java.awt.Color(69, 104, 159));
+        pempty1.setBackground(new java.awt.Color(69, 104, 159));
         panel2.add(label, BorderLayout.WEST);
         panel2.add(panel7, BorderLayout.EAST);
         panel8.setLayout(new BorderLayout());
@@ -120,7 +124,9 @@ public class MainMenuCashier {
         panel8.add(new JLabel("    "), BorderLayout.NORTH);
         panel8.add(new JLabel("    "), BorderLayout.SOUTH);
         panel7.setLayout(new BorderLayout());
-        panel7.add(uns1);
+        panel7.add(pempty1);
+        pempty1.add(uns1);
+        pempty1.add(new JLabel("  "), BorderLayout.EAST);
         cp1.setPreferredSize(new Dimension(40, 10));
         panel7.add(panel8, BorderLayout.EAST);
         panel2.add(panel5, BorderLayout.NORTH);
