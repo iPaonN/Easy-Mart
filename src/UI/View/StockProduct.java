@@ -15,6 +15,7 @@ public class StockProduct extends JPanel implements ActionListener{
     private JButton filter, create;
     private JScrollPane scrollPane;
     private JComboBox sort;
+    private SubProduct subproduct;
     
     public StockProduct(){
         frame = new JFrame();
@@ -140,7 +141,7 @@ public class StockProduct extends JPanel implements ActionListener{
         
         frame.add(this);
         frame.setSize(1280,720);
-        frame.setVisible(false);
+        frame.setVisible(true);
     }
     public static void main(String[] args) {
         try {
@@ -160,4 +161,9 @@ public class StockProduct extends JPanel implements ActionListener{
             subPanel.revalidate();
         }
     }
+    
+    public JPanel getsubpanel(){
+        return subPanel;
+    }
+    
 }
