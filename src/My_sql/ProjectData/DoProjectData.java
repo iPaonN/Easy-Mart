@@ -106,20 +106,50 @@ public final class DoProjectData extends ProjectData{
             
             Connection conn = data.get_Connection();
 
+            try(PreparedStatement product_pstmt = conn.prepareStatement("SELECT * FROM product")){
             
-            try(PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM product")){
-            
-                ResultSet rs = pstmt.executeQuery();
+                ResultSet product_rs = product_pstmt.executeQuery();
                 
-                while (rs.next()) {
-                    this.copy_product(newname, rs.getInt("product_id"), rs.getString("product_name"),
-                            rs.getString("type"), rs.getDouble("price"), rs.getDouble("weight"),
-                            rs.getInt("quantity"), rs.getBlob("product_image"));
+                while (product_rs.next()) {
+                    this.copy_product(newname, product_rs.getInt("product_id"), product_rs.getString("product_name"),
+                            product_rs.getString("type"), product_rs.getDouble("price"), product_rs.getDouble("weight"),
+                            product_rs.getInt("quantity"), product_rs.getBlob("product_image"));
                 }
-                
-                
-                
             }
+            try(PreparedStatement icon_pstmt = conn.prepareStatement("SELECT Icon FROM project_icon")){
+            
+                ResultSet icon_rs = icon_pstmt.executeQuery();
+                
+                while (icon_rs.next()) {
+                    this.update_profile(newname, icon_rs.getBlob("Icon"));
+                }
+            }
+            try(PreparedStatement member_pstmt = conn.prepareStatement("SELECT * FROM memberteam")){
+            
+                ResultSet member_rs = member_pstmt.executeQuery();
+                
+                while (member_rs.next()) {
+                    
+                    if(!(member_rs.getString("staff_user").equals(user))){
+                        this.insert_member(newname, member_rs.getString("staff_user"), member_rs.getString("staff_access"));
+                    }
+                    
+                }
+            }
+            try(PreparedStatement history_pstmt = conn.prepareStatement("SELECT * FROM history")){
+            
+                ResultSet history_rs = history_pstmt.executeQuery();
+                
+                while (history_rs.next()) {
+                    
+                    this.copy_history(newname, history_rs.getInt("product_id"), 
+                            history_rs.getString("product_name"), history_rs.getInt("quantity"), 
+                            history_rs.getString("type"), history_rs.getString("action"), 
+                            history_rs.getTimestamp("action_time"),history_rs.getString("staff_user"));
+                    
+                }
+            }
+            this.remove_project(oldname);
         }catch (SQLException e){
             e.printStackTrace();
         }finally{
@@ -580,6 +610,33 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
+    public void copy_history(String schema, int product_id, String product_name, int quantity, String type, String action, Timestamp action_time, String user){
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("INSERT INTO history (product_id, product_name, quantity, type, action, action_time, staff_user) VALUES (?, ?, ?, ?, ?, ?, ?)")){
+
+                pstmt.setInt(1, product_id);
+                pstmt.setString(2, product_name); 
+                pstmt.setInt(3, quantity); 
+                pstmt.setString(4, type); 
+                pstmt.setString(5, action); 
+                pstmt.setTimestamp(6, action_time); 
+                pstmt.setString(7, user); 
+                
+                pstmt.executeUpdate();
+                    
+                System.out.println("Add history data completed.");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
     public ArrayList<History> get_Historys(String schema, String date){
         ///dd-MM-YYYY///
         ArrayList<History> allhisdata = new ArrayList<>();
@@ -671,6 +728,28 @@ public final class DoProjectData extends ProjectData{
                 
             }
         } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    public void update_profile(String schema, Blob blob){
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE project_icon SET ICON = ?")){
+                
+                pstmt.setBlob(1, blob);
+                
+                pstmt.executeUpdate();
+                
+                System.out.println("Change Image completed.");
+                
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }finally{
             data.disconnect();
@@ -805,9 +884,10 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
-    public static void main(String[] args) {
-        DoProjectData p1 = new DoProjectData();
-        System.out.println(p1.get_Historys("p_pj1", "28-03-2024").get(0).getTime());
+//    public static void main(String[] args) {
+//        DoProjectData p1 = new DoProjectData();
+//        p1.rename_schema("Test1", "t1", "t2");
+        //System.out.println(p1.get_Historys("p_pj1", "28-03-2024").get(0).getTime());
         
 //        try {
 //        ResultSet rs = p1.getRS("zedl3all_Project1", "history");
@@ -816,5 +896,5 @@ public final class DoProjectData extends ProjectData{
 //    } catch (Exception e){
 //        e.printStackTrace();
 //    }
-  }
+//  }
 }
