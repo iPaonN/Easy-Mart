@@ -21,7 +21,7 @@ public class AddMember {
         pempty3 = new JPanel();
         pempty4 = new JPanel();
         pempty5 = new JPanel();
-        jalert = new JLabel("Dont do that!!!");
+        jalert = new JLabel("");
         jAddmemeber = new JLabel("Add Member");
         jAddmemeber.setHorizontalAlignment(SwingConstants.CENTER);
         jemail = new JLabel("Email");
@@ -97,6 +97,47 @@ public class AddMember {
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainf.setVisible(true);
     }
+
+    public JComboBox getJcb1() {
+        return jcb1;
+    }
+
+    public void setJcb1(JComboBox jcb1) {
+        this.jcb1 = jcb1;
+    }
+
+    public JButton getBadd() {
+        return badd;
+    }
+
+    public void setBadd(JButton badd) {
+        this.badd = badd;
+    }
+
+    public JTextField getTfemial() {
+        return tfemial;
+    }
+
+    public void setTfemial(JTextField tfemial) {
+        this.tfemial = tfemial;
+    }
+
+    public JLabel getJalert() {
+        return jalert;
+    }
+
+    public void setJalert(JLabel jalert) {
+        this.jalert = jalert;
+    }
+
+    public JFrame getMainf() {
+        return mainf;
+    }
+
+    public void setMainf(JFrame mainf) {
+        this.mainf = mainf;
+    }
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

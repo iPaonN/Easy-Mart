@@ -267,6 +267,14 @@ public class Member extends JPanel{
             scrollPane.setBorder(new LineBorder(new Color(69, 104, 159), 4));
         }
     }
+
+    public JButton getAdd() {
+        return add;
+    }
+
+    public void setAdd(JButton add) {
+        this.add = add;
+    }
     
     public static void main(String[] args){
         try {

@@ -12,8 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import javax.swing.JOptionPane;
+import javax.swing.event.*;
 
-public class MemberController{
+public class MemberController implements ActionListener{
     private String username, projectname;
     private Member view;
     private AddMember adder;
@@ -30,7 +32,10 @@ public class MemberController{
         promanager = new DoProjectData();
         manager = new DoUserData();
         //model.setMemberdata(1, "Staff", "First", "Last", "MAIL", 1);
-        view.displaydata(getDataRows());
+        view.displaydata(this.getDataRows());
+        
+        //Add Listener
+        view.getAdd().addActionListener(this);
     }
     
 
@@ -41,7 +46,16 @@ public class MemberController{
     public void setView(Member view) {
         this.view = view;
     }
-    
+    public String getNameAdder(String email){
+        try{
+            ResultSet rs = promanager.getRS("staff", "staff_info");
+            return promanager.getStringdata(rs, "email", email, "staff_user");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     public ResultSet GetAllData() {
         My_sql sql = new My_sql();
         Connection conn = null;
@@ -96,7 +110,34 @@ public class MemberController{
         return rows.toArray(new Object[rows.size()][]);
     }
     
-    public static void main(String[] args) {
-        new MemberController("Teetat", "Test");
+    
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(view.getAdd())){
+            adder = new AddMember();
+            adder.getJcb1().addItem("Manager");
+            adder.getJcb1().addItem("Member");
+            adder.getBadd().addActionListener(this);
+        }
+        else if (e.getSource().equals(adder.getBadd())){
+            if (adder.getTfemial().getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Please enter email.");
+            }
+            else if (manager.CheckEmail(adder.getTfemial().getText()) == false){
+                adder.getJalert().setText("Don't have this email");
+                adder.getTfemial().setText("");
+            }
+            else {
+                String nmem = this.getNameAdder(adder.getTfemial().getText());
+                promanager.insert_member(this.projectname, nmem, (String)adder.getJcb1().getSelectedItem());
+                manager.UpdateProjectList(nmem, manager.GetProjectList(nmem), this.projectname);
+                adder.getMainf().dispose();
+            }
+        }
     }
+    
+//    public static void main(String[] args) {
+//        new MemberController("Teetat", "Teetat_b");
+//    }
 }

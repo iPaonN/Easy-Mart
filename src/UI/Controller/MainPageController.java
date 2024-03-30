@@ -94,6 +94,8 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
         }
         else if(e.getSource().equals(main.getTable())){
             int selectedRow = main.getTable().getSelectedRow();
+            int selectedColum = main.getTable().getSelectedColumn();
+//            System.out.println(selectedRow+" "+selectedColum);
             DefaultTableModel model = (DefaultTableModel)main.getTable().getModel();
             new MenuController(username, (String)model.getValueAt(selectedRow, 0));
             this.main.getFrame().dispose();

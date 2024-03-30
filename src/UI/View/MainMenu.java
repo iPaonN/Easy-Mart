@@ -22,7 +22,7 @@ public class MainMenu{
 
         //Create
         cp1 = new CircleProfile();
-        cp1.LoadImage("src/UI/Image/3.jpg");
+//        cp1.LoadImage("src/UI/Image/3.jpg");
         fr = new JFrame("MENU");
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gb1 = new GridBagConstraints();
