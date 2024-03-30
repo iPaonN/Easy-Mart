@@ -11,16 +11,28 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class MemberController{
+    private String username, projectname, schema;
     private Member view;
     private MemberModel model;
 
-    public MemberController() {
+    public MemberController(String username, String projectname) {
+        this.username = username;
+        this.projectname = projectname;
         view = new Member();
-        model = new MemberModel();
-        model.setMemberdata(1, "Staff", "First", "Last", "MAIL", 1);
+        model = new MemberModel(this.username, this.projectname);
+        this.schema = this.username+"_"+this.projectname;
+        //model.setMemberdata(1, "Staff", "First", "Last", "MAIL", 1);
         view.displaydata(getDataRows());
     }
 
+    public Member getView() {
+        return view;
+    }
+
+    public void setView(Member view) {
+        this.view = view;
+    }
+    
     public ResultSet GetAllData() {
         My_sql sql = new My_sql();
         Connection conn = null;
@@ -28,7 +40,7 @@ public class MemberController{
         ResultSet rs = null;
 
         try {
-            sql.set_Schema("zedl3all_Project1");
+            sql.set_Schema(this.schema);
             sql.connect();
             conn = sql.get_Connection();
             String query = "SELECT first_name, last_name, staff_access FROM memberteam";
@@ -76,6 +88,6 @@ public class MemberController{
     }
     
     public static void main(String[] args) {
-        new MemberController();
+        new MemberController("Teetat", "Test");
     }
 }
