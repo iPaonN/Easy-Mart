@@ -10,7 +10,7 @@ import java.awt.event.*;
 //import java.io.*;
 import javax.swing.*;
 //WIP
-public class OptionController extends JPanel implements ActionListener, MouseListener {
+public class OptionController implements ActionListener, MouseListener {
     private DoUserData manager;
     private DoProjectData pjm;
     private Option main;
@@ -21,14 +21,15 @@ public class OptionController extends JPanel implements ActionListener, MouseLis
         manager = new DoUserData();
         pjm = new DoProjectData();
         main = new Option();
-        im = new ImportFile("jpg");
         this.username = username;
         this.projectname = projectname;
-        this.setLayout(new BorderLayout());
-        this.add(main, BorderLayout.CENTER);
         main.getSaveButton().addActionListener(this);
         main.getProfileicon().addMouseListener(this);
         main.getSaveButton2().addActionListener(this);
+    }
+    
+    public Option getView(){
+        return main;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class OptionController extends JPanel implements ActionListener, MouseLis
             System.out.println(this.username + " clicked " + main.getSaveButton2().getClass());
             if (im.getPath().getAbsolutePath().equals("")){}
             else{
-                String imagePath = im.getPath().getAbsolutePath();
+//                String imagePath = im.getPath().getAbsolutePath();
 //                pjm.update_profile(this.username, (File)imagePath)
             }
         }
@@ -52,7 +53,7 @@ public class OptionController extends JPanel implements ActionListener, MouseLis
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(main.getProfileicon())) {
-
+            im = new ImportFile("jpg");
             String imagePath = im.getPath().getAbsolutePath();
 
             try {

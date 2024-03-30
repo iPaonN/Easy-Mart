@@ -45,7 +45,7 @@ public class MenuController implements ActionListener{
         main.getCardpanel().add(stock, "Stock");
         main.getCardpanel().add(member.getView(), "Member");
         main.getCardpanel().add(history, "History");
-        main.getCardpanel().add(option, "Option");
+        main.getCardpanel().add(option.getView(), "Option");
         
         //set inform
         main.getCp1().LoadImage(manager.GetProfileImage(this.username));
