@@ -10,6 +10,7 @@ public class MainMenu{
     private JLabel label, uns1, j1, j2;
     private JLabel Jicon1, Jicon2, Jicon3;
     private JButton bn1, bn2, bn3, bn4, bn5, bn6, bn9, bn10;
+    private JPanel pempty1;
     private JPanel panel, panel2, panel3, pane14, panel5, panel6, panel7, panel8, cardpanel;
     private ImageIcon icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9;
     private ImageIcon reicon1, reicon2, reicon3, reicon4, reicon5, reicon6, reicon9, reicon10, reicon11;
@@ -21,7 +22,7 @@ public class MainMenu{
 
         //Create
         cp1 = new CircleProfile();
-        //cp1.LoadImage("src/UI/Image/3.jpg");
+        cp1.LoadImage("src/UI/Image/3.jpg");
         fr = new JFrame("MENU");
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gb1 = new GridBagConstraints();
@@ -47,7 +48,7 @@ public class MainMenu{
         label.setBackground(new java.awt.Color(255, 255, 255));
         label.setFont(new Font("Arial", Font.CENTER_BASELINE, 40)); // NOI18N
         label.setForeground(new java.awt.Color(255, 255, 255));
-        uns1 = new JLabel("Tibet Sawangkan  ");
+        uns1 = new JLabel("Tibet Sawangkan");
         uns1.setFont(new Font("Arial", Font.PLAIN, 14)); // NOI18N
         uns1.setForeground(new java.awt.Color(255, 255, 255));
         j1 = new JLabel("     ");
@@ -59,6 +60,7 @@ public class MainMenu{
         panel6 = new JPanel();
         panel7 = new JPanel();
         panel8 = new JPanel();
+        pempty1 = new JPanel();
         cardpanel = new JPanel(new CardLayout());
         Jicon1 = new JLabel(reicon11);
 
@@ -113,6 +115,7 @@ public class MainMenu{
         panel2.setLayout(new BorderLayout());
         panel5.setLayout(new BorderLayout());
         panel6.setLayout(new BorderLayout());
+        pempty1.setLayout(new BorderLayout());
         panel5.setPreferredSize(new Dimension(200, 5));
         panel6.setPreferredSize(new Dimension(200, 5));
         panel2.setBackground(new java.awt.Color(69, 104, 159));
@@ -120,6 +123,7 @@ public class MainMenu{
         panel6.setBackground(new java.awt.Color(69, 104, 159));
         panel7.setBackground(new java.awt.Color(69, 104, 159));
         panel8.setBackground(new java.awt.Color(69, 104, 159));
+        pempty1.setBackground(new java.awt.Color(69, 104, 159));
         panel2.add(label, BorderLayout.WEST);
         panel2.add(panel7, BorderLayout.EAST);
         panel8.setLayout(new BorderLayout());
@@ -128,7 +132,9 @@ public class MainMenu{
         panel8.add(new JLabel("    "), BorderLayout.NORTH);
         panel8.add(new JLabel("    "), BorderLayout.SOUTH);
         panel7.setLayout(new BorderLayout());
-        panel7.add(uns1);
+        panel7.add(pempty1);
+        pempty1.add(uns1);
+        pempty1.add(new JLabel("  "), BorderLayout.EAST);
         cp1.setPreferredSize(new Dimension(40, 10));
         panel7.add(panel8, BorderLayout.EAST);
         panel2.add(panel5, BorderLayout.NORTH);
