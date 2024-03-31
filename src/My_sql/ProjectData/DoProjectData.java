@@ -157,6 +157,70 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
+    public void rename_schema_for_editprofile(String user, String oldSchema, String newSchema, String project){
+        
+        String oldname = oldSchema;
+        String newname = newSchema;
+        
+        this.Createtemplate(user, project);
+        
+        try{
+            data.set_Schema(oldname);
+            data.connect();
+            
+            Connection conn = data.get_Connection();
+
+            try(PreparedStatement product_pstmt = conn.prepareStatement("SELECT * FROM product")){
+            
+                ResultSet product_rs = product_pstmt.executeQuery();
+                
+                while (product_rs.next()) {
+                    this.copy_product(newname, product_rs.getInt("product_id"), product_rs.getString("product_name"),
+                            product_rs.getString("type"), product_rs.getDouble("price"), product_rs.getDouble("weight"),
+                            product_rs.getInt("quantity"), product_rs.getBlob("product_image"));
+                }
+            }
+            try(PreparedStatement icon_pstmt = conn.prepareStatement("SELECT Icon FROM project_icon")){
+            
+                ResultSet icon_rs = icon_pstmt.executeQuery();
+                
+                while (icon_rs.next()) {
+                    this.update_profile(newname, icon_rs.getBlob("Icon"));
+                }
+            }
+            try(PreparedStatement member_pstmt = conn.prepareStatement("SELECT * FROM memberteam")){
+            
+                ResultSet member_rs = member_pstmt.executeQuery();
+                
+                while (member_rs.next()) {
+                    
+                    if(!(member_rs.getString("staff_user").equals(user))){
+                        this.insert_member(newname, member_rs.getString("staff_user"), member_rs.getString("staff_access"));
+                    }
+                    
+                }
+            }
+            try(PreparedStatement history_pstmt = conn.prepareStatement("SELECT * FROM history")){
+            
+                ResultSet history_rs = history_pstmt.executeQuery();
+                
+                while (history_rs.next()) {
+                    
+                    this.copy_history(newname, history_rs.getInt("product_id"), 
+                            history_rs.getString("product_name"), history_rs.getInt("quantity"), 
+                            history_rs.getString("type"), history_rs.getString("action"), 
+                            history_rs.getTimestamp("action_time"),history_rs.getString("staff_user"));
+                    
+                }
+            }
+            this.remove_project(oldname);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
     public void delete_project(String username, String projectname){
         String schema = username + "_" + projectname;
         
