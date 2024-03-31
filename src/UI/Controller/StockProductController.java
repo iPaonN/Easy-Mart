@@ -24,7 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class StockProductController implements ActionListener, FocusListener{
+public class StockProductController implements ActionListener{
     private String username, projectname, schema;
     private StockProduct view;
     private DoProjectData promanager;
@@ -99,9 +99,6 @@ public class StockProductController implements ActionListener, FocusListener{
         }
     }
     
-    public static void main(String[] args) {
-        new StockProductController("Teetat", "Aun_OOP");
-    }
 //  
     public boolean isDouble(String str) { 
     try {  
@@ -123,11 +120,6 @@ public class StockProductController implements ActionListener, FocusListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(view.getCreate())){
             create = new CreateProduct();
-            create.getJsave().addActionListener(this);
-            create.getTfproduct().addFocusListener(this);
-            create.getTfprice().addFocusListener(this);
-            create.getTfamount().addFocusListener(this);
-            create.getTfweight().addFocusListener(this);
             create.getJnew().addActionListener(this);
             create.getJaddpic().addActionListener(this);
         }
@@ -167,12 +159,10 @@ public class StockProductController implements ActionListener, FocusListener{
             File selectedFile = fileChooser.getSelectedFile();
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
-                JLabel label = new JLabel(new ImageIcon(image));
-                JOptionPane.showMessageDialog(null, label);
-                ImageIcon i = new ImageIcon();
-                i.setImage(image);
-                JLabel j = new JLabel(i);
-                create.getPnorthinleft().add(j);
+                create.getPnorthinleft().add(new JLabel(new ImageIcon(image)));
+                create.getPnorthinleft().revalidate();
+                create.getPnorthinleft().repaint();
+                
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -180,51 +170,5 @@ public class StockProductController implements ActionListener, FocusListener{
         }
         
     }
-
-    @Override
-    public void focusGained(FocusEvent e) {
-        
-    }
-
-    @Override
-    public void focusLost(FocusEvent e) {
-        if(e.getSource().equals(create.getTfproduct())){
-            if(create.getTfproduct().getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Plese Enter Your Product Name.");
-            }
-            else if(model.checkProductName(create.getTfproduct().getText())== true){
-                JOptionPane.showMessageDialog(null, "This Product Name is already used.");
-                create.getTfproduct().setText("");
-            }
-        }
-        else if(e.getSource().equals(create.getTfprice())){
-            if(create.getTfprice().getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Plese Input Price.");
-            }
-            else if(this.isDouble(create.getTfprice().getText()) == false){
-                JOptionPane.showMessageDialog(null, "Price must be Double");
-                create.getTfprice().setText("");
-            }
-        }
-        else if(e.getSource().equals(create.getTfweight())){
-            if(create.getTfweight().getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Plese Input Weight.");
-            }
-            else if(this.isDouble(create.getTfweight().getText()) == false){
-                JOptionPane.showMessageDialog(null, "Weight must be Double");
-                create.getTfweight().setText("");
-            }
-        }
-        else if(e.getSource().equals(create.getTfamount())){
-            if(create.getTfamount().getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Plese Input Amount.");
-            }
-            else if(this.isInt(create.getTfamount().getText()) == false){
-                JOptionPane.showMessageDialog(null, "Weight must be Integer");
-                create.getTfamount().setText("");
-            }
-        }
-    }
-
     
 }
