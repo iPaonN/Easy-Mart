@@ -14,7 +14,7 @@ import java.awt.CardLayout;
 import java.awt.event.*;
 
 
-public class MenuController implements ActionListener{
+public class MenuController implements ActionListener, MouseListener{
     private DoUserData manager;
     private DoProjectData pjm;
     private MainMenu main;
@@ -53,6 +53,7 @@ public class MenuController implements ActionListener{
         
         
         //Add Event
+        main.getEasyMart().addMouseListener(this);
         main.getBn1().addActionListener(this);
         main.getBn2().addActionListener(this);
         main.getBn3().addActionListener(this);
@@ -81,6 +82,30 @@ public class MenuController implements ActionListener{
         else if (e.getSource().equals(main.getBn9())){
             cardcontroll.show(main.getCardpanel(), "Option");
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getSource().equals(main.getEasyMart())){
+            new MainPageController(this.username);
+            this.main.getFr().dispose();
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
     
 }

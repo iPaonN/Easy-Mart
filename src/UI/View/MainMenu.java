@@ -154,6 +154,10 @@ public class MainMenu{
         fr.setLocationRelativeTo(null);
         fr.setVisible(true);
     }
+    
+    public JLabel getEasyMart(){
+        return label;
+    }
 
     public JPanel getCardpanel() {
         return cardpanel;

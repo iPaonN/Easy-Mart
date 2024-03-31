@@ -300,6 +300,10 @@ public class MainPage implements MouseListener{
             }
         }
     }
+    
+    public JLabel getEasyMart(){
+        return martname;
+    }
 
     public JInternalFrame getAddProject() {
         return addProject;

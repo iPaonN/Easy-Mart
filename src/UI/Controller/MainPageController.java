@@ -11,7 +11,7 @@ import java.awt.Font;
 import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
+import java.awt.event.*;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,7 +23,7 @@ import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
 
 
-public class MainPageController implements MouseListener, FocusListener, ActionListener, DocumentListener, ListSelectionListener{
+public class MainPageController implements MouseListener, ActionListener, DocumentListener, ListSelectionListener{
     private String username;
     private ArrayList<String> projectlist;
     private MainPage main;
@@ -32,6 +32,7 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
     private DoProjectData pmanager;
     private JPopupMenu pop;
     private JMenuItem edit, change, logout;
+    private PopEditProfile editpro;
     ArrayList<String> test;
     public MainPageController(String username){
         this.pmanager = new DoProjectData();
@@ -58,9 +59,19 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
         pop.add(logout);
         main.getUsername().add(pop);
         
+        //Popupmenu
+        main.getUsername().addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+                    pop.show(main.getUsername(), e.getX(), e.getY());   
+            }
+        });
+        
         //AddListener
+        main.getEasyMart().addMouseListener(this);
+        edit.addActionListener(this);
+        change.addActionListener(this);
+        logout.addActionListener(this);
         main.getUsername().addMouseListener(this);
-        pop.addFocusListener(this);
         main.getBtnNew().addActionListener(this);
         main.getEnter().addActionListener(this);
         main.getSearch().getDocument().addDocumentListener(this);
@@ -80,25 +91,17 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource().equals(main.getUsername())){
-            pop.show(pop.getInvoker(), MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
-            if (pop.isVisible()) {
-                pop.setVisible(false);
-                System.out.println("isVisible");
-            } else {
-                pop.setVisible(true);
-                pop.requestFocus();
-                pop.setFocusable(true);
-                pop.grabFocus();
-            }
-        }
-        else if(e.getSource().equals(main.getTable())){
+        if(e.getSource().equals(main.getTable())){
             int selectedRow = main.getTable().getSelectedRow();
             int selectedColum = main.getTable().getSelectedColumn();
 //            System.out.println(selectedRow+" "+selectedColum);
             DefaultTableModel model = (DefaultTableModel)main.getTable().getModel();
             new MenuController(username, (String)model.getValueAt(selectedRow, 0));
             this.main.getFrame().dispose();
+        }
+        else if (e.getSource().equals(main.getEasyMart())){
+           new MainPageController(this.username);
+           this.main.getFrame().dispose();
         }
         
         
@@ -129,19 +132,6 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
     @Override
     public void mouseExited(MouseEvent e) {
         
-    }
-
-    @Override
-    public void focusGained(FocusEvent e) {
-        
-    }
-
-    @Override
-    public void focusLost(FocusEvent e) {
-        if (e.getSource().equals(pop)){
-            pop.removeAll();
-            pop.setVisible(false);
-        }
     }
 
     @Override
@@ -178,8 +168,16 @@ public class MainPageController implements MouseListener, FocusListener, ActionL
                 main.addRow(this.projectlist);
             }
         }
-        
-    
+        else if (e.getSource().equals(edit)){
+            editpro = new PopEditProfile(this.username);
+        }
+//        else if (e.getSource().equals(this.change)){
+//            editpass = new ChangePassword();
+//        }
+        else if (e.getSource().equals(this.logout)){
+            new LoginController();
+            this.main.getFrame().dispose();
+        }
     }
 
     @Override
