@@ -2,6 +2,7 @@
 package UI.View;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
@@ -86,7 +87,29 @@ public class DashBoard extends JPanel{
         mainf.setLocationRelativeTo(null);
         mainf.setVisible(false);
     }
+    
+    public void setSubDashBoard1ActionListener(ActionListener listener) {
+        sdb1.getBday().addActionListener(listener);
+        sdb1.getBweek().addActionListener(listener);
+        sdb1.getbYear().addActionListener(listener);
+    }
 
+    public void setSubDashBoard2ActionListener(ActionListener listener) {
+        sdb2.getBday().addActionListener(listener);
+        sdb2.getBweek().addActionListener(listener);
+        sdb2.getbYear().addActionListener(listener);
+    }
+
+    public void setSubDashBoard3ActionListener(ActionListener listener) {
+        sdb3.getBday().addActionListener(listener);
+        sdb3.getBweek().addActionListener(listener);
+        sdb3.getbYear().addActionListener(listener);
+    }
+    
+    public JFrame getmain(){
+        return mainf;
+    }
+    
     public JPanel getPsubmain() {
         return psubmain;
     }
@@ -97,5 +120,17 @@ public class DashBoard extends JPanel{
     
     public static void main(String[] args) {
         new DashBoard();
+    }
+    
+    public SubDashBoard_1 getSdb1() {
+        return sdb1;
+    }
+
+    public SubDashBoard_2 getSdb2() {
+        return sdb2;
+    }
+
+    public SubDashBoard_3 getSdb3() {
+        return sdb3;
     }
 }
