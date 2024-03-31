@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
-public class History extends JPanel{
+public class HistoryView extends JPanel{
 
     private JFrame fr;
     private JLabel label, uns1, j1, j2;
@@ -23,7 +23,7 @@ public class History extends JPanel{
     private DefaultTableModel model;
     private final Object[] columnName = {"Date", "View"};
     private Object[][] dataRows;
-    public History() {
+    public HistoryView() {
 
         fr = new JFrame("History");
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -265,7 +265,7 @@ public class History extends JPanel{
             e.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
-            new History();
+            new HistoryView();
         });
     }
 }

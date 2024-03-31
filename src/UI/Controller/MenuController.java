@@ -4,7 +4,7 @@ import My_sql.ProjectData.DoProjectData;
 import My_sql.UserData.DoUserData;
 import UI.View.Assistance;
 import UI.View.DashBoard;
-import UI.View.History;
+import UI.View.HistoryView;
 import UI.View.MainMenu;
 import UI.View.Member;
 import UI.View.Option;

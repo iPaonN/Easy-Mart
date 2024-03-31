@@ -1,6 +1,6 @@
 package UI.Controller;
 import My_sql.My_sql;
-import UI.View.History;
+import UI.View.HistoryView;
 import UI.View.ViewHistory;
 import java.io.*;
 import java.awt.event.*;
@@ -13,27 +13,43 @@ import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.util.*;
+import java.time.*;
+import java.time.format.*;
 
 public class HistoryController {
     private String username, projectname, schema;
-    private History view;
+    private HistoryView view;
     private DoProjectData datab;
     private Object[][] dataRows;
     public HistoryController(String username, String projectname){
         this.username = username;
         this.projectname = projectname;
-        view = new History();
+        view = new HistoryView();
         datab = new DoProjectData();
         this.schema = this.projectname;
-        
+        this.get_data();
 //        dataRows = new Object[][] {{"3/3/2024"}, {"2/3/2024"}, {"1/3/2024"}, {"123"}, {"456"}};
         
         view.displaydata(this.getDataRows());
         
     }
-    public UI.View.History getView() {
+    public UI.View.HistoryView getView() {
         return view;
     }
+    
+    public void get_data(){
+        ArrayList<History> his_data = datab.getAll_Historys(schema);
+        HashSet<String> all_date_Set = new HashSet<>();
+        for(History i: his_data){
+            LocalDateTime LDT = i.getAction_date();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String formattedDateTime = LDT.format(formatter);
+            all_date_Set.add(formattedDateTime);
+        }
+        System.out.println(all_date_Set);
+    }
+    
+    
     public ResultSet GetAllData() {
         My_sql sql = new My_sql();
         Connection conn = null;
@@ -75,7 +91,7 @@ public class HistoryController {
             e.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
-            new HistoryController("Thanasit", "pro1");
+            new HistoryController("zedl3all", "zedl3all_pj1");
         });
     }
 }
