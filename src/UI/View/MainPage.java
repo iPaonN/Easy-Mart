@@ -12,7 +12,8 @@ public class MainPage implements MouseListener{
     private JPanel mainbg, top, bgwhite, bd1, bd2, bd3, bd4, bd5, searchPanel, tablePanel, topPanel;
     private JPanel profilePanel, white1, white2, white3, bottom, btnPanel, martPanel;
     private JPanel pempty1, mainPanel, innerPanel, enPanel;
-    private JLabel martname, username, iconLabel, help, support, iconLabel2, nameLabel;
+    private JLabel martname, username, iconLabel, help, support, iconLabel2, nameLabel, supportText;
+    private JLabel lb1, lb2, lb3, lb4;
     private JTextField search, insertname;
     private JButton btnNew, btnImport, enter;
     private JTable table;
@@ -24,7 +25,7 @@ public class MainPage implements MouseListener{
     private CircleProfile cp1;
     private final Object[] columnName = {"Name", "Option"};
     private ArrayList<String> projectlist;
-
+    
     public MainPage(){
         //CREATE OBJECT
         cp1 = new CircleProfile();
@@ -65,9 +66,14 @@ public class MainPage implements MouseListener{
         martPanel = new JPanel();
         help = new JLabel("Help");
         support = new JLabel("Support");
+        supportText = new JLabel("Contact Email : 66070082@kmitl.ac.th");
         helpFrame = new JInternalFrame("Help", false, true);
         supportFrame = new JInternalFrame("Support", false, true);
         addProject = new JInternalFrame("New Project", false, true);
+        lb1 = new JLabel(" 1. Click new and enter projectname to create");
+        lb2 = new JLabel(" 2. Enter your project that your create");
+        lb3 = new JLabel(" 3. Add product and member");
+        lb4 = new JLabel(" 4. Enjoy");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //SET LAYOUT
@@ -142,7 +148,6 @@ public class MainPage implements MouseListener{
         //TABLE
         scrollPane.setViewportView(table);
         table.setModel(model);
-        model.setColumnIdentifiers(columnName);
         projectlist = new ArrayList<String>();
         projectlist.add("a");
         projectlist.add("b");
@@ -178,6 +183,25 @@ public class MainPage implements MouseListener{
         helpFrame.setLocation(600, 320);
         supportFrame.setSize(400,250);
         supportFrame.setLocation(300, 300);
+        supportText.setHorizontalAlignment(JLabel.CENTER);
+        supportText.setFont(new Font("Arial", Font.BOLD, 20));
+        supportText.setForeground(Color.white);
+        supportFrame.add(supportText);
+        supportFrame.setBackground(new Color(69, 104, 159));
+        helpFrame.setBackground(new Color(69, 104, 159));
+        helpFrame.setLayout(new GridLayout(4,0));
+        helpFrame.add(lb1);
+        lb1.setFont(new Font("Arial", Font.BOLD, 16));
+        lb1.setForeground(Color.white);
+        helpFrame.add(lb2);
+        lb2.setFont(new Font("Arial", Font.BOLD, 16));
+        lb2.setForeground(Color.white);
+        helpFrame.add(lb3);
+        lb3.setFont(new Font("Arial", Font.BOLD, 16));
+        lb3.setForeground(Color.white);
+        helpFrame.add(lb4);
+        lb4.setFont(new Font("Arial", Font.BOLD, 16));
+        lb4.setForeground(Color.white);
         frame.add(helpFrame);
         frame.add(supportFrame);
         
@@ -187,7 +211,7 @@ public class MainPage implements MouseListener{
         innerPanel = new JPanel();
         enter = new JButton("ENTER");
         enPanel = new JPanel();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         nameLabel.setFont(new Font("Arial", Font.BOLD, 36));
         nameLabel.setForeground(Color.white);
