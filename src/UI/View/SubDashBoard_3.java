@@ -96,4 +96,46 @@ public class SubDashBoard_3 extends JPanel{
             new SubDashBoard_3();
         });;
     }
+    
+    public JLabel getjincrease(){
+        return jincrease;
+    }
+    
+    public JLabel getjdecrease(){
+        return jdecrease;
+    }
+    
+    public JPanel getpempty2(){
+        return pempty2;
+    }
+    
+    public void setsymbol(String s){
+        if (s == "+") {
+            pempty2.remove(jincrease);
+            pempty2.add(jincrease);
+        } else if (s == "-") {
+            pempty2.remove(jincrease);
+            pempty2.add(jdecrease);
+        }
+    }
+    
+    public JButton getBday() {
+        return bday;
+    }
+
+    public JButton getBweek() {
+        return bweek;
+    }
+
+    public JButton getbYear() {
+        return bYear;
+    }
+    
+    public JLabel getcompareprice(){
+        return jcompareprice;
+    }
+    
+    public void setcompareprice(String s){
+        jcompareprice.setText(s);
+    }
 }
