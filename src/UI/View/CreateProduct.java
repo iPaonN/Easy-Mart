@@ -370,6 +370,14 @@ public class CreateProduct extends JPanel {
     public void setPnorthinleft(JPanel pnorthinleft) {
         this.pnorthinleft = pnorthinleft;
     }
+
+    public JFrame getMainf() {
+        return mainf;
+    }
+
+    public void setMainf(JFrame mainf) {
+        this.mainf = mainf;
+    }
     
     
     
