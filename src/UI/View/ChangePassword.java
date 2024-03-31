@@ -129,4 +129,20 @@ public class ChangePassword {
     public static void main(String[] args) {
         new ChangePassword();
     }
+    
+    public JPasswordField getPasswordField(){
+        return jt;
+    }
+    
+    public JPasswordField getPasswordFieldConfirm(){
+        return jt2;
+    }
+    
+    public JButton getChangeButton(){
+        return bn1;
+    }
+    
+    public JFrame getFr(){
+        return fr;
+    }
 }

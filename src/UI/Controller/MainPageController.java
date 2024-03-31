@@ -33,6 +33,7 @@ public class MainPageController implements MouseListener, ActionListener, Docume
     private JPopupMenu pop;
     private JMenuItem edit, change, logout;
     private PopEditProfile editpro;
+    private PopEditPassword editpass;
     ArrayList<String> test;
     public MainPageController(String username){
         this.pmanager = new DoProjectData();
@@ -62,7 +63,7 @@ public class MainPageController implements MouseListener, ActionListener, Docume
         //Popupmenu
         main.getUsername().addMouseListener(new MouseAdapter(){
             public void mouseClicked(MouseEvent e){
-                    pop.show(main.getUsername(), e.getX(), e.getY());   
+                    pop.show(main.getUsername(), e.getX(), e.getY());
             }
         });
         
@@ -171,9 +172,9 @@ public class MainPageController implements MouseListener, ActionListener, Docume
         else if (e.getSource().equals(edit)){
             editpro = new PopEditProfile(this.username);
         }
-//        else if (e.getSource().equals(this.change)){
-//            editpass = new ChangePassword();
-//        }
+        else if (e.getSource().equals(this.change)){
+            editpass = new PopEditPassword(this.username);
+        }
         else if (e.getSource().equals(this.logout)){
             new LoginController();
             this.main.getFrame().dispose();
