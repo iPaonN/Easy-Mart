@@ -3,14 +3,17 @@ package UI.Controller;
 
 import Import_Export.ImportFile;
 import My_sql.UserData.*;
+import My_sql.ProjectData.*;
 import UI.View.*;
 import java.awt.event.*;
 import java.io.File;
 import javax.swing.*;
+import java.util.*;
 
 //Made by Pao WIP CAN'T SET **Initiate User's profile
 public class PopEditProfile implements ActionListener, MouseListener{
-    private DoUserData manager;
+    private DoUserData manager, DUD;
+    private DoProjectData DPD;
     private ImportFile im;
     private EditProfile main;
     private String username;
@@ -75,7 +78,24 @@ public class PopEditProfile implements ActionListener, MouseListener{
             else{
                 manager.ChangeFirstname(manager.Get_User(this.username).getFirst_name(), main.getFirstNameField().getText());
                 manager.ChangeLastname(manager.Get_User(this.username).getLast_name(), main.getLastNameField().getText());
+                
+                DPD = new DoProjectData();
+                String oldusername = this.username;
+                String newusername = main.getUsernameField().getText();
+                
+                ArrayList<String> allPJ = manager.GetProjectList(oldusername);
+                for(String i : allPJ){
+                    System.out.println(i);
+                    String []Pjname = i.split("_");
+                    System.out.println(Pjname[0]);
+                    System.out.println(Pjname[1]);
+                    DPD.rename_schema_for_editprofile(newusername, oldusername+"_"+Pjname[1], newusername+"_"+Pjname[1], Pjname[1]);
+                    manager.RenameProject(oldusername, oldusername+"_"+Pjname[1], newusername+"_"+Pjname[1]);
+                }
+                
                 manager.ChangeUsername(this.username, main.getUsernameField().getText());
+                
+                
                 System.out.println(manager.Get_User(this.username).getFirst_name());
                 this.mainpage.getFr().dispose();
                 new MainPageController(main.getUsernameField().getText());
