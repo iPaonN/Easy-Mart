@@ -249,17 +249,17 @@ public class CreateProduct extends JPanel {
         pempty18.setBackground(new Color(69, 104, 159));
         pempty19.setBackground(new Color(69, 104, 159));
         
-        jsave.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String name = tfproduct.getText();
-                String type = String.valueOf(jcbtype.getSelectedItem());
-                Double price = Double.parseDouble(tfprice.getText());
-                Double weight = Double.parseDouble(tfweight.getText());
-                int amount = Integer.parseInt(tfamount.getText());
-                model.SetProductdata( name, 1, price, weight, amount);
-                JOptionPane.showMessageDialog(mainf, "Done!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
+//        jsave.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                String name = tfproduct.getText();
+//                String type = String.valueOf(jcbtype.getSelectedItem());
+//                Double price = Double.parseDouble(tfprice.getText());
+//                Double weight = Double.parseDouble(tfweight.getText());
+//                int amount = Integer.parseInt(tfamount.getText());
+//                model.SetProductdata( name, 1, price, weight, amount);
+//                JOptionPane.showMessageDialog(mainf, "Done!", "Success", JOptionPane.INFORMATION_MESSAGE);
+//            }
+//        });
         
         //JFrmae
         this.add(pnorth, BorderLayout.CENTER);
@@ -282,45 +282,78 @@ public class CreateProduct extends JPanel {
             new CreateProduct();
         });
     }
-    
-    public void setTfproductText(String text) {
-        tfproduct.setText(text);
+
+    public JButton getJnew() {
+        return jnew;
     }
 
-    public String getTfproductText() {
-        return tfproduct.getText();
+    public void setJnew(JButton jnew) {
+        this.jnew = jnew;
     }
 
-    public void setTfpriceText(String text) {
-        tfprice.setText(text);
+    public JButton getJaddpic() {
+        return jaddpic;
     }
 
-    public String getTfpriceText() {
-        return tfprice.getText();
+    public void setJaddpic(JButton jaddpic) {
+        this.jaddpic = jaddpic;
     }
 
-    public void setTfweightText(String text) {
-        tfweight.setText(text);
-    }
-
-    public String getTfweightText() {
-        return tfweight.getText();
-    }
-
-    public void setTfamountText(String text) {
-        tfamount.setText(text);
-    }
-
-    public String getTfamountText() {
-        return tfamount.getText();
-    }
-    
-    public JButton getSave(){
+    public JButton getJsave() {
         return jsave;
     }
-    
-    public JComboBox getType(){
+
+    public void setJsave(JButton jsave) {
+        this.jsave = jsave;
+    }
+
+    public JComboBox getJcbtype() {
         return jcbtype;
     }
+
+    public void setJcbtype(JComboBox jcbtype) {
+        this.jcbtype = jcbtype;
+    }
+
+    public JTextField getTfproduct() {
+        return tfproduct;
+    }
+
+    public void setTfproduct(JTextField tfproduct) {
+        this.tfproduct = tfproduct;
+    }
+
+    public JTextField getTfprice() {
+        return tfprice;
+    }
+
+    public void setTfprice(JTextField tfprice) {
+        this.tfprice = tfprice;
+    }
+
+    public JTextField getTfweight() {
+        return tfweight;
+    }
+
+    public void setTfweight(JTextField tfweight) {
+        this.tfweight = tfweight;
+    }
+
+    public JTextField getTfamount() {
+        return tfamount;
+    }
+
+    public void setTfamount(JTextField tfamount) {
+        this.tfamount = tfamount;
+    }
+
+    public JTextField getTfID() {
+        return tfID;
+    }
+
+    public void setTfID(JTextField tfID) {
+        this.tfID = tfID;
+    }
+    
     
 }

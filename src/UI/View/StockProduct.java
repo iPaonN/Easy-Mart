@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-public class StockProduct extends JPanel implements ActionListener{
+public class StockProduct extends JPanel{
     private JFrame frame;
     private JPanel background, bg1, bg2, bg3, bg4, main, textPanel, searchPanel, productPanel, bdwhite;
     private JPanel white1, white2, white3, white4, innerPanel, bigsearch, bigscroll, btnPanel, subPanel;
@@ -109,7 +109,6 @@ public class StockProduct extends JPanel implements ActionListener{
         create.setFocusable(false);
         btnPanel.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
         btnPanel.setBackground(Color.white);
-        create.addActionListener(this);
         
         //IN SCROLLPANE
         scrollPane.setViewportView(subPanel);
@@ -145,6 +144,23 @@ public class StockProduct extends JPanel implements ActionListener{
         frame.setLocationRelativeTo(null);
         frame.setVisible(false);
     }
+
+    public JPanel getSubPanel() {
+        return subPanel;
+    }
+
+    public void setSubPanel(JPanel subPanel) {
+        this.subPanel = subPanel;
+    }
+
+    public JButton getCreate() {
+        return create;
+    }
+
+    public void setCreate(JButton create) {
+        this.create = create;
+    }
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -155,18 +171,5 @@ public class StockProduct extends JPanel implements ActionListener{
             new StockProduct();
         });
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(create)){
-            cp = new CreateProduct();
-        }
-    }
     
-    public JPanel getsubpanel(){
-        return subPanel;
-    }
-    public JButton getcreate(){
-        return create;
-    }
 }
