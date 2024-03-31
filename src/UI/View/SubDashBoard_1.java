@@ -88,4 +88,24 @@ public class SubDashBoard_1 extends JPanel{
             new SubDashBoard_1();
         });;
     }
+    
+    public JButton getBday() {
+        return bday;
+    }
+
+    public JButton getBweek() {
+        return bweek;
+    }
+
+    public JButton getbYear() {
+        return bYear;
+    }
+    
+    public JLabel getprice(){
+        return jprice;
+    }
+    
+    public void setprice(String s){
+        jprice.setText(s);
+    }
 }
