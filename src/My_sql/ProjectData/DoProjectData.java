@@ -356,6 +356,69 @@ public final class DoProjectData extends ProjectData{
     
     }
     
+    public ArrayList<Product> getAll_product(String schema){
+        ArrayList<Product> allproduct = new ArrayList<>();
+        Product p1 = null;
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM product")){
+                
+                ResultSet rs = pstmt.executeQuery();
+                
+                while(rs.next()){
+                    p1 = new Product();
+                    p1.setId(rs.getInt("product_id"));
+                    p1.setName(rs.getString("product_name"));
+                    p1.setType(rs.getString("type"));
+                    p1.setPrice(rs.getDouble("price"));
+                    p1.setWeight(rs.getDouble("weight"));
+                    p1.setQuantity(rs.getInt("quantity"));
+                    p1.setImage(rs.getBlob("product_image"));
+                    allproduct.add(p1);
+                }
+                    
+                System.out.println("get All product data completed.");
+                
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+            return allproduct;
+        }
+        
+    }
+    
+    public HashSet<String> getAll_Type(String schema){
+        HashSet<String> type = new HashSet<>();
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT type FROM product")){
+                
+                ResultSet rs = pstmt.executeQuery();
+                
+                while(rs.next()){
+                    type.add(rs.getString("type"));
+                }
+                    
+                System.out.println("get All type data completed.");
+                
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+            return type;
+        }
+    }
     
     public void remove_product(String schema, String user, String product_name){
         try{
