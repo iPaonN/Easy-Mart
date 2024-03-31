@@ -720,7 +720,7 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
-    public ArrayList<History> get_Historys(String schema, String date){
+    public ArrayList<History> get_Historys_date(String schema, String date){
         ///dd-MM-YYYY///
         ArrayList<History> allhisdata = new ArrayList<>();
         
@@ -755,7 +755,6 @@ public final class DoProjectData extends ProjectData{
                 
             }
             
-        
         }catch (SQLException e){
             e.printStackTrace();
         }finally{
@@ -763,7 +762,129 @@ public final class DoProjectData extends ProjectData{
             return allhisdata;
         }
         
-    } 
+    }
+    
+    public ArrayList<History> get_Historys_month(String schema, String month){
+        //MM//
+        ArrayList<History> allhisdata = new ArrayList<>();
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("MM");
+            java.util.Date utilDate = sdf.parse(month);
+            
+            String formattedDate = sdf.format(utilDate);
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM history WHERE DATE_FORMAT(action_time, '%m') = ?")){
+            
+                pstmt.setString(1, formattedDate);
+                
+                ResultSet rs = pstmt.executeQuery();
+                
+                while(rs.next()){
+                    Timestamp actionTime = rs.getTimestamp("action_time");
+                    LocalDateTime localDateTime = actionTime.toLocalDateTime();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    String time = localDateTime.format(formatter);
+                    allhisdata.add(new History(rs.getInt("history_id"), 
+                            rs.getInt("product_id"), rs.getString("product_name"), 
+                            rs.getInt("quantity"), rs.getString("type"), 
+                            rs.getString("action"), localDateTime , rs.getString("staff_user"), time));
+                    
+                    System.out.println("Get History completed.");
+                }
+                
+            }
+            
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+            return allhisdata;
+        }
+        
+    }
+    public ArrayList<History> get_Historys_year(String schema, String year){
+        ///YYYY///
+        ArrayList<History> allhisdata = new ArrayList<>();
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+            java.util.Date utilDate = sdf.parse(year);
+            
+            String formattedDate = sdf.format(utilDate);
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM history WHERE DATE_FORMAT(action_time, '%Y') = ?")){
+            
+                pstmt.setString(1, formattedDate);
+                
+                ResultSet rs = pstmt.executeQuery();
+                
+                while(rs.next()){
+                    Timestamp actionTime = rs.getTimestamp("action_time");
+                    LocalDateTime localDateTime = actionTime.toLocalDateTime();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    String time = localDateTime.format(formatter);
+                    allhisdata.add(new History(rs.getInt("history_id"), 
+                            rs.getInt("product_id"), rs.getString("product_name"), 
+                            rs.getInt("quantity"), rs.getString("type"), 
+                            rs.getString("action"), localDateTime , rs.getString("staff_user"), time));
+                    
+                    System.out.println("Get History completed.");
+                }
+                
+            }
+            
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+            return allhisdata;
+        }
+        
+    }
+    public ArrayList<History> getAll_Historys(String schema){
+        ArrayList<History> allhisdata = new ArrayList<>();
+        
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+                
+            try(PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM history")){
+            
+                ResultSet rs = pstmt.executeQuery();
+                
+                while(rs.next()){
+                    Timestamp actionTime = rs.getTimestamp("action_time");
+                    LocalDateTime localDateTime = actionTime.toLocalDateTime();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    String time = localDateTime.format(formatter);
+                    allhisdata.add(new History(rs.getInt("history_id"), 
+                            rs.getInt("product_id"), rs.getString("product_name"), 
+                            rs.getInt("quantity"), rs.getString("type"), 
+                            rs.getString("action"), localDateTime , rs.getString("staff_user"), time));
+                    
+                    System.out.println("Get History completed.");
+                }
+                
+            }
+            
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+            return allhisdata;
+        }
+        
+    }
     
     private final void INSERT_PROFILE(String schema){
         try{
@@ -969,7 +1090,10 @@ public final class DoProjectData extends ProjectData{
     
 //    public static void main(String[] args) {
 //        DoProjectData p1 = new DoProjectData();
-//        p1.rename_schema("Test1", "t1", "t2");
+//        String schema = "zedl3all_pj1";
+//        System.out.println(p1.get_Historys_year(schema,"2024"));
+        
+        //p1.rename_schema("Test1", "t1", "t2");
         //System.out.println(p1.get_Historys("p_pj1", "28-03-2024").get(0).getTime());
         
 //        try {
