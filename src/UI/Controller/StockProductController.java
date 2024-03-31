@@ -7,13 +7,22 @@ import UI.View.CreateProduct;
 import UI.View.CreateType;
 import UI.View.StockProduct;
 import UI.View.SubProduct;
+import java.awt.Image;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class StockProductController implements ActionListener, FocusListener{
     private String username, projectname, schema;
@@ -119,6 +128,8 @@ public class StockProductController implements ActionListener, FocusListener{
             create.getTfprice().addFocusListener(this);
             create.getTfamount().addFocusListener(this);
             create.getTfweight().addFocusListener(this);
+            create.getJnew().addActionListener(this);
+            create.getJaddpic().addActionListener(this);
         }
         else if (e.getSource().equals(create.getJsave())){
             if(create.getTfproduct().getText().equals("")){
@@ -142,7 +153,31 @@ public class StockProductController implements ActionListener, FocusListener{
             else{
                 System.out.println(model.checkProductName(create.getTfproduct().getText()));
             }
+        }
+        else if (e.getSource().equals(create.getJaddpic())){
+            JFileChooser fileChooser = new JFileChooser();
+        
+        // Optionally, restrict file types to images
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+        
+        int returnValue = fileChooser.showOpenDialog(null);
+        
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try {
+                BufferedImage image = ImageIO.read(selectedFile);
+                JLabel label = new JLabel(new ImageIcon(image));
+                JOptionPane.showMessageDialog(null, label);
+                ImageIcon i = new ImageIcon();
+                i.setImage(image);
+                JLabel j = new JLabel(i);
+                create.getPnorthinleft().add(j);
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
+        }
+        }
         
     }
 
