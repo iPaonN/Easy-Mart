@@ -72,7 +72,7 @@ public class IncomeCompareGraph extends JPanel{
         this.add(psouth, BorderLayout.SOUTH);
         this.setBorder(new LineBorder(new Color(69, 104, 159), 3));
         mainf.add(this);
-        mainf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainf.pack();
         mainf.setLocationRelativeTo(null);
         mainf.setVisible(false);

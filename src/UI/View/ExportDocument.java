@@ -106,6 +106,7 @@ public class ExportDocument {
         mainf.add(pmain);
         mainf.setSize(450, 300);
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        mainf.setLocationRelativeTo(null);
         mainf.setVisible(true);
     }
     public static void main(String[] args) {

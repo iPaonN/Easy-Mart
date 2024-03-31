@@ -180,6 +180,7 @@ public class Assistance extends JPanel {
         fr.setLayout(new BorderLayout());
         fr.add(this);
         fr.setSize(1280, 720);
+        fr.setLocationRelativeTo(null);
         fr.setVisible(false);
     }
 

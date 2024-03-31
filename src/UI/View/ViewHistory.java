@@ -94,6 +94,7 @@ public class ViewHistory {
         frame.add(empty2, BorderLayout.EAST);
         frame.add(empty3, BorderLayout.SOUTH);
         frame.setSize(950,500);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     

@@ -149,8 +149,9 @@ public class MainMenu{
         fr.add(panel2, BorderLayout.NORTH);
         fr.add(panel, BorderLayout.WEST);
         fr.add(cardpanel, BorderLayout.CENTER);
-
+        
         fr.setSize(1280, 720);
+        fr.setLocationRelativeTo(null);
         fr.setVisible(true);
     }
 

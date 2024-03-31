@@ -123,6 +123,7 @@ public class ChangePassword {
         fr.setResizable(true);
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fr.setSize(400,250);
+        fr.setLocationRelativeTo(null);
         fr.setVisible(true);
     }
     public static void main(String[] args) {

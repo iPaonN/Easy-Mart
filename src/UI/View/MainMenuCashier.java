@@ -141,6 +141,7 @@ public class MainMenuCashier {
         fr.add(panel, BorderLayout.WEST);
         fr.add(ca1);
         fr.setSize(1280, 720);
+        fr.setLocationRelativeTo(null);
         fr.setVisible(true);
     }
 

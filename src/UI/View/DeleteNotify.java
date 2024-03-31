@@ -70,6 +70,7 @@ public class DeleteNotify {
         fr.add(panel4);
         fr.setResizable(false);
         fr.setSize(320, 220);
+        fr.setLocationRelativeTo(null);
         fr.setVisible(true);
     }
 

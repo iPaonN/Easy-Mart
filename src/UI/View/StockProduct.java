@@ -142,6 +142,7 @@ public class StockProduct extends JPanel implements ActionListener{
         
         frame.add(this);
         frame.setSize(1280,720);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(false);
     }
     public static void main(String[] args) {

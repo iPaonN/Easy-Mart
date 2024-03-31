@@ -62,6 +62,7 @@ public class Addproject implements ActionListener{
         frame.add(mainPanel);
         frame.setSize(450,300);
         frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     public static void main(String[] args) {

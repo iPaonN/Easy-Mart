@@ -218,6 +218,7 @@ public class Option extends JPanel {
         mainf.setIconImage(i2.getImage());
         mainf.setSize(1280, 720);
         mainf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainf.setLocationRelativeTo(null);
         mainf.setVisible(false);
     }
     

@@ -216,6 +216,7 @@ public class History extends JPanel{
         fr.add(this);
         //fr.add(panel, BorderLayout.WEST);
         fr.setSize(1280, 720);
+        fr.setLocationRelativeTo(null);
         fr.setVisible(false);
     }
     public Object[][] getDataRows() {

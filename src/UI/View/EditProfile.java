@@ -139,6 +139,7 @@ public class EditProfile {
         mainf.add(pmain);
         mainf.setSize(300, 600);
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        mainf.setLocationRelativeTo(null);
         mainf.setVisible(true);
     }
     public static void main(String[] args) {

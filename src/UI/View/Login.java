@@ -229,9 +229,10 @@ public class Login {
         fr1.add(p2);
         fr1.setBackground(new Color(101, 113, 132));
         fr1.setResizable(true);
-        fr1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fr1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr1.setVisible(true);
         fr1.setSize(1280, 720);
+        fr1.setLocationRelativeTo(null);
         fr1.setIconImage(i1.getImage());
     }
     public JFrame getFr1() {

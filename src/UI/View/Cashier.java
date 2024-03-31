@@ -147,6 +147,7 @@ public class Cashier extends JPanel implements ActionListener {
         this.add(background);
         frame.add(this);
         frame.setSize(1280, 720);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(false);
     }
 

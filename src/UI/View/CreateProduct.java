@@ -9,13 +9,13 @@ import javax.swing.border.LineBorder;
 public class CreateProduct extends JPanel {
     private String username, projectname, schema;
     private JFrame mainf;
-    private JPanel pnorth, psouth, pnorthleft, pnorthright, pnorthinleft;
+    private JPanel pnorth, psouth, pnorthleft, pnorthright, pnorthinleft, pID;
     private JPanel pempty1, pempty2, pempty3, pempty4, pempty5, pempty6, pempty7, pempty8, pempty9;
-    private JPanel pempty10, pempty11, pempty12, pempty13, pempty14, pempty15, pempty16, pempty17;
-    private JLabel jproduct, jtype, jprice, jweight, jamount;
+    private JPanel pempty10, pempty11, pempty12, pempty13, pempty14, pempty15, pempty16, pempty17, pempty18, pempty19;
+    private JLabel jproduct, jtype, jprice, jweight, jamount, jID;
     private JButton jnew, jaddpic, jsave;
     private JComboBox jcbtype;
-    private JTextField tfproduct, tfprice, tfweight, tfamount;
+    private JTextField tfproduct, tfprice, tfweight, tfamount, tfID;
     private ImageIcon i1, i2;
     private StockProductModel model;
     public CreateProduct() {
@@ -47,6 +47,9 @@ public class CreateProduct extends JPanel {
         pempty15 = new JPanel();
         pempty16 = new JPanel();
         pempty17 = new JPanel();
+        pempty18 = new JPanel();
+        pempty19 = new JPanel();
+        pID = new JPanel();
         jproduct = new JLabel("Product Name : ");
         jtype = new JLabel("Type : ");
         jprice = new JLabel("Price Per Piece : ");
@@ -57,6 +60,7 @@ public class CreateProduct extends JPanel {
         jsave = new JButton("    SAVE    ");
         jcbtype = new JComboBox();
         jcbtype.addItem(" Food ");
+        jID = new JLabel("Product ID : ");
         tfproduct = new JTextField(12);
         tfproduct.setHorizontalAlignment(SwingConstants.CENTER);
         tfprice = new JTextField(12);
@@ -65,12 +69,14 @@ public class CreateProduct extends JPanel {
         tfweight.setHorizontalAlignment(SwingConstants.CENTER);
         tfamount = new JTextField(15);
         tfamount.setHorizontalAlignment(SwingConstants.CENTER);
-
+        tfID = new JTextField(12);
+        tfID.setHorizontalAlignment(SwingConstants.CENTER);
+        
         //PSetLayout
         pnorth.setLayout(new BorderLayout());
         pnorthleft.setLayout(new BorderLayout());
         pnorthinleft.setLayout(new BorderLayout());
-        pnorthright.setLayout(new GridLayout(5, 0));
+        pnorthright.setLayout(new GridLayout(6, 0));
         this.setLayout(new BorderLayout());
         psouth.setLayout(new GridLayout(3, 0));
         pempty1.setLayout(new BorderLayout());
@@ -90,15 +96,22 @@ public class CreateProduct extends JPanel {
         pempty15.setLayout(new BorderLayout());
         pempty16.setLayout(new BorderLayout());
         pempty17.setLayout(new BorderLayout());
+        pempty18.setLayout(new BorderLayout());
+        pempty19.setLayout(new GridLayout(3,0));
+        pID.setLayout(new BorderLayout());
 
-        //Pproductname
+        //Pproductname/ID
         pempty1.add(jproduct, BorderLayout.WEST);
         pempty1.add(pempty6);
         pempty6.add(new JLabel());
         pempty6.add(pempty11);
         pempty11.add(tfproduct, BorderLayout.WEST);
         pempty11.add(new JLabel("    "));
-        pempty6.add(new JLabel());
+        pID.add(jID, BorderLayout.WEST);
+        pID.add(pempty19);
+        pempty18.add(tfID, BorderLayout.WEST);
+        pempty19.add(new JLabel());
+        pempty19.add(pempty18);
 
         //Ptype
         pempty2.add(jtype, BorderLayout.WEST);
@@ -137,6 +150,7 @@ public class CreateProduct extends JPanel {
         pempty10.add(pempty15);
         pempty10.add(new JLabel());
         pnorthright.add(pempty1);
+        pnorthright.add(pID);
         pnorthright.add(pempty2);
         pnorthright.add(pempty3);
         pnorthright.add(pempty4);
@@ -178,7 +192,9 @@ public class CreateProduct extends JPanel {
         jsave.setBorder(new LineBorder(new Color(69, 104, 159), 4));
         jcbtype.setFont(new Font("Arial", Font.BOLD, 14));
         jcbtype.setForeground(new Color(69, 104, 159));
-
+        jID.setFont(new Font("Arial", Font.BOLD, 16));
+        jID.setForeground(Color.WHITE);
+        
         //JTextFiel
         tfproduct.setFont(new Font("Arial", Font.BOLD, 13));
         tfproduct.setForeground(Color.WHITE);
@@ -196,12 +212,16 @@ public class CreateProduct extends JPanel {
         tfamount.setForeground(Color.WHITE);
         tfamount.setBorder(new LineBorder(Color.WHITE, 2));
         tfamount.setBackground(new Color(69, 104, 159));
-
+        tfID.setBorder(new LineBorder(Color.WHITE, 2));
+        tfID.setBackground(new Color(69, 104, 159));
+        tfID.setFont(new Font("Arial", Font.BOLD, 13));
+        tfID.setForeground(Color.WHITE);
+        
         //SetBackground
         pnorth.setBackground(new Color(69, 104, 159));
         psouth.setBackground(new Color(69, 104, 159));
         this.setBackground(new Color(69, 104, 159));
-        pnorthleft.setBackground(Color.WHITE);
+        pnorthleft.setBackground(new Color(69, 104, 159));
         pnorthinleft.setBackground(Color.WHITE);
         pnorthinleft.setBorder(new LineBorder(new Color(101, 113, 132), 5));
         pnorthleft.add(pnorthinleft);
@@ -225,6 +245,9 @@ public class CreateProduct extends JPanel {
         pempty16.setBackground(new Color(69, 104, 159));
         pempty17.setBackground(new Color(69, 104, 159));
         this.setBorder(new LineBorder(new Color(101, 113, 132), 5));
+        pID.setBackground(new Color(69, 104, 159));
+        pempty18.setBackground(new Color(69, 104, 159));
+        pempty19.setBackground(new Color(69, 104, 159));
         
         jsave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -245,6 +268,7 @@ public class CreateProduct extends JPanel {
         mainf.setIconImage(i2.getImage());
         mainf.setSize(600, 450);
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        mainf.setLocationRelativeTo(null);
         mainf.setVisible(true);
     }
 

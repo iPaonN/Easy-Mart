@@ -187,7 +187,7 @@ public class MainPage implements MouseListener{
         innerPanel = new JPanel();
         enter = new JButton("ENTER");
         enPanel = new JPanel();
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         nameLabel.setFont(new Font("Arial", Font.BOLD, 36));
         nameLabel.setForeground(Color.white);
@@ -256,6 +256,7 @@ public class MainPage implements MouseListener{
         frame.add(mainbg);
         frame.setIconImage(scaleicon2.getImage());
         frame.setSize(1280,720);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     public void addRow(ArrayList<String> list){

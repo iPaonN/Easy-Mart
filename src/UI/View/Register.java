@@ -270,6 +270,7 @@ public class Register{
         mainf.add(pmain);
         mainf.setSize(350, 700);
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        mainf.setLocationRelativeTo(null);
         mainf.setVisible(true);
     }
     public JFrame getMainf() {

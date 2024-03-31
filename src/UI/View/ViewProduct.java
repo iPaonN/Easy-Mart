@@ -250,6 +250,7 @@ public class ViewProduct extends JPanel {
         mainf.add(this);
         mainf.setSize(470, 450);
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        mainf.setLocationRelativeTo(null);
         mainf.setVisible(true);
     }
     

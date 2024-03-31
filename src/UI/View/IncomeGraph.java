@@ -74,7 +74,7 @@ public class IncomeGraph extends JPanel {
         this.add(jchart, BorderLayout.CENTER);
         this.add(psouth, BorderLayout.SOUTH);
         mainf.add(this);
-        mainf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainf.pack();
         mainf.setLocationRelativeTo(null);
         mainf.setVisible(false);
