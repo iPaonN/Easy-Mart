@@ -128,10 +128,13 @@ public final class DoProjectData extends ProjectData{
             
                 ResultSet member_rs = member_pstmt.executeQuery();
                 
+                DoUserData DUD = new DoUserData();
+                
                 while (member_rs.next()) {
                     
                     if(!(member_rs.getString("staff_user").equals(user))){
                         this.insert_member(newname, member_rs.getString("staff_user"), member_rs.getString("staff_access"));
+                        DUD.RenameProject(member_rs.getString("staff_user"), oldname, newname);
                     }
                     
                 }
