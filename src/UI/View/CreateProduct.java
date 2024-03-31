@@ -222,7 +222,7 @@ public class CreateProduct extends JPanel {
         psouth.setBackground(new Color(69, 104, 159));
         this.setBackground(new Color(69, 104, 159));
         pnorthleft.setBackground(new Color(69, 104, 159));
-        pnorthinleft.setBackground(Color.WHITE);
+        pnorthinleft.setBackground(Color.RED);
         pnorthinleft.setBorder(new LineBorder(new Color(101, 113, 132), 5));
         pnorthleft.add(pnorthinleft);
         pnorthleft.setBorder(new LineBorder(new Color(69, 104, 159), 15));
@@ -354,6 +354,23 @@ public class CreateProduct extends JPanel {
     public void setTfID(JTextField tfID) {
         this.tfID = tfID;
     }
+
+    public ImageIcon getI2() {
+        return i2;
+    }
+    
+    public void setI2(ImageIcon i2) {
+        this.i2 = i2;
+    }
+
+    public JPanel getPnorthinleft() {
+        return pnorthinleft;
+    }
+
+    public void setPnorthinleft(JPanel pnorthinleft) {
+        this.pnorthinleft = pnorthinleft;
+    }
+    
     
     
 }
