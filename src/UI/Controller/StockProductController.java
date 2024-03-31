@@ -32,6 +32,7 @@ public class StockProductController implements ActionListener{
     private CreateProduct create;
     private CreateType newtype;
     private SubProduct subproduct;
+    private File pimage;
     
     public StockProductController(String username, String projectname){
         this.username = username;
@@ -120,30 +121,61 @@ public class StockProductController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(view.getCreate())){
             create = new CreateProduct();
+            pimage = null;
             create.getJnew().addActionListener(this);
             create.getJaddpic().addActionListener(this);
+            create.getJsave().addActionListener(this);
         }
         else if (e.getSource().equals(create.getJsave())){
             if(create.getTfproduct().getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Plese Enter Your Product Name.");
+                JOptionPane.showMessageDialog(null, "Plese Input Your Product Name.");
             }
-            else if(e.getSource().equals(create.getTfprice())){
-                if(create.getTfprice().getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Plese Input Price.");
-                }
+            else if(model.checkCanUse(create.getTfproduct().getText()) == false){
+                JOptionPane.showMessageDialog(null, "Product Name must have only Digit or Letter.");
+                create.getTfproduct().setText("");
             }
-            else if(e.getSource().equals(create.getTfweight())){
-                if(create.getTfweight().getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Plese Input Weight.");
-                }
+            else if(model.checkProductName(create.getTfproduct().getText()) == true){
+                JOptionPane.showMessageDialog(null, "This Product Name is already used.");
+                create.getTfproduct().setText("");
             }
-            else if(e.getSource().equals(create.getTfamount())){
-                if(create.getTfamount().getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Plese Input Amount.");
-                }
+            else if(create.getTfprice().getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Plese Input Price.");
+            }
+            else if(this.isDouble(create.getTfprice().getText()) == false){
+                JOptionPane.showMessageDialog(null, "Price must be Double.");
+                    create.getTfID().setText("");
+            }
+            else if(create.getTfweight().getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Plese Input Weight.");
+            }
+            else if(this.isDouble(create.getTfweight().getText()) == false){
+                JOptionPane.showMessageDialog(null, "Weight must be Double.");
+                    create.getTfID().setText("");
+            }
+            else if(create.getTfamount().getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Plese Input Amount.");
+            }
+            else if(this.isInt(create.getTfamount().getText()) == false){
+                JOptionPane.showMessageDialog(null, "Amount must be Integer.");
+                    create.getTfID().setText("");
+            }
+            else if(create.getTfID().getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Plese Input Your Product Name.");
+            }
+            else if(this.isInt(create.getTfID().getText()) == false){
+                JOptionPane.showMessageDialog(null, "ID must be Integer.");
+                create.getTfID().setText("");
+            }
+            else if(model.checkProductID(Integer.parseInt(create.getTfID().getText())) == true){
+                JOptionPane.showMessageDialog(null, "This Id is already used.");
+                create.getTfID().setText("");
+            }
+            else if(pimage == null){
+                JOptionPane.showMessageDialog(null, "Please Input Image");
             }
             else{
-                System.out.println(model.checkProductName(create.getTfproduct().getText()));
+                promanager.set_product(this.projectname, Integer.parseInt(create.getTfID().getText()), create.getTfproduct().getText(), (String)create.getJcbtype().getSelectedItem(), Double.parseDouble(create.getTfprice().getText()), Double.parseDouble(create.getTfweight().getText()), Integer.parseInt(create.getTfamount().getText()), pimage, username);
+                create.getMainf().dispose();
             }
         }
         else if (e.getSource().equals(create.getJaddpic())){
@@ -159,6 +191,7 @@ public class StockProductController implements ActionListener{
             File selectedFile = fileChooser.getSelectedFile();
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
+                pimage = selectedFile;
                 create.getPnorthinleft().add(new JLabel(new ImageIcon(image)));
                 create.getPnorthinleft().revalidate();
                 create.getPnorthinleft().repaint();
@@ -166,6 +199,9 @@ public class StockProductController implements ActionListener{
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+        }
+        else{
+            pimage = null;
         }
         }
         

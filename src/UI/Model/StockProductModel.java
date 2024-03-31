@@ -58,6 +58,14 @@ public class StockProductModel {
             return false;
         }
     }
+    public boolean checkCanUse(String productname){
+        for (char c : productname.toCharArray()){
+            if (Character.isLetterOrDigit(c) == false){
+                return false;
+            } 
+        }
+        return true;
+    }
     public boolean checkProductID(int id) {
         try {
             My_sql base= new My_sql(this.schema, "product");
