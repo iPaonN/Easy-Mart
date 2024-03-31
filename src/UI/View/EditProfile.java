@@ -145,4 +145,28 @@ public class EditProfile {
     public static void main(String[] args) {
         new EditProfile();
     }
+    
+    public HalfCircle getProfileIcon(){
+        return hcp1;
+    }
+    
+    public JTextField getUsernameField(){
+        return tfusername;
+    }
+    
+    public JTextField getFirstNameField(){
+        return tffirstname;
+    }
+    
+    public JTextField getLastNameField(){
+        return tflastname;
+    }
+    
+    public JButton getSaveButton(){
+        return bsave;
+    }
+    
+    public JFrame getFr(){
+        return mainf;
+    }
 }
