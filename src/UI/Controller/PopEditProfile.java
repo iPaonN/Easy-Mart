@@ -14,11 +14,13 @@ public class PopEditProfile implements ActionListener, MouseListener{
     private ImportFile im;
     private EditProfile main;
     private String username;
+    private MainPageController mainpage;
     
-    public PopEditProfile(String username){
+    public PopEditProfile(String username, MainPageController mainpage){
         manager = new DoUserData();
         main = new EditProfile();
         this.username = username;
+        this.mainpage = mainpage;
 //        Image pic = manager.GetProfileImage(this.username);
 //        main.getProfileIcon().LoadImage(manager.GetProfileImage(String.valueOf(pic)));
         
@@ -75,7 +77,10 @@ public class PopEditProfile implements ActionListener, MouseListener{
                 manager.ChangeLastname(manager.Get_User(this.username).getLast_name(), main.getLastNameField().getText());
                 manager.ChangeUsername(this.username, main.getUsernameField().getText());
                 System.out.println(manager.Get_User(this.username).getFirst_name());
+                this.mainpage.getFr().dispose();
+                new MainPageController(main.getUsernameField().getText());
                 this.main.getFr().dispose();
+                
             }
         }
     }

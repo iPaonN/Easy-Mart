@@ -89,6 +89,10 @@ public class MainPageController implements MouseListener, ActionListener, Docume
             new MainPage();
         });
     }
+    
+    public JFrame getFr(){
+        return main.getFrame();
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -170,7 +174,7 @@ public class MainPageController implements MouseListener, ActionListener, Docume
             }
         }
         else if (e.getSource().equals(edit)){
-            editpro = new PopEditProfile(this.username);
+            editpro = new PopEditProfile(this.username, this);
         }
         else if (e.getSource().equals(this.change)){
             editpass = new PopEditPassword(this.username);
