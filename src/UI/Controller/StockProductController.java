@@ -2,11 +2,13 @@ package UI.Controller;
 
 import My_sql.My_sql;
 import My_sql.ProjectData.DoProjectData;
+import My_sql.ProjectData.Product;
 import UI.Model.StockProductModel;
 import UI.View.CreateProduct;
 import UI.View.CreateType;
 import UI.View.StockProduct;
 import UI.View.SubProduct;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -22,6 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class StockProductController implements ActionListener{
@@ -48,6 +51,7 @@ public class StockProductController implements ActionListener{
 //        displaydata();
         //test
         //Add event
+        this.showProduct(promanager.getAll_product(this.projectname));
         System.out.println(view.getCreate().getText());
         view.getCreate().addActionListener(this);
         
@@ -61,46 +65,54 @@ public class StockProductController implements ActionListener{
         this.view = view;
     }
     
-    public ResultSet GetAllData() {
-        My_sql sql = new My_sql();
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            sql.set_Schema(this.schema);
-            sql.connect();
-            conn = sql.get_Connection();
-            String query = "SELECT product_name, type_id, price, quantity FROM product";
-            stmt = conn.prepareStatement(query);
-            rs = stmt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return rs;
-    }
-    
-    public void displaydata() {
-        ResultSet rs = GetAllData();
-        try {
-            while (rs.next()) {
-                String product_name = rs.getString("product_name");
-                String type_id = rs.getString("type_id");
-                int amount = rs.getInt("quantity");
-                Double price =  rs.getDouble("price");
-                subproduct = new SubProduct();
-                
-                subproduct.setAllData(product_name, type_id, amount, price);
-                view.getSubPanel().add(subproduct);
-                view.getSubPanel().revalidate();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public ResultSet GetAllData() {
+//        My_sql sql = new My_sql();
+//        Connection conn = null;
+//        PreparedStatement stmt = null;
+//        ResultSet rs = null;
+//
+//        try {
+//            sql.set_Schema(this.schema);
+//            sql.connect();
+//            conn = sql.get_Connection();
+//            String query = "SELECT product_name, type_id, price, quantity FROM product";
+//            stmt = conn.prepareStatement(query);
+//            rs = stmt.executeQuery();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return rs;
+//    }
+//    
+//    public void displaydata() {
+//        ResultSet rs = GetAllData();
+//        try {
+//            while (rs.next()) {
+//                String product_name = rs.getString("product_name");
+//                String type_id = rs.getString("type_id");
+//                int amount = rs.getInt("quantity");
+//                Double price =  rs.getDouble("price");
+//                subproduct = new SubProduct();
+//                
+//                subproduct.setAllData(product_name, type_id, amount, price);
+//                view.getSubPanel().add(subproduct);
+//                view.getSubPanel().revalidate();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
     
 //  
+    public void showProduct(ArrayList<Product> productlist){
+        for (Product p: productlist){
+            SubProductController sc = new SubProductController(this.username, this.projectname, p);
+            view.getSubPanel().add(sc.getSub());
+        }
+        view.getSubPanel().repaint();
+        view.getSubPanel().revalidate();
+    }
     public boolean isDouble(String str) { 
     try {  
         Double.parseDouble(str);  
@@ -121,6 +133,11 @@ public class StockProductController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(view.getCreate())){
             create = new CreateProduct();
+            for (String t: promanager.getAll_Type(this.projectname)){
+                create.getJcbtype().addItem(t);
+            }
+            create.getJcbtype().repaint();
+            create.getJcbtype().revalidate();
             pimage = null;
             create.getJnew().addActionListener(this);
             create.getJaddpic().addActionListener(this);
@@ -176,33 +193,63 @@ public class StockProductController implements ActionListener{
             else{
                 promanager.set_product(this.projectname, Integer.parseInt(create.getTfID().getText()), create.getTfproduct().getText(), (String)create.getJcbtype().getSelectedItem(), Double.parseDouble(create.getTfprice().getText()), Double.parseDouble(create.getTfweight().getText()), Integer.parseInt(create.getTfamount().getText()), pimage, username);
                 create.getMainf().dispose();
+                view.getSubPanel().removeAll();
+                this.showProduct(promanager.getAll_product(this.projectname));
+                view.getSubPanel().revalidate();
+                view.getSubPanel().repaint();
+                
             }
         }
         else if (e.getSource().equals(create.getJaddpic())){
             JFileChooser fileChooser = new JFileChooser();
         
-        // Optionally, restrict file types to images
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif");
-        fileChooser.setFileFilter(filter);
+            // Optionally, restrict file types to images
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif");
+            fileChooser.setFileFilter(filter);
         
-        int returnValue = fileChooser.showOpenDialog(null);
+            int returnValue = fileChooser.showOpenDialog(null);
         
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            try {
-                BufferedImage image = ImageIO.read(selectedFile);
-                pimage = selectedFile;
-                create.getPnorthinleft().add(new JLabel(new ImageIcon(image)));
-                create.getPnorthinleft().revalidate();
-                create.getPnorthinleft().repaint();
-                
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                try {
+                 BufferedImage image = ImageIO.read(selectedFile);
+                    pimage = selectedFile;
+                    create.getPnorthinleft().add(new JLabel(new ImageIcon(image)));
+                    create.getPnorthinleft().revalidate();
+                    create.getPnorthinleft().repaint();
+                    
+                 } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            else{
+            pimage = null;
             }
         }
-        else{
-            pimage = null;
+        else if (e.getSource().equals(create.getJnew())){
+            newtype = new CreateType();
+            newtype.getEnterBtn().addActionListener(this);
         }
+        else if(e.getSource().equals(newtype.getEnterBtn())){
+            if(newtype.getTypeTF().getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Please input type");
+            }
+            else if(model.checkType(newtype.getTypeTF().getText()) == false){
+                JOptionPane.showMessageDialog(null, "Type must be only letter");
+                newtype.getTypeTF().setText("");
+            }
+            else if(promanager.getAll_Type(this.projectname).contains(newtype.getTypeTF().getText()) == true){
+                JOptionPane.showMessageDialog(null, "This Type is already added");
+                newtype.getFrame().dispose();
+            }
+            else{
+                create.getJcbtype().addItem(newtype.getTypeTF().getText());
+                newtype.getFrame().dispose();
+                create.getJcbtype().setSelectedItem(newtype.getTypeTF().getText());
+                create.getJcbtype().repaint();
+                create.getJcbtype().revalidate();
+                
+            }
         }
         
     }

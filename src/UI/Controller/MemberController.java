@@ -128,6 +128,9 @@ public class MemberController implements ActionListener{
                 adder.getJalert().setText("Don't have this email");
                 adder.getTfemial().setText("");
             }
+            else if (!((String)adder.getJcb1().getSelectedItem()).equals("Manager") || !((String)adder.getJcb1().getSelectedItem()).equals("Member")){
+                JOptionPane.showMessageDialog(null, "Please Select Role");
+            }
             else {
                 String nmem = this.getNameAdder(adder.getTfemial().getText());
                 promanager.insert_member(this.projectname, nmem, (String)adder.getJcb1().getSelectedItem());

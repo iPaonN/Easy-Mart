@@ -66,6 +66,14 @@ public class StockProductModel {
         }
         return true;
     }
+    public boolean checkType(String type){
+        for (char c : type.toCharArray()){
+            if (Character.isLetter(c) == false){
+                return false;
+            } 
+        }
+        return true;
+    }
     public boolean checkProductID(int id) {
         try {
             My_sql base= new My_sql(this.schema, "product");

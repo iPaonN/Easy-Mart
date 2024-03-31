@@ -120,12 +120,12 @@ public class SubProduct extends JPanel {
         pImage.setBorder(new LineBorder(new Color(101, 113, 132), 5));
         pImage.setLayout(new FlowLayout()); 
         psubcenter.add(pImage);
-        bview.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewpd = new ViewProductController();
-            }
-        });
+//        bview.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                viewpd = new ViewProductController();
+//            }
+//        });
         //Mainpanel
         this.setLayout(new BorderLayout());
         this.add(psubnorth, BorderLayout.NORTH);
@@ -196,6 +196,14 @@ public class SubProduct extends JPanel {
         setJnametype(type);
         setJnumamount(amount);
         setJnumprice(price);
+    }
+
+    public JButton getBview() {
+        return bview;
+    }
+
+    public void setBview(JButton bview) {
+        this.bview = bview;
     }
     
     

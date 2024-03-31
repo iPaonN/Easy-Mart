@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-public class CreateType implements ActionListener{
+public class CreateType{
     private JFrame frame;
     private JLabel text;
     private JTextField typeTF;
@@ -50,7 +50,6 @@ public class CreateType implements ActionListener{
         enterBtn.setFont(new Font("Arial", Font.BOLD, 20));
         enterBtn.setPreferredSize(new Dimension(120,35));
         enterBtn.setFocusPainted(false);
-        enterBtn.addActionListener(this);
         mainP.setLayout(new GridLayout(4,0));
         mainP.setBackground(new Color(69, 104, 159));
         
@@ -73,11 +72,29 @@ public class CreateType implements ActionListener{
     public String getType(){
         return typeTF.getText();
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(enterBtn)){
-            getType();
-            System.out.println("GetType!");
-        }
+
+    public JFrame getFrame() {
+        return frame;
     }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+
+    public JTextField getTypeTF() {
+        return typeTF;
+    }
+
+    public void setTypeTF(JTextField typeTF) {
+        this.typeTF = typeTF;
+    }
+
+    public JButton getEnterBtn() {
+        return enterBtn;
+    }
+
+    public void setEnterBtn(JButton enterBtn) {
+        this.enterBtn = enterBtn;
+    }
+    
 }
