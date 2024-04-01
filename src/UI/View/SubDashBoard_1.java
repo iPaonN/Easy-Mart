@@ -9,7 +9,7 @@ public class SubDashBoard_1 extends JPanel{
     private JFrame mainf;
     private JPanel pmain, pempty1;
     private JLabel jincome, jprice;
-    private JButton bday, bweek, bYear;
+    private JButton bday, bmonth, bYear;
     public SubDashBoard_1(){
         
         //Create
@@ -19,7 +19,7 @@ public class SubDashBoard_1 extends JPanel{
         jincome = new JLabel("Income");
         jprice = new JLabel("0฿");
         bday = new JButton("Day");
-        bweek = new JButton("Week");
+        bmonth = new JButton("Month");
         bYear = new JButton("Year");
         
         //SetLayout
@@ -43,10 +43,10 @@ public class SubDashBoard_1 extends JPanel{
         bday.setForeground(new Color(69, 104, 159));
         bday.setBackground(Color.WHITE);
         bday.setBorder(new LineBorder(new Color(69, 104, 159), 3));
-        bweek.setFont(new Font("Aria", Font.BOLD, 14));
-        bweek.setForeground(new Color(69, 104, 159));
-        bweek.setBackground(Color.WHITE);
-        bweek.setBorder(new LineBorder(new Color(69, 104, 159), 3));
+        bmonth.setFont(new Font("Aria", Font.BOLD, 14));
+        bmonth.setForeground(new Color(69, 104, 159));
+        bmonth.setBackground(Color.WHITE);
+        bmonth.setBorder(new LineBorder(new Color(69, 104, 159), 3));
         bYear.setFont(new Font("Aria", Font.BOLD, 14));
         bYear.setForeground(new Color(69, 104, 159));
         bYear.setBackground(Color.WHITE);
@@ -63,7 +63,7 @@ public class SubDashBoard_1 extends JPanel{
         
         //Pempty1
         pempty1.add(bday);
-        pempty1.add(bweek);
+        pempty1.add(bmonth);
         pempty1.add(bYear);
         
         this.add(pmain);
@@ -86,26 +86,72 @@ public class SubDashBoard_1 extends JPanel{
         }
         SwingUtilities.invokeLater(() -> {
             new SubDashBoard_1();
-        });;
+        });
     }
-    
+
+    public JFrame getMainf() {
+        return mainf;
+    }
+
+    public void setMainf(JFrame mainf) {
+        this.mainf = mainf;
+    }
+
+    public JPanel getPmain() {
+        return pmain;
+    }
+
+    public void setPmain(JPanel pmain) {
+        this.pmain = pmain;
+    }
+
+    public JPanel getPempty1() {
+        return pempty1;
+    }
+
+    public void setPempty1(JPanel pempty1) {
+        this.pempty1 = pempty1;
+    }
+
+    public JLabel getJincome() {
+        return jincome;
+    }
+
+    public void setJincome(JLabel jincome) {
+        this.jincome = jincome;
+    }
+
+    public JLabel getJprice() {
+        return jprice;
+    }
+
+    public void setJprice(JLabel jprice) {
+        this.jprice = jprice;
+    }
+
     public JButton getBday() {
         return bday;
     }
 
-    public JButton getBweek() {
-        return bweek;
+    public void setBday(JButton bday) {
+        this.bday = bday;
+    }
+
+    public JButton getBmonth() {
+        return bmonth;
+    }
+
+    public void setBweek(JButton bweek) {
+        this.bmonth = bweek;
     }
 
     public JButton getbYear() {
         return bYear;
     }
-    
-    public JLabel getprice(){
-        return jprice;
+
+    public void setbYear(JButton bYear) {
+        this.bYear = bYear;
     }
     
-    public void setprice(String s){
-        jprice.setText(s);
-    }
+    
 }
