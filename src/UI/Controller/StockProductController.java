@@ -201,17 +201,24 @@ public class StockProductController implements ActionListener, DocumentListener,
                 JOptionPane.showMessageDialog(null, "Please Input Image");
             }
             else{
+                create.getJcbtype().repaint();
+                create.getJcbtype().revalidate();
                 promanager.set_product(this.projectname, Integer.parseInt(create.getTfID().getText()), create.getTfproduct().getText(), (String)create.getJcbtype().getSelectedItem(), Double.parseDouble(create.getTfprice().getText()), Double.parseDouble(create.getTfweight().getText()), Integer.parseInt(create.getTfamount().getText()), pimage, username);
                 create.getMainf().dispose();
                 view.getSubPanel().removeAll();
                 this.showProduct(promanager.getAll_product(this.projectname));
                 view.getSubPanel().revalidate();
                 view.getSubPanel().repaint();
-                view.getSort().removeAllItems();
-                view.getSort().addItem("All");
-                for (String t: promanager.getAll_Type(this.projectname)){
-                    view.getSort().addItem(t);
+                ArrayList<String> alltype = new ArrayList<String>();
+                for (int i= 0; i< view.getSort().getItemCount(); i++){
+                    alltype.add((String)view.getSort().getItemAt(i));
                 }
+                for (String at: promanager.getAll_Type(this.projectname)){
+                    if(alltype.contains(at) == false){
+                        view.getSort().addItem(at);
+                    }
+                }
+                view.getSort().setSelectedItem("All");
                 view.getSort().repaint();
                 view.getSort().revalidate();
                 
