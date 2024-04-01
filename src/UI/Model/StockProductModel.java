@@ -1,11 +1,14 @@
 package UI.Model;
 
 import My_sql.My_sql;
+import My_sql.ProjectData.DoProjectData;
+import My_sql.ProjectData.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class StockProductModel {
     private My_sql sql;
@@ -14,6 +17,7 @@ public class StockProductModel {
     private String username;
     private String projectname;
     private String schema;
+    private DoProjectData promanager;
     
     public String getUsername() {
         return username;
@@ -27,6 +31,7 @@ public class StockProductModel {
         this.username = name;
         this.projectname = projectname;
         schema = this.projectname;
+        promanager = new DoProjectData();
     }
     public boolean checkProductName(String productname) {
         try {
@@ -57,6 +62,36 @@ public class StockProductModel {
             e.printStackTrace();
             return false;
         }
+    }
+    public ArrayList<String> filterType(String type){
+        ArrayList<Product> productlist = promanager.getAll_product(this.projectname);
+        ArrayList<String> result = new ArrayList<String>();
+        for (Product p: productlist){
+            if (type.equals("All")){
+                result.add(p.getName());
+            }
+            else if(p.getType().equals(type) == true){
+                result.add(p.getName());
+            }
+        }
+        return result;
+    }
+    public ArrayList<Product> filterName(String productname, String type){
+        ArrayList<String> listtype = this.filterType(type);
+        ArrayList<Product> result = new ArrayList<Product>();
+        if(productname.equals("")){
+            for (String lt: listtype){
+                result.add(promanager.get_product(this.projectname, lt));
+            }
+        }
+        else{
+            for (String lt: listtype){
+                if (lt.contains(productname) == true){
+                   result.add(promanager.get_product(this.projectname, lt)); 
+                }
+            }
+        }
+        return result;
     }
     public boolean checkCanUse(String productname){
         for (char c : productname.toCharArray()){

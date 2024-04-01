@@ -101,6 +101,8 @@ public class StockProduct extends JPanel{
         sort.setPreferredSize(new Dimension(100,30));
         sort.setBorder(new LineBorder(new Color(69, 104, 159), 3));
         sort.setFocusable(false);
+        sort.addItem("All");
+        sort.setSelectedItem("All");
         create.setPreferredSize(new Dimension(100,30));
         create.setFont(new Font("Arial", Font.BOLD, 12));
         create.setBackground(Color.white);
@@ -159,6 +161,22 @@ public class StockProduct extends JPanel{
 
     public void setCreate(JButton create) {
         this.create = create;
+    }
+
+    public JComboBox getSort() {
+        return sort;
+    }
+
+    public void setSort(JComboBox sort) {
+        this.sort = sort;
+    }
+
+    public JTextField getSearch() {
+        return search;
+    }
+
+    public void setSearch(JTextField search) {
+        this.search = search;
     }
     
     public static void main(String[] args) {

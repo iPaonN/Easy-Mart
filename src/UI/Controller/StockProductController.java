@@ -25,9 +25,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class StockProductController implements ActionListener{
+public class StockProductController implements ActionListener, DocumentListener, ItemListener{
     private String username, projectname, schema;
     private StockProduct view;
     private DoProjectData promanager;
@@ -44,16 +46,18 @@ public class StockProductController implements ActionListener{
         this.promanager = new DoProjectData();
         view = new StockProduct();
         model = new StockProductModel(this.username, this.projectname);
-//        model.SetProductdata(1, "productname", 1, 15, 1, 3);
-//        model.SetProductdata(2, "ABC", 1, 300, 1, 5);
-//        model.SetProductdata(3, "Third", 1, 499, 1, 8);
-//        promanager.set_product(schema, 1, "Test1", "Food", 100, 10, 5, null, this.username);
-//        displaydata();
-        //test
+
+        for (String t: promanager.getAll_Type(this.projectname)){
+                view.getSort().addItem(t);
+        }
+        view.getSort().repaint();
+        view.getSort().revalidate();
         //Add event
         this.showProduct(promanager.getAll_product(this.projectname));
         System.out.println(view.getCreate().getText());
         view.getCreate().addActionListener(this);
+        view.getSearch().getDocument().addDocumentListener(this);
+        view.getSort().addItemListener(this);
         
     }
     
@@ -197,6 +201,13 @@ public class StockProductController implements ActionListener{
                 this.showProduct(promanager.getAll_product(this.projectname));
                 view.getSubPanel().revalidate();
                 view.getSubPanel().repaint();
+                view.getSort().removeAllItems();
+                view.getSort().addItem("All");
+                for (String t: promanager.getAll_Type(this.projectname)){
+                    view.getSort().addItem(t);
+                }
+                view.getSort().repaint();
+                view.getSort().revalidate();
                 
             }
         }
@@ -252,6 +263,29 @@ public class StockProductController implements ActionListener{
             }
         }
         
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        view.getSubPanel().removeAll();
+        this.showProduct(model.filterName(view.getSearch().getText(), (String)view.getSort().getSelectedItem()));
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        view.getSubPanel().removeAll();
+        this.showProduct(model.filterName(view.getSearch().getText(), (String)view.getSort().getSelectedItem()));
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        view.getSubPanel().removeAll();
+        this.showProduct(model.filterName(view.getSearch().getText(), (String)view.getSort().getSelectedItem()));
     }
     
 }
