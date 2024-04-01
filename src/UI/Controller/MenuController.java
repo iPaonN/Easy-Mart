@@ -27,6 +27,7 @@ public class MenuController implements ActionListener, MouseListener{
     private HistoryController history;
     private OptionController option;
     private CardLayout cardcontroll;
+    private ExportController export;
     public MenuController(String username, String projectname){
         manager = new DoUserData();
         pjm = new DoProjectData();
@@ -61,6 +62,7 @@ public class MenuController implements ActionListener, MouseListener{
         main.getBn5().addActionListener(this);
         main.getBn6().addActionListener(this);
         main.getBn9().addActionListener(this);
+        main.getBn10().addActionListener(this);
         
     }
     
@@ -87,6 +89,10 @@ public class MenuController implements ActionListener, MouseListener{
         }
         else if (e.getSource().equals(main.getBn9())){
             cardcontroll.show(main.getCardpanel(), "Option");
+        }
+        
+        else if (e.getSource().equals(main.getBn10())){
+            export = new ExportController(this.username, this.projectname);
         }
     }
 

@@ -242,6 +242,53 @@ public final class DoProjectData extends ProjectData{
             data.disconnect();
         }
     }
+    
+    public void export_excel(String username, String projectname, String filepath) {
+        String schemaName = projectname;
+        System.out.println(schemaName);
+
+        try {
+        data.connect();
+        Connection conn = data.get_Connection();
+
+        String selectQuery = "SELECT product_id, product_name, type, price, weight, quantity FROM " + schemaName + ".product";
+
+        // Create a statement
+        Statement stmt = conn.createStatement();
+
+        ResultSet resultSet = stmt.executeQuery(selectQuery);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
+            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                writer.write(resultSet.getMetaData().getColumnName(i));
+                if (i < resultSet.getMetaData().getColumnCount()) {
+                    writer.write(",");
+                }
+            }
+            writer.newLine();
+
+            while (resultSet.next()) {
+                for     (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                    writer.write(resultSet.getString(i));
+                    if (i < resultSet.getMetaData().getColumnCount()) {
+                        writer.write(",");
+                    }
+                }
+                writer.newLine();
+            }
+            System.out.println("Data exported to CSV file: " + filepath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            resultSet.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            data.disconnect();
+        }
+    }
 
     public ResultSet getRS(String schema, String table) throws SQLException{
         data.set_Schema(schema);

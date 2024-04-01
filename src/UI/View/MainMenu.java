@@ -235,6 +235,9 @@ public class MainMenu{
         this.bn9 = bn9;
     }
     
+    public JButton getBn10(){
+        return bn10;
+    }
     
     public static void main(String[] args) {
         try {
