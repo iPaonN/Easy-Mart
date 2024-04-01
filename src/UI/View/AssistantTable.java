@@ -32,7 +32,9 @@ public class AssistantTable {
 //            {"3/3/2024", "4:33 PM", "Tomato"}
 //        };
         for (Object[] dataRow : dataRows) {
-            model.insertRow(model.getRowCount(), dataRow);
+            if (dataRow != null){
+                model.insertRow(model.getRowCount(), dataRow);
+            }
         }
         table.getColumnModel().getColumn(0).setPreferredWidth(200);
         table.getColumnModel().getColumn(1).setPreferredWidth(200);

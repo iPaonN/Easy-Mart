@@ -21,7 +21,7 @@ public class MenuController implements ActionListener, MouseListener{
     private MainMenu main;
     private String username, projectname;
     private DashBoardController dashboard;
-    private Assistance assistance;
+    private AssistanceController assistance;
     private StockProductController stock;
     private MemberController member;
     private HistoryController history;
@@ -36,13 +36,13 @@ public class MenuController implements ActionListener, MouseListener{
         
         cardcontroll = (CardLayout)main.getCardpanel().getLayout();
         dashboard = new DashBoardController(this.username, this.projectname);
-        assistance = new Assistance();
+        assistance = new AssistanceController(this.username, this.projectname);
         stock = new StockProductController(this.username, this.projectname);
         member = new MemberController(this.username, this.projectname);
         history = new HistoryController(this.username, this.projectname);
         option = new OptionController(this.username, this.projectname, this);
         main.getCardpanel().add(dashboard.getDashboard(), "DashBoard");
-        main.getCardpanel().add(assistance, "Assistance");
+        main.getCardpanel().add(assistance.getView(), "Assistance");
         main.getCardpanel().add(stock.getView(), "Stock");
         main.getCardpanel().add(member.getView(), "Member");
         main.getCardpanel().add(history.getView(), "History");

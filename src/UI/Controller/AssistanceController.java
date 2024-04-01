@@ -12,8 +12,7 @@ public class AssistanceController implements ActionListener{
     private String username, projectname, schema;
     private Assistance view;
     private DoProjectData history;
-    private ArrayList arr, data1, data2, data3, data4;
-    private ArrayList<Object> datalist1, datalist2;
+    private ArrayList arr;
     private LocalDate today;
     private LocalTime time;
     
@@ -27,31 +26,38 @@ public class AssistanceController implements ActionListener{
         view.getBn2().addActionListener(this);
         today = LocalDate.now();
         time = LocalTime.now();
-//        data3 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "add");
-//        data4 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "decrease");
-        
     }
     
     public UI.View.Assistance getView(){
         return view;
     }
-    
-    public ArrayList increaseorNot(HashMap<String, Integer> add, HashMap<String, Integer> decrease, String action){
-         ArrayList result = null;
-        for (String i : add.keySet()) {
-            if (decrease.get(i) > (add.get(i) * 0.8)){
-                data1.add(i);
-            } else if (decrease.get(i) < (add.get(i) * 0.2)){
-                data2.add(i);
+    //add
+    public Object[][] increaseorNot(HashMap<String, Integer> add, HashMap<String, Integer> decrease){
+        Object[][] namearray;
+        int arraysize = add.size();
+        int index = 0;
+        namearray = new Object[arraysize][];
+
+        for (String i : add.keySet()){
+            if (decrease.get(i) >= (add.get(i) * 0.8)){
+                namearray[index++] = new Object[]{today, getTime(), i};
             }
         }
-        
-        if ("add".equals(action)){
-            result = data1;
-        } else if ("decrease".equals(action)){
-            result = data2;
+        return namearray;
+    }
+    
+    public Object[][] decreaseorNot(HashMap<String, Integer> add, HashMap<String, Integer> decrease){
+        Object[][] namearray;
+        int arraysize = add.size();
+        int index = 0;
+        namearray = new Object[arraysize][];
+
+        for (String i : add.keySet()){
+            if (decrease.get(i) < (add.get(i) * 0.2)){
+                namearray[index++] = new Object[]{today, getTime(), i};
+            }
         }
-        return result;
+        return namearray;
     }
     
     public HashMap<String, Integer> addAmount(String schema, String month){
@@ -73,7 +79,7 @@ public class AssistanceController implements ActionListener{
         return listall;
     }
     
-    public HashMap<String, Integer> decreaseAmount(String schema, String month){
+    public HashMap<String, Integer> reduceAmount(String schema, String month){
         ArrayList<History> arr = history.get_Historys_month(schema, month);
         HashMap<String, Integer> listall = new HashMap<String, Integer>();
         for (History i : arr){
@@ -107,32 +113,14 @@ public class AssistanceController implements ActionListener{
         return String.format("%d:%02d %s\n", hour, minute, amPm);
     }
     public void actionPerformed(ActionEvent e) {
-        data3 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "add");
-        data4 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "decrease"); 
+        HashMap<String, Integer> add = addAmount(schema, getMonth());
+        HashMap<String, Integer> decrease = reduceAmount(schema, getMonth());
         if (e.getSource().equals(view.getBn2())){
-            for (int i = 0; i < data3.size(); i++){
-                datalist1.add(new Object[]{today, getTime(), data3.get(i)});
-            }
-            Object[][] dataarray = datalist1.toArray(new Object[datalist1.size()][]);
-//            Object[][] dataarray ={
-//                {"3/3/2024", "4:35 PM", "Coke"},
-//                {"3/3/2024", "4:34 PM", "Banana"}
-//             };
-            new AssistantTable(dataarray);
+            new AssistantTable(increaseorNot(add, decrease));
         } else if (e.getSource().equals(view.getBn1())){
-            for (int i = 0; i < data4.size(); i++){
-                datalist2.add(new Object[]{today, getTime(), data4.get(i)});
-            }
-            Object[][] dataarra = datalist2.toArray(new Object[datalist2.size()][]);
-//            Object[][] dataarra ={
-//                {"3/3/2024", "4:35 PM", "Coke"},
-//                {"3/3/2024", "4:34 PM", "Banana"},
-//                {"3/3/2024", "", "Tomato"}
-//             };
-            new AssistantTable(dataarra);
+            System.out.println(reduceAmount(schema, getMonth()));
+            System.out.println(Arrays.toString(decreaseorNot(add, decrease)));
+            new AssistantTable(decreaseorNot(add, decrease));
         }
     }
-//    public static void main(String[] args) {
-//        new AssistanceController("Thanasit", "pro1");
-//    }
 }
