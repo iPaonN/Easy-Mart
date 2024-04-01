@@ -12,6 +12,7 @@ import UI.View.StockProduct;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.*;
+import javax.swing.*;
 
 
 public class MenuController implements ActionListener, MouseListener{
@@ -39,7 +40,7 @@ public class MenuController implements ActionListener, MouseListener{
         stock = new StockProductController(this.username, this.projectname);
         member = new MemberController(this.username, this.projectname);
         history = new HistoryController(this.username, this.projectname);
-        option = new OptionController(this.username, this.projectname);
+        option = new OptionController(this.username, this.projectname, this);
         main.getCardpanel().add(dashboard, "DashBoard");
         main.getCardpanel().add(assistance, "Assistance");
         main.getCardpanel().add(stock.getView(), "Stock");
@@ -62,6 +63,11 @@ public class MenuController implements ActionListener, MouseListener{
         main.getBn9().addActionListener(this);
         
     }
+    
+    public JFrame getFr(){
+        return main.getFr();
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(main.getBn1())){

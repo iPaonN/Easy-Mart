@@ -14,7 +14,7 @@ import java.awt.event.*;
 //import java.io.*;
 import javax.swing.*;
 import java.util.*;
-//WIP
+//WIP Made by Auto feat Pao
 public class OptionController implements ActionListener, MouseListener {
     private DoUserData manager;
     private DoProjectData pjm;
@@ -23,12 +23,14 @@ public class OptionController implements ActionListener, MouseListener {
     private ImportFile im;
     private ArrayList<String> arraylist;
     private DeleteNotify dnotify;
+    private MenuController out;
     
     
-    public OptionController(String username, String projectname){
+    public OptionController(String username, String projectname, MenuController out){
         String[] oldname= projectname.split("_");
         oldprojectname = oldname[1];
         this.projectname = projectname;
+        this.out = out;
         dnotify = new DeleteNotify();
         dnotify.getDeleteButton().addActionListener(this);
         
@@ -60,6 +62,8 @@ public class OptionController implements ActionListener, MouseListener {
                 System.out.println(this.username + " clicked " + main.getSaveButton().getClass());
                 pjm.rename_schema(username, oldprojectname, newname);
                 manager.RenameProject(username, projectname, newprojectname);
+                new MainPageController(this.username);
+                this.out.getFr().dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Your Projectname and Confirmname do not match");
             }
@@ -88,6 +92,9 @@ public class OptionController implements ActionListener, MouseListener {
                 manager.RemoveProject(this.username, projectname);
                 pjm.delete_project(this.username, oldprojectname);
                 JOptionPane.showMessageDialog(null, "Deleted"); 
+                dnotify.getFrame().setVisible(false);
+                new MainPageController(this.username);
+                this.out.getFr().dispose();
             }
             else if(dnotify.getTF().getText().equals(projectname)){
                 System.out.println(this.username + " clicked " + main.getSaveButton().getClass());
@@ -95,6 +102,9 @@ public class OptionController implements ActionListener, MouseListener {
                 manager.RemoveProject(this.username, projectname);
                 pjm.delete_project(this.username, oldprojectname);
                 JOptionPane.showMessageDialog(null, "Deleted");
+                dnotify.getFrame().setVisible(false);
+                new MainPageController(this.username);
+                this.out.getFr().dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Your Confirm is wrong");
             }
