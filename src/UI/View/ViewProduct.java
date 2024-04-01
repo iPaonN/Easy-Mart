@@ -317,6 +317,14 @@ public class ViewProduct extends JPanel {
     public void setMainf(JFrame mainf) {
         this.mainf = mainf;
     }
+
+    public JLabel getPnumamount() {
+        return pnumamount;
+    }
+
+    public void setPnumamount(JLabel pnumamount) {
+        this.pnumamount = pnumamount;
+    }
     
     public static void main(String[] args) {
        try {

@@ -3,7 +3,6 @@ package UI.Controller;
 import My_sql.My_sql;
 import My_sql.ProjectData.DoProjectData;
 import My_sql.ProjectData.Product;
-import UI.Model.ProductModel;
 import UI.View.DeleteProduct;
 import UI.View.SubProduct;
 import UI.View.ViewProduct;
@@ -22,7 +21,6 @@ public class ViewProductController implements ActionListener {
     Statement stmt = null;
     Connection conn = null;
     private ViewProduct view; 
-    private ProductModel model;
     private Product product;
     private DeleteProduct deleter;
     private String username, projectname;
@@ -57,7 +55,6 @@ public class ViewProductController implements ActionListener {
         view.getImageLabel().revalidate();
         
         
-        model = new ProductModel();
         
         view.getOKButton().addActionListener(this);
         view.getSetButton().addActionListener(this);
@@ -71,33 +68,58 @@ public class ViewProductController implements ActionListener {
             deleter.getBn1().addActionListener(this);
         }
         else if(e.getSource().equals(view.getSetButton())){
-            
+            if(this.isInt(view.gettfamount().getText()) == false){
+                JOptionPane.showMessageDialog(null, "Amount must be Integer");
+                view.gettfamount().setText("");
+            }
+            else{
+                promanager.update_product_quantity(this.projectname, product.getName(), Integer.parseInt(view.gettfamount().getText()));
+                product.setQuantity(Integer.parseInt(view.gettfamount().getText()));
+                view.setAmount(view.gettfamount().getText());
+                view.getPnumamount().repaint();
+                view.getPnumamount().revalidate();
+                this.reloadPanel();
+            }
+        }
+        else if(e.getSource().equals(view.getOKButton())){
+            view.getMainf().dispose();
         }
         else if(e.getSource().equals(deleter.getBn1())){
             if(deleter.getJt().getText().equals(product.getName())){
                 promanager.remove_product(this.projectname, username, product.getName());
                 deleter.getFr().dispose();
                 view.getMainf().dispose();
-                this.panel.removeAll();
-                this.showProduct(promanager.getAll_product(this.projectname));
-                this.panel.repaint();
-                this.panel.revalidate();
+                this.reloadPanel();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Don't have "+product.getName());
             }
         }
     }
-        public void showProduct(ArrayList<Product> productlist){
+    public boolean isInt(String str) { 
+    try {  
+        Integer.parseInt(str);  
+        return true;
+        }catch(NumberFormatException e){  
+            return false;  
+        }  
+    }
+    public void reloadPanel(){
+        this.panel.removeAll();
+        this.showProduct(promanager.getAll_product(this.projectname));
+        this.panel.repaint();
+        this.panel.revalidate();
+    }
+    public void showProduct(ArrayList<Product> productlist){
         for (Product p: productlist){
             SubProduct sub = new SubProduct(p, username, projectname);
             panel.add(sub);
             sub.getBview().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ViewProductController(panel, sub, username, projectname);
-            }
-        });;
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new ViewProductController(panel, sub, username, projectname);
+                }
+            });;
         }
         panel.repaint();
         panel.revalidate();
