@@ -7,8 +7,9 @@ public class ExportDocument {
     private JFrame mainf;
     private JPanel pnorth, pcenter, pmain, pinmain;
     private JPanel pempty1, pempty2, pempty3;
+    private JTextField tfpath;
     private JButton bsave, bbrowse;
-    private JComboBox jcbtax, jcbpath;
+    private JComboBox jcbtax;
     private JLabel jDocument, jselect;
     private ImageIcon itryframe, iframe;
     public ExportDocument(){
@@ -24,12 +25,12 @@ public class ExportDocument {
         pempty1 = new JPanel();
         pempty2 = new JPanel();
         pempty3 = new JPanel();
-        bsave = new JButton("SAVE");
+        bsave = new JButton("OK");
         bbrowse = new JButton("BROWSE");
         jcbtax = new JComboBox();
-        jcbtax.addItem(" Tax");
-        jcbpath = new JComboBox();
-        jcbpath.addItem(" Path                                                      ");
+        jcbtax.addItem(" .csv");
+        tfpath = new JTextField("Please set your Path ->", 20);
+        tfpath.setEditable(false);
         jDocument = new JLabel("Document");
         jselect = new JLabel("Select : ");
         
@@ -72,7 +73,8 @@ public class ExportDocument {
         
         pcenter.add(new JLabel());
         pcenter.add(pempty2);
-        pempty2.add(jcbpath, BorderLayout.WEST);
+        pempty2.add(tfpath, BorderLayout.WEST);
+//        pempty2.add(jcbpath, BorderLayout.WEST);
         pempty2.add(bbrowse);
         
         pcenter.add(new JLabel());
@@ -91,10 +93,10 @@ public class ExportDocument {
         jcbtax.setFont(new Font("Arial", Font.BOLD, 14));
         jcbtax.setForeground(new Color(69, 104, 159));
         jcbtax.setBackground(Color.WHITE);
-        jcbpath.setFont(new Font("Arial", Font.BOLD, 14));
-        jcbpath.setForeground(new Color(69, 104, 159));
+        tfpath.setFont(new Font("Arial", Font.BOLD, 14));
+        tfpath.setForeground(new Color(69, 104, 159));
         jDocument.setFont(new Font("Arial", Font.BOLD, 40));
-        jcbpath.setBackground(Color.WHITE);
+        tfpath.setBackground(Color.WHITE);
         jDocument.setForeground(Color.WHITE);
         jselect.setFont(new Font("Arial", Font.BOLD, 16));
         jselect.setForeground(Color.WHITE);
@@ -108,6 +110,23 @@ public class ExportDocument {
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainf.setLocationRelativeTo(null);
         mainf.setVisible(true);
+    }
+
+    
+    public JTextField getTF(){
+        return tfpath;
+    }
+    
+    public JFrame getMainf() {
+        return mainf;
+    }
+
+    public JButton getBsave() {
+        return bsave;
+    }
+
+    public JButton getBbrowse() {
+        return bbrowse;
     }
     public static void main(String[] args) {
         try {
