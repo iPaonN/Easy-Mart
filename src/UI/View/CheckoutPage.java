@@ -1,6 +1,8 @@
 package UI.View;
 
+import UI.Model.BuyProduct;
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -46,31 +48,31 @@ public class CheckoutPage {
         scrollPane.setViewportView(table);
         scrollPane.setBorder(new LineBorder(Color.white, 0));
         model.setColumnIdentifiers(columnName);
-        Object[][] dataRows = {
-//            {"Cola", "500", "5"},
-//            {"Lays", "10", "15"},
-//            {"Cola", "500", "5"},
-//            {"Lays", "10", "15"},
-//            {"Cola", "500", "5"},
-//            {"Lays", "10", "15"},
-//            {"Cola", "500", "5"},
-//            {"Lays", "10", "15"},
-//            {"Cola", "500", "5"},
-//            {"Lays", "10", "15"},
-//            {"Cola", "500", "5"},
-//            {"Lays", "10", "15"},
-//            {"Cola", "500", "5"},
-//            {"Lays", "10", "15"},
-//            {"Cola", "500", "5"},
-//            {"Lays", "10", "15"},
-//            {"Cola", "500", "5"},
-//            {"Lays", "10", "15"},
-//            {"Cola", "500", "5"},
-//            {"Lays", "10", "15"},
-        };
-        for (Object[] dataRow : dataRows) {
-            model.insertRow(model.getRowCount(), dataRow);
-        }
+//        Object[][] dataRows = {
+////            {"Cola", "500", "5"},
+////            {"Lays", "10", "15"},
+////            {"Cola", "500", "5"},
+////            {"Lays", "10", "15"},
+////            {"Cola", "500", "5"},
+////            {"Lays", "10", "15"},
+////            {"Cola", "500", "5"},
+////            {"Lays", "10", "15"},
+////            {"Cola", "500", "5"},
+////            {"Lays", "10", "15"},
+////            {"Cola", "500", "5"},
+////            {"Lays", "10", "15"},
+////            {"Cola", "500", "5"},
+////            {"Lays", "10", "15"},
+////            {"Cola", "500", "5"},
+////            {"Lays", "10", "15"},
+////            {"Cola", "500", "5"},
+////            {"Lays", "10", "15"},
+////            {"Cola", "500", "5"},
+////            {"Lays", "10", "15"},
+//        };
+//        for (Object[] dataRow : dataRows) {
+//            model.insertRow(model.getRowCount(), dataRow);
+//        }
         //table.setBorder(new LineBorder(new Color(69, 104, 159), 2));
         table.setFont(new Font("Arial", Font.PLAIN, 16));
         table.setForeground(new Color(69, 104, 159));
@@ -120,9 +122,23 @@ public class CheckoutPage {
         mainf.setSize(450,600);
         mainf.setVisible(false);
     }
-    
-    public void addRow(Object[] rowData){
-        model.addRow(rowData);
+    public void showBuy(ArrayList<BuyProduct> list){
+        this.removeAllRow();
+        this.addRow(list);
+        table.repaint();
+        table.revalidate();
+    }
+    public void addRow(ArrayList<BuyProduct> list){
+        if (list.contains(null) == true){
+            list.remove(null);
+        }
+        for (BuyProduct l : list){
+            Object[] i = {l.getProductname(), l.getAmount(), l.getSumprice()};
+            model.insertRow(model.getRowCount(), i);
+        }
+    }
+    public void removeAllRow(){
+        model.setRowCount(0);
     }
     
     public Object getValueAt(int rowIndex, int columnIndex) {

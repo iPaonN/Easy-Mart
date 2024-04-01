@@ -2,19 +2,27 @@
 package UI.Controller;
 
 import My_sql.ProjectData.*;
+import UI.Model.BuyProduct;
 import UI.View.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import javax.swing.JPanel;
 
 
 public class AddAmountController implements ActionListener{
-    private String projectname;
+    private String projectname, username, action;
     private Product product;
     private AddAmount main;
+    private SubCashier sub;
+    private JPanel panel;
     private CheckoutController outCheck;
+    private ArrayList<BuyProduct> buylist;
     
-    public AddAmountController(String projectname, Product product, CheckoutController outCheck){
+    public AddAmountController(JPanel panel, SubCashier sub, String username, String projectname, String action, ArrayList<BuyProduct> buylist){
         this.projectname = projectname;
-        this.product = product;
+        this.username = username;
+        this.action = action;
+        this.buylist = buylist;
         
         main = new AddAmount();
         main.getBtn().addActionListener(this);
@@ -24,9 +32,12 @@ public class AddAmountController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(main.getBtn())){
-            int add = Integer.parseInt(main.getAmountTF().getText());
-            outCheck.updateProductQuantity(product.getName(), add);
-            main.getFr().dispose();
+            if(action.equals("+")){
+                
+            }
+            else if(action.equals("-")){
+                
+            }
         }
     }
 }

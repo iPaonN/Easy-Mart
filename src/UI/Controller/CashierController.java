@@ -4,6 +4,7 @@ package UI.Controller;
 import My_sql.ProjectData.DoProjectData;
 import My_sql.ProjectData.Product;
 import My_sql.UserData.DoUserData;
+import UI.Model.BuyProduct;
 import UI.View.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class CashierController implements ActionListener, MouseListener{
     private DoProjectData pjm;
     private Cashier cash;
     private MainMenuCashier main;
+    private ArrayList<BuyProduct> basket;
     private SubCashier subcashier;
     private String username, projectname;
     private CheckoutController Checkout;
@@ -26,7 +28,8 @@ public class CashierController implements ActionListener, MouseListener{
         main.getUns1().setText(this.username);
         cash = new Cashier();
         main.getMainpanel().add(cash);
-        Checkout = new CheckoutController(this.projectname, this);
+        basket = new ArrayList<BuyProduct>();
+        Checkout = new CheckoutController(this.projectname, this.basket);
         
         for (String t: pjm.getAll_Type(this.projectname)){
                 cash.getSort().addItem(t);
@@ -58,7 +61,7 @@ public class CashierController implements ActionListener, MouseListener{
             sub.getPlus().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddAmountController(projectname, p, Checkout);
+                //new AddAmountController(projectname, p, Checkout);
             }
         });
         
