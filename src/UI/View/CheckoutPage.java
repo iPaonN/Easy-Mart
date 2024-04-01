@@ -13,14 +13,15 @@ public class CheckoutPage {
     private DefaultTableModel model;
     private JLabel view, total, totalamount, totalprice;
     private JPanel bottom, top, bigScroll, empty1, empty2;
+    private Object[] dataRows;
     private final Object[] columnName = {"Name", "Amount", "Price"};
     private DefaultTableCellRenderer renderer;
     
     public CheckoutPage(){
         mainf = new JFrame();
-        table = new JTable();
         scrollPane = new JScrollPane();
-        model = new DefaultTableModel();
+        model = new DefaultTableModel(new Object[]{"Name", "Amount", "Price"}, 0);
+        table = new JTable(model);
         view = new JLabel("View");
         total = new JLabel("Total");
         totalamount = new JLabel("510 Piece");
@@ -46,26 +47,26 @@ public class CheckoutPage {
         scrollPane.setBorder(new LineBorder(Color.white, 0));
         model.setColumnIdentifiers(columnName);
         Object[][] dataRows = {
-            {"Cola", "500", "5"},
-            {"Lays", "10", "15"},
-            {"Cola", "500", "5"},
-            {"Lays", "10", "15"},
-            {"Cola", "500", "5"},
-            {"Lays", "10", "15"},
-            {"Cola", "500", "5"},
-            {"Lays", "10", "15"},
-            {"Cola", "500", "5"},
-            {"Lays", "10", "15"},
-            {"Cola", "500", "5"},
-            {"Lays", "10", "15"},
-            {"Cola", "500", "5"},
-            {"Lays", "10", "15"},
-            {"Cola", "500", "5"},
-            {"Lays", "10", "15"},
-            {"Cola", "500", "5"},
-            {"Lays", "10", "15"},
-            {"Cola", "500", "5"},
-            {"Lays", "10", "15"},
+//            {"Cola", "500", "5"},
+//            {"Lays", "10", "15"},
+//            {"Cola", "500", "5"},
+//            {"Lays", "10", "15"},
+//            {"Cola", "500", "5"},
+//            {"Lays", "10", "15"},
+//            {"Cola", "500", "5"},
+//            {"Lays", "10", "15"},
+//            {"Cola", "500", "5"},
+//            {"Lays", "10", "15"},
+//            {"Cola", "500", "5"},
+//            {"Lays", "10", "15"},
+//            {"Cola", "500", "5"},
+//            {"Lays", "10", "15"},
+//            {"Cola", "500", "5"},
+//            {"Lays", "10", "15"},
+//            {"Cola", "500", "5"},
+//            {"Lays", "10", "15"},
+//            {"Cola", "500", "5"},
+//            {"Lays", "10", "15"},
         };
         for (Object[] dataRow : dataRows) {
             model.insertRow(model.getRowCount(), dataRow);
@@ -117,9 +118,99 @@ public class CheckoutPage {
         mainf.add(bigScroll);
         mainf.add(bottom, BorderLayout.SOUTH);
         mainf.setSize(450,600);
-        mainf.setVisible(true);
+        mainf.setVisible(false);
     }
-    public static void main(String[] args) {
-        new CheckoutPage();
+    
+    public void addRow(Object[] rowData){
+        model.addRow(rowData);
     }
+    
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        return model.getValueAt(rowIndex, columnIndex);
+    }
+
+    
+    public void updateRow(int rowIndex, Object[] rowData) {
+        for (int i = 0; i < rowData.length; i++) {
+            model.setValueAt(rowData[i], rowIndex, i);
+        }
+    }
+    
+    public int findRowIndex(String productName) {
+        for (int i = 0; i < table.getRowCount(); i++) {
+            String name = table.getValueAt(i, 0).toString();
+            if (productName.equals(name)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+        model.setValueAt(value, rowIndex, columnIndex);
+    }
+
+
+    public JFrame getMainf() {
+        return mainf;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public DefaultTableModel getModel() {
+        return model;
+    }
+
+    public JLabel getView() {
+        return view;
+    }
+
+    public JLabel getTotal() {
+        return total;
+    }
+
+    public JLabel getTotalamount() {
+        return totalamount;
+    }
+
+    public JLabel getTotalprice() {
+        return totalprice;
+    }
+
+    public JPanel getBottom() {
+        return bottom;
+    }
+
+    public JPanel getTop() {
+        return top;
+    }
+
+    public JPanel getBigScroll() {
+        return bigScroll;
+    }
+
+    public JPanel getEmpty1() {
+        return empty1;
+    }
+
+    public JPanel getEmpty2() {
+        return empty2;
+    }
+
+    public Object[] getColumnName() {
+        return columnName;
+    }
+
+    public DefaultTableCellRenderer getRenderer() {
+        return renderer;
+    }
+//    public static void main(String[] args) {
+//        new CheckoutPage();
+//    }
 }

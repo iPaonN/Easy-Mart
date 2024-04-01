@@ -1,13 +1,20 @@
 
 package UI.View;
 
+import My_sql.ProjectData.*;
+import UI.Controller.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
+import java.sql.Blob;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-public class SubCashier extends JPanel implements ActionListener{
+public class SubCashier extends JPanel /*implements ActionListener */{
+    private Product product;
+    private CashierController cashiercontroller;
     private JFrame mainf;
     private JPanel psub, psubnorth, psubcenter, psubsouth, pImage, btnPanel;
     private JPanel pempty1, pempty2, pempty3, pempty4, pempty5, pempty6;
@@ -15,8 +22,11 @@ public class SubCashier extends JPanel implements ActionListener{
     private JLabel Jempty1, Jempty2, Jempty3, Jempty4, Jempty5, Jempty6;
     private JButton plus, minus;
     private ImageIcon i1, i2;
+    private String username, projectname;
 
-    public SubCashier() {
+    public SubCashier(String username, String projectname) {
+        this.username = username;
+        this.projectname = projectname;
 
         //Create
         i1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
@@ -138,25 +148,223 @@ public class SubCashier extends JPanel implements ActionListener{
         this.setBorder(new LineBorder(new Color(101, 113, 132), 5));
         this.setSize(300, 400);
     }
-
-    public static void main(String[] args) {
+    
+    public SubCashier(Product product, String username, String projectname){
+        this(username, projectname);
+        this.product = product;
+        this.setAllData(product.getName(), product.getType(), product.getQuantity(), product.getPrice());
+        Blob blob = product.getImage();
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
+           byte[] imageData = blob.getBytes(1, (int) blob.length());
+
+        Image image = ImageIO.read(new ByteArrayInputStream(imageData));
+        this.getpImage().add(new JLabel(new ImageIcon(image))); 
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
-        SwingUtilities.invokeLater(() -> {
-            new SubCashier();
-        });
+        this.repaint();
+        this.revalidate();
+    
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(plus)){
-            new AddAmount();
-        }
-        else if(e.getSource().equals(minus)){
-            new AddAmount();
-        }
+    public void setJnameproduct(String productName) {
+        Jnameproduct.setText(productName);
+        Jproduct.setText("Product Name : "+Jnameproduct.getText());
     }
+    
+    public void setJnametype(String type) {
+        Jnametype.setText(type);
+        Jtype.setText("Type : "+Jnametype.getText());
+    }
+    
+    public void setJnumamount(int amount) {
+        Jnumamount.setText(String.valueOf(amount));
+        Jamount.setText("Amount : "+Jnumamount.getText());
+    }
+    
+    public void setJnumprice(double price) {
+        Jnumprice.setText(String.valueOf(price));
+        Jprice.setText("Price : "+Jnumprice.getText());
+    }
+    
+    public void setAllData(String productName, String type, int amount, double price) {
+        setJnameproduct(productName);
+        setJnametype(type);
+        setJnumamount(amount);
+        setJnumprice(price);
+    }
+    
+    public void setNewProduct(Product np){
+        this.setProduct(np);
+        this.setJnameproduct(np.getName());
+        this.setJnumamount(np.getQuantity());
+        this.setJnametype(np.getType());
+        this.setJnumprice(np.getWeight());
+        Blob blob = np.getImage();
+        try {
+           byte[] imageData = blob.getBytes(1, (int) blob.length());
+
+        Image image = ImageIO.read(new ByteArrayInputStream(imageData));
+        this.getpImage().add(new JLabel(new ImageIcon(image))); 
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        this.repaint();
+        this.revalidate();
+    }
+    
+    public JFrame getMainf() {
+        return mainf;
+    }
+
+    public JPanel getPsub() {
+        return psub;
+    }
+
+    public JPanel getPsubnorth() {
+        return psubnorth;
+    }
+
+    public JPanel getPsubcenter() {
+        return psubcenter;
+    }
+
+    public JPanel getPsubsouth() {
+        return psubsouth;
+    }
+
+    public JPanel getpImage() {
+        return pImage;
+    }
+
+    public JPanel getBtnPanel() {
+        return btnPanel;
+    }
+
+    public JPanel getPempty1() {
+        return pempty1;
+    }
+
+    public JPanel getPempty2() {
+        return pempty2;
+    }
+
+    public JPanel getPempty3() {
+        return pempty3;
+    }
+
+    public JPanel getPempty4() {
+        return pempty4;
+    }
+
+    public JPanel getPempty5() {
+        return pempty5;
+    }
+
+    public JPanel getPempty6() {
+        return pempty6;
+    }
+
+    public JLabel getJproduct() {
+        return Jproduct;
+    }
+
+    public JLabel getJnameproduct() {
+        return Jnameproduct;
+    }
+
+    public JLabel getJtype() {
+        return Jtype;
+    }
+
+    public JLabel getJnametype() {
+        return Jnametype;
+    }
+
+    public JLabel getJamount() {
+        return Jamount;
+    }
+
+    public JLabel getJnumamount() {
+        return Jnumamount;
+    }
+
+    public JLabel getJprice() {
+        return Jprice;
+    }
+
+    public JLabel getJnumprice() {
+        return Jnumprice;
+    }
+
+    public JLabel getJempty1() {
+        return Jempty1;
+    }
+
+    public JLabel getJempty2() {
+        return Jempty2;
+    }
+
+    public JLabel getJempty3() {
+        return Jempty3;
+    }
+
+    public JLabel getJempty4() {
+        return Jempty4;
+    }
+
+    public JLabel getJempty5() {
+        return Jempty5;
+    }
+
+    public JLabel getJempty6() {
+        return Jempty6;
+    }
+
+    public JButton getPlus() {
+        return plus;
+    }
+
+    public JButton getMinus() {
+        return minus;
+    }
+
+    public ImageIcon getI1() {
+        return i1;
+    }
+
+    public ImageIcon getI2() {
+        return i2;
+    }
+    
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    
+    public Product getProduct() {
+        return product;
+    }
+
+//    public static void main(String[] args) {
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        SwingUtilities.invokeLater(() -> {
+//            new SubCashier();
+//        });
+//    }
+
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        if(e.getSource().equals(plus)){
+//            new AddAmount();
+//        }
+//        else if(e.getSource().equals(minus)){
+//            new AddAmount();
+//        }
+//    }
 }
