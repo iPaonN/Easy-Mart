@@ -185,7 +185,7 @@ public class HistoryView extends JPanel{
             model.insertRow(model.getRowCount(), dataRow);
         }
         table.getColumnModel().getColumn(1).setCellRenderer(new HistoryRenderer());
-        table.getColumnModel().getColumn(1).setCellEditor(new HistoryEditor(new JCheckBox()));
+//        table.getColumnModel().getColumn(1).setCellEditor(new HistoryEditor(new JCheckBox()));
         table.getColumnModel().getColumn(0).setPreferredWidth(650);
         table.setDefaultEditor(Object.class, null);
         table.setCellSelectionEnabled(false);
@@ -246,7 +246,7 @@ public class HistoryView extends JPanel{
             model.insertRow(model.getRowCount(), dataRow);
             
             table.getColumnModel().getColumn(1).setCellRenderer(new HistoryRenderer());
-            table.getColumnModel().getColumn(1).setCellEditor(new HistoryEditor(new JCheckBox()));
+            //table.getColumnModel().getColumn(1).setCellEditor(new HistoryEditor(new JCheckBox()));
             table.getColumnModel().getColumn(0).setPreferredWidth(650);
             table.setDefaultEditor(Object.class, null);
             table.setCellSelectionEnabled(false);
@@ -272,6 +272,15 @@ public class HistoryView extends JPanel{
             scrollPane.setBorder(new LineBorder(new Color(69, 104, 159), 4));
         }
     }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public void setTable(JTable table) {
+        this.table = table;
+    }
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

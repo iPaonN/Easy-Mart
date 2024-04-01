@@ -28,6 +28,16 @@ public class HistoryModel {
         }
         return result;
     }
-    
+    public ArrayList<Object[]> getDateHis(String time){
+        ArrayList<History> allhis = manager.get_Historys_date(this.projectname, time);
+        ArrayList<Object[]> result = new ArrayList<Object[]>();
+        DateTimeFormatter date = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter hour = DateTimeFormatter.ofPattern("HH:mm:ss");
+        for (History ah : allhis){
+            Object[] his = {ah.getHistory_id()+"", ah.getProduct_id()+"", ah.getProduct_name(), ah.getQuantity(), ah.getType(), ah.getAction(), date.format(ah.getAction_date()), hour.format(ah.getAction_date()), ah.getStaff_user()};
+            result.add(his);
+        }
+        return result;
+    }
     
 }

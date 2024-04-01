@@ -7,6 +7,7 @@ import java.awt.event.*;
 //import java.awt.*;
 import My_sql.ProjectData.*;
 import UI.Model.HistoryModel;
+import UI.View.HistoryEditor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,8 +17,9 @@ import javax.swing.event.*;
 import java.util.*;
 import java.time.*;
 import java.time.format.*;
+import javax.swing.table.DefaultTableModel;
 
-public class HistoryController {
+public class HistoryController implements MouseListener, ListSelectionListener{
     private String username, projectname, schema;
     private HistoryView view;
     private DoProjectData datab;
@@ -34,7 +36,8 @@ public class HistoryController {
         view.removeAllRow();
         view.addRow(model.getFirstHis());
 //        view.displaydata(this.getDataRows(this.get_data()));
-        
+        view.getTable().getSelectionModel().addListSelectionListener(this);
+        view.getTable().addMouseListener(this);
     }
     public UI.View.HistoryView getView() {
         return view;
@@ -71,4 +74,39 @@ public class HistoryController {
 //            new HistoryController("zedl3all", "zedl3all_pj1");
 //        });
 //    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getSource().equals(view.getTable())){
+            int selectedRow = view.getTable().getSelectedRow();
+//            System.out.println(selectedRow+" "+selectedColum);
+            DefaultTableModel tm = (DefaultTableModel)view.getTable().getModel();
+            new ViewHistory(this.username, this.projectname, (String)tm.getValueAt(selectedRow, 0));
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        
+    }
 }

@@ -30,7 +30,7 @@ public class DashBoardController implements ActionListener {
         dashboard = new DashBoard();
         this.username = username;
         this.projectname = projectname;
-        schema = username+"_"+projectname;
+        schema = this.projectname;
         DPD = new DoProjectData();
         DUD = new DoUserData();
         
@@ -58,7 +58,7 @@ public class DashBoardController implements ActionListener {
         dash3_comepare(dash3_day(schema));
         // SubDashBoard_3 //
         
-        dashboard.getMainf().setVisible(true);
+        dashboard.getMainf().setVisible(false);
     }
  
     // SubDashBoard_1 //
@@ -594,6 +594,14 @@ public class DashBoardController implements ActionListener {
         // SubDashBoard_3 //
         
         
+    }
+
+    public DashBoard getDashboard() {
+        return dashboard;
+    }
+
+    public void setDashboard(DashBoard dashboard) {
+        this.dashboard = dashboard;
     }
     
     public static void main(String[] args) {

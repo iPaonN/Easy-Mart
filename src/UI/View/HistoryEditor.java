@@ -6,9 +6,13 @@ import javax.swing.*;
 
 public class HistoryEditor extends DefaultCellEditor implements ActionListener{
     private JButton viewBtn;
+    private String username, projectname, time;
     
-    public HistoryEditor(JCheckBox checkBox) {
+    public HistoryEditor(JCheckBox checkBox,String username, String projectname, String time) {
         super(checkBox);
+        this.username = username;
+        this.projectname = projectname;
+        this.time = time;
         viewBtn = new JButton("View");
         viewBtn.addActionListener(this);
         viewBtn.setForeground(new Color(69, 104, 159));
@@ -24,6 +28,6 @@ public class HistoryEditor extends DefaultCellEditor implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        new ViewHistory();
+        new ViewHistory(this.username, this.projectname, this.time);
     }
 }

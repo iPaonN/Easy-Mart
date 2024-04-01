@@ -1,6 +1,9 @@
 package UI.View;
 
+import My_sql.ProjectData.DoProjectData;
+import UI.Model.HistoryModel;
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.*;
@@ -35,14 +38,14 @@ public class ViewHistory {
         table.setModel(model);
         table.setFont(new Font("Arial", Font.BOLD, 16));
         model.setColumnIdentifiers(columnName);
-        Object[][] dataRows = {
-            {"1", "101", "Coke", 100, "Drink", "Increase", "3/3/2024", "4:35 PM", "ZedBall"},
-            {"2", "102", "Banana", 50, "Fruit", "Decrease", "3/3/2024", "4:34 PM", "ZedBall"},
-            {"3", "103", "Pineapple", 30, "Fruit", "Remove", "3/3/2024", "4:33 PM", "ZedBall"}
-        };
-        for (Object[] dataRow : dataRows) {
-            model.insertRow(model.getRowCount(), dataRow);
-        }
+//        Object[][] dataRows = {
+//            {"1", "101", "Coke", 100, "Drink", "Increase", "3/3/2024", "4:35 PM", "ZedBall"},
+//            {"2", "102", "Banana", 50, "Fruit", "Decrease", "3/3/2024", "4:34 PM", "ZedBall"},
+//            {"3", "103", "Pineapple", 30, "Fruit", "Remove", "3/3/2024", "4:33 PM", "ZedBall"}
+//        };
+//        for (Object[] dataRow : dataRows) {
+//            model.insertRow(model.getRowCount(), dataRow);
+//        }
         renderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultEditor(Object.class, null);
         table.setCellSelectionEnabled(false);
@@ -97,7 +100,27 @@ public class ViewHistory {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    
+    public ViewHistory(String username, String projectname, String time){
+        this();
+        this.removeAllRow();
+        HistoryModel hm = new HistoryModel(username, projectname);
+        this.addRow(hm.getDateHis(time));
+        date.setText(time);
+        this.table.repaint();
+        this.table.revalidate();
+    }
+    public void addRow(ArrayList<Object []> list){
+        if (list.contains(null) == true){
+            list.remove(null);
+        }
+        for (Object[] l : list){
+            model.insertRow(model.getRowCount(), l);
+            System.out.println(l);
+        }
+    }
+    public void removeAllRow(){
+        model.setRowCount(0);
+    }
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
