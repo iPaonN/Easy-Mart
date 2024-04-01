@@ -52,14 +52,14 @@ public class ViewProduct extends JPanel {
         pamount = new JLabel("Amount : ");
         pnumamount = new JLabel("..............");
         peditamount = new JLabel("EDIT AMOUNT    ");
-        peditprice = new JLabel("EDIT PRICE         ");
-        bsave = new JButton("SAVE");
+        //peditprice = new JLabel("EDIT PRICE         ");
+        //bsave = new JButton("SAVE");
         bok = new JButton("      OK      ");
-        bsavev2 = new JButton("SAVE");
+        //bsavev2 = new JButton("SAVE");
         bset = new JButton("SET");
-        bplus = new JButton("+");
-        bminus = new JButton("-");
-        tfprice = new JTextField();
+        //bplus = new JButton("+");
+        //bminus = new JButton("-");
+        //tfprice = new JTextField();
         tfamount = new JTextField();
         bdelete = new JButton("   Delete   ");
 
@@ -121,15 +121,15 @@ public class ViewProduct extends JPanel {
         //PSouth
         psouth.add(pempty13); 
         pempty13.add(new JLabel("                 "), BorderLayout.WEST);
-        pempty13.add(bsave); 
+        //pempty13.add(bsave); 
         pempty13.add(new JLabel("                                                                                   "), BorderLayout.EAST);
         
         psouth.add(pempty6);
         pempty6.add(pempty8, BorderLayout.WEST);
         pempty6.add(pempty10);
         pempty10.add(pempty11, BorderLayout.WEST);
-        pempty11.add(bplus);
-        pempty11.add(bminus);
+        //pempty11.add(bplus);
+        //pempty11.add(bminus);
         pempty10.add(bset);
         pempty8.add(peditamount);
         pempty8.add(tfamount);
@@ -137,9 +137,9 @@ public class ViewProduct extends JPanel {
         psouth.add(pempty7);
         pempty7.add(pempty9, BorderLayout.WEST);
         pempty7.add(pempty12);
-        pempty12.add(bsavev2);
-        pempty9.add(peditprice);
-        pempty9.add(tfprice);
+        //pempty12.add(bsavev2);
+        //pempty9.add(peditprice);
+        //pempty9.add(tfprice);
        
         psouth.add(new JLabel());
         
@@ -170,40 +170,40 @@ public class ViewProduct extends JPanel {
         pnumamount.setForeground(Color.WHITE);
         peditamount.setFont(new Font("Aria", Font.BOLD, 16));
         peditamount.setForeground(Color.WHITE);
-        peditprice.setFont(new Font("Aria", Font.BOLD, 16));
-        peditprice.setForeground(Color.WHITE);
+        //peditprice.setFont(new Font("Aria", Font.BOLD, 16));
+        //peditprice.setForeground(Color.WHITE);
         
-        bsave.setBackground(Color.WHITE);
-        bsave.setFont(new Font("Aria", Font.BOLD, 16));
-        bsave.setForeground(new Color(69, 104, 159));
-        bsave.setBorder(new LineBorder(new Color(69, 104, 159), 3));
+        //bsave.setBackground(Color.WHITE);
+        //bsave.setFont(new Font("Aria", Font.BOLD, 16));
+        //bsave.setForeground(new Color(69, 104, 159));
+        //bsave.setBorder(new LineBorder(new Color(69, 104, 159), 3));
         bok.setBackground(Color.WHITE);
         bok.setFont(new Font("Aria", Font.BOLD, 16));
         bok.setForeground(new Color(69, 104, 159));
         bok.setBorder(new LineBorder(new Color(69, 104, 159), 2));
-        bsavev2.setBackground(Color.WHITE);
-        bsavev2.setFont(new Font("Aria", Font.BOLD, 16));
-        bsavev2.setForeground(new Color(69, 104, 159));
+        //bsavev2.setBackground(Color.WHITE);
+        //bsavev2.setFont(new Font("Aria", Font.BOLD, 16));
+        //bsavev2.setForeground(new Color(69, 104, 159));
         bset.setBackground(Color.WHITE);
         bset.setFont(new Font("Aria", Font.BOLD, 16));
         bset.setForeground(new Color(69, 104, 159));
-        bplus.setBackground(Color.WHITE);
-        bplus.setFont(new Font("Aria", Font.BOLD, 16));
-        bplus.setForeground(new Color(69, 104, 159));
-        bminus.setBackground(Color.WHITE);
-        bminus.setFont(new Font("Aria", Font.BOLD, 16));
-        bminus.setForeground(new Color(69, 104, 159));
-        bminus = new JButton("-");
+        //bplus.setBackground(Color.WHITE);
+        //bplus.setFont(new Font("Aria", Font.BOLD, 16));
+        //bplus.setForeground(new Color(69, 104, 159));
+        //bminus.setBackground(Color.WHITE);
+        //bminus.setFont(new Font("Aria", Font.BOLD, 16));
+        //bminus.setForeground(new Color(69, 104, 159));
+        //bminus = new JButton("-");
         bdelete.setBackground(Color.WHITE);
         bdelete.setFont(new Font("Aria", Font.BOLD, 16));
         bdelete.setForeground(Color.RED);
         bdelete.setBorder(new LineBorder(Color.RED, 2));
         
-        tfprice.setBackground(new Color(69, 104, 159));
-        tfprice.setBorder(new LineBorder(Color.WHITE, 2));
-        tfprice.setFont(new Font("Aria", Font.BOLD, 14));
-        tfprice.setForeground(Color.WHITE);
-        tfprice.setHorizontalAlignment(SwingConstants.CENTER);
+        //tfprice.setBackground(new Color(69, 104, 159));
+        //tfprice.setBorder(new LineBorder(Color.WHITE, 2));
+        //tfprice.setFont(new Font("Aria", Font.BOLD, 14));
+        //tfprice.setForeground(Color.WHITE);
+        //tfprice.setHorizontalAlignment(SwingConstants.CENTER);
         tfamount.setBackground(new Color(69, 104, 159));
         tfamount.setBorder(new LineBorder(Color.WHITE, 2));
         tfamount.setFont(new Font("Aria", Font.BOLD, 14));
@@ -255,19 +255,11 @@ public class ViewProduct extends JPanel {
     }
     
     public JPanel getImageLabel(){
-        return pnorthleft;
+        return pincenter;
     }
     
     public JFrame getmf() {
         return mainf;
-    }
-    
-    public JButton getSaveimage() {
-        return bsave;
-    }
-    
-    public JButton getSaveButton() {
-        return bsavev2;
     }
 
     public JButton getOKButton() {
@@ -278,20 +270,8 @@ public class ViewProduct extends JPanel {
         return bset;
     }
 
-    public JButton getPlusButton() {
-        return bplus;
-    }
-
-    public JButton getMinusButton() {
-        return bminus;
-    }
-
     public JButton getDeleteButton() {
         return bdelete;
-    }
-    
-    public JTextField gettfprice() {
-        return tfprice;
     }
     
     public JTextField gettfamount() {
