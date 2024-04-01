@@ -37,7 +37,8 @@ public class CashierController implements ActionListener, MouseListener{
         cash.getPanel().removeAll();
         this.showProduct(pjm.getAll_product(this.projectname));
         
-        main.getCp1().LoadImage(manager.GetProfileImage(this.username));
+        main.getCp1().LoadImage(pjm.Get_Profile(this.projectname));
+        main.getUns1().setText(this.projectname);
         cash.getCashierPanel().addMouseListener(this);
         cash.getCheckout().addActionListener(this);
         cash.getCasherIcon().addActionListener(this);

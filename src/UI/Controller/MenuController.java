@@ -49,8 +49,8 @@ public class MenuController implements ActionListener, MouseListener{
         main.getCardpanel().add(option.getView(), "Option");
         
         //set inform
-        main.getCp1().LoadImage(manager.GetProfileImage(this.username));
-        main.getUns1().setText(this.username);
+        main.getCp1().LoadImage(pjm.Get_Profile(this.projectname));
+        main.getUns1().setText(this.projectname);
         
         
         //Add Event
