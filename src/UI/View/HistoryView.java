@@ -3,6 +3,7 @@ package UI.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
@@ -226,11 +227,24 @@ public class HistoryView extends JPanel{
     public void setDataRows(Object[][] dataRows) {
         this.dataRows = dataRows;
     }
+    public void addRow(ArrayList<String> list){
+        if (list.contains(null) == true){
+            list.remove(null);
+        }
+        for (int i = 0; i < list.size(); i++){
+                Object[] adder = new Object[1];
+                adder[0] = list.get(i);
+                model.insertRow(i, adder);   
+        }
+    }
+    public void removeAllRow(){
+        model.setRowCount(0);
+    }
     public void displaydata(Object[][] dataRows) {
         model.setColumnIdentifiers(columnName);
         for (Object[] dataRow : dataRows) {
             model.insertRow(model.getRowCount(), dataRow);
-        
+            
             table.getColumnModel().getColumn(1).setCellRenderer(new HistoryRenderer());
             table.getColumnModel().getColumn(1).setCellEditor(new HistoryEditor(new JCheckBox()));
             table.getColumnModel().getColumn(0).setPreferredWidth(650);
