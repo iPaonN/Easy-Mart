@@ -70,8 +70,19 @@ public class DeleteNotify {
         fr.add(panel4);
         fr.setResizable(false);
         fr.setSize(320, 220);
-        fr.setLocationRelativeTo(null);
-        fr.setVisible(true);
+        fr.setVisible(false);
+    }
+    
+    public JFrame getFrame(){
+        return fr;
+    }
+    
+    public JButton getDeleteButton(){
+        return bn1;
+    }
+    
+    public JTextField getTF(){
+        return jt;
     }
 
     public static void main(String[] args) {

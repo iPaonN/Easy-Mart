@@ -1,3 +1,7 @@
+/*
+delete buttun want to go to Mainpage after click delete
+*/
+
 
 package UI.Controller;
 
@@ -9,23 +13,34 @@ import java.awt.*;
 import java.awt.event.*;
 //import java.io.*;
 import javax.swing.*;
+import java.util.*;
 //WIP
 public class OptionController implements ActionListener, MouseListener {
     private DoUserData manager;
     private DoProjectData pjm;
     private Option main;
-    private String username, projectname;
+    private String username, oldprojectname, newname, projectname;
     private ImportFile im;
+    private ArrayList<String> arraylist;
+    private DeleteNotify dnotify;
+    
     
     public OptionController(String username, String projectname){
+        String[] oldname= projectname.split("_");
+        oldprojectname = oldname[1];
+        this.projectname = projectname;
+        dnotify = new DeleteNotify();
+        dnotify.getDeleteButton().addActionListener(this);
+        
         manager = new DoUserData();
         pjm = new DoProjectData();
         main = new Option();
         this.username = username;
-        this.projectname = projectname;
         main.getSaveButton().addActionListener(this);
         main.getProfileicon().addMouseListener(this);
         main.getSaveButton2().addActionListener(this);
+        main.getDeleteButton().addActionListener(this);
+        main.getTFprojectname().setText(oldprojectname);
     }
     
     public Option getView(){
@@ -34,10 +49,20 @@ public class OptionController implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String newprojectname = this.username+"_"+newname;
+        
         if (e.getSource().equals(main.getSaveButton())){
-            System.out.println(this.username + " clicked " + main.getSaveButton().getClass());
-            
+            newname = main.getTFprojectname().getText();
             if (e.getSource().equals(main.getTFprojectname().getText().equals(""))){}
+            if(main.getTFprojectname().getText().equals(main.getTFprojectnameC().getText())){
+                main.getTFprojectnameC().setText("");
+                JOptionPane.showMessageDialog(null, "Save Successfull");
+                System.out.println(this.username + " clicked " + main.getSaveButton().getClass());
+                pjm.rename_schema(username, oldprojectname, newname);
+                manager.RenameProject(username, projectname, newprojectname);
+            }else{
+                JOptionPane.showMessageDialog(null, "Your Projectname and Confirmname do not match");
+            }
             
         }
         else if (e.getSource().equals(main.getSaveButton2())){
@@ -47,6 +72,35 @@ public class OptionController implements ActionListener, MouseListener {
 //                String imagePath = im.getPath().getAbsolutePath();
 //                pjm.update_profile(this.username, (File)imagePath)
             }
+        }
+        else if(e.getSource().equals(main.getDeleteButton())){
+            System.out.println(oldprojectname);
+            System.out.println(projectname);
+            
+            dnotify.getFrame().setVisible(true);
+            
+            
+        }
+        else if(e.getSource().equals(dnotify.getDeleteButton())){
+            if(dnotify.getTF().getText().equals(oldprojectname)){
+                System.out.println(this.username + " clicked " + main.getSaveButton().getClass());
+                System.out.println(projectname);
+                manager.RemoveProject(this.username, projectname);
+                pjm.delete_project(this.username, oldprojectname);
+                JOptionPane.showMessageDialog(null, "Deleted"); 
+            }
+            else if(dnotify.getTF().getText().equals(projectname)){
+                System.out.println(this.username + " clicked " + main.getSaveButton().getClass());
+                System.out.println(projectname);
+                manager.RemoveProject(this.username, projectname);
+                pjm.delete_project(this.username, oldprojectname);
+                JOptionPane.showMessageDialog(null, "Deleted");
+            }else{
+                JOptionPane.showMessageDialog(null, "Your Confirm is wrong");
+            }
+            
+            
+            
         }
     }
 
