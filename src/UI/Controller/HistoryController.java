@@ -20,24 +20,23 @@ public class HistoryController {
     private String username, projectname, schema;
     private HistoryView view;
     private DoProjectData datab;
-    private Object[][] dataRows;
+    private ArrayList<Object> data_array;
     public HistoryController(String username, String projectname){
         this.username = username;
         this.projectname = projectname;
         view = new HistoryView();
         datab = new DoProjectData();
         this.schema = this.projectname;
-        this.get_data();
 //        dataRows = new Object[][] {{"3/3/2024"}, {"2/3/2024"}, {"1/3/2024"}, {"123"}, {"456"}};
         
-        view.displaydata(this.getDataRows());
+        view.displaydata(this.getDataRows(this.get_data()));
         
     }
     public UI.View.HistoryView getView() {
         return view;
     }
     
-    public void get_data(){
+    public HashSet<String> get_data(){
         ArrayList<History> his_data = datab.getAll_Historys(schema);
         HashSet<String> all_date_Set = new HashSet<>();
         for(History i: his_data){
@@ -47,41 +46,15 @@ public class HistoryController {
             all_date_Set.add(formattedDateTime);
         }
         System.out.println(all_date_Set);
+        return all_date_Set;
     }
-    
-    
-    public ResultSet GetAllData() {
-        My_sql sql = new My_sql();
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
 
-        try {
-            sql.set_Schema(this.schema);
-            sql.connect();
-            conn = sql.get_Connection();
-            String query = "SELECT action_time FROM history";
-            stmt = conn.prepareStatement(query);
-            rs = stmt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public Object[][] getDataRows(HashSet<String> date_set) {
+        for (String i : date_set){
+            data_array.add(new Object[]{i});
         }
-
-        return rs;
-    }
-    public Object[][] getDataRows() {
-        ResultSet rs = GetAllData();
-        List<Object[]> rows = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                String time = rs.getString("action_time");
-                Object[] rowData = {time};
-                rows.add(rowData);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return rows.toArray(new Object[rows.size()][]);
+        Object[][] dataRows = data_array.toArray(new Object[data_array.size()][]);
+        return dataRows;
     }
   
     public static void main(String[] args) {
