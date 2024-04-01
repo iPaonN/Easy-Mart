@@ -3,8 +3,11 @@ import UI.View.Assistance;
 import My_sql.ProjectData.DoProjectData;
 import java.util.*;
 import My_sql.ProjectData.History;
+import UI.View.AssistantTable;
+import java.awt.event.*;
+import javax.swing.JOptionPane;
 
-public class AssistanceController {
+public class AssistanceController implements MouseListener{
     private String username, projectname, schema;
     private Assistance view;
     private DoProjectData history;
@@ -16,6 +19,9 @@ public class AssistanceController {
         this.schema = this.projectname;
         view = new Assistance();
         history = new DoProjectData();
+        view.getBn1().addMouseListener(this);
+        view.getBn2().addMouseListener(this);
+        
     }
     
     public UI.View.Assistance getView(){
@@ -80,6 +86,40 @@ public class AssistanceController {
         return listall;
     }
     
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Object[][] data = {
+            {"3/3/2024", "4:35 PM", "Coke"},
+            {"3/3/2024", "4:34 PM", "Banana"},
+            {"3/3/2024", "4:33 PM", "Tomato"}
+        };
+        if (e.getSource().equals(view.getBn1())){
+            new AssistantTable(data);
+        } else if (e.getSource().equals(view.getBn2())){
+            new AssistantTable(data);
+        }
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
+    }
     public static void main(String[] args) {
         new AssistanceController("Thanasit", "pro1");
     }
