@@ -1,5 +1,6 @@
 package UI.View;
 
+import My_sql.ProjectData.Product;
 import UI.Controller.ViewProductController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,6 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import UI.Controller.*;
+import java.io.ByteArrayInputStream;
+import java.sql.Blob;
+import javax.imageio.ImageIO;
 
 public class SubProduct extends JPanel {
 
@@ -18,8 +22,11 @@ public class SubProduct extends JPanel {
     private JButton bview;
     private ImageIcon i1, i2;
     private ViewProductController viewpd;
-    public SubProduct() {
-
+    private Product product;
+    private String username, projectname;
+    public SubProduct(String username, String projectname) {
+        this.username = username;
+        this.projectname = projectname;
         //Create
         i1 = new ImageIcon("src/UI/Image/eweweewew.jpg");
         i2 = new ImageIcon(i1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
@@ -123,7 +130,7 @@ public class SubProduct extends JPanel {
 //        bview.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
-//                viewpd = new ViewProductController();
+//                viewpd = new ViewProductController(this, username, projectname);
 //            }
 //        });
         //Mainpanel
@@ -135,17 +142,37 @@ public class SubProduct extends JPanel {
         this.setBorder(new LineBorder(new Color(101, 113, 132), 5));
         this.setSize(300, 400);
     }
-
-    public static void main(String[] args) {
+    public SubProduct(Product product, String username, String projectname){
+        this(username, projectname);
+        this.product = product;
+        this.setJnameproduct(product.getName());
+        this.setJnametype(product.getType());
+        this.setJnumamount(product.getQuantity());
+        this.setJnumprice(product.getPrice());
+        Blob blob = product.getImage();
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
+           byte[] imageData = blob.getBytes(1, (int) blob.length());
+
+        Image image = ImageIO.read(new ByteArrayInputStream(imageData));
+        this.getpImage().add(new JLabel(new ImageIcon(image))); 
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
-        SwingUtilities.invokeLater(() -> {
-            new SubProduct();
-        });
+        this.repaint();
+        this.revalidate();
     }
+
+//    public static void main(String[] args) {
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        SwingUtilities.invokeLater(() -> {
+//            new SubProduct();
+//        });
+//    }
     
     public JPanel psubcenter(){
         return psubcenter;
@@ -197,6 +224,10 @@ public class SubProduct extends JPanel {
         setJnumamount(amount);
         setJnumprice(price);
     }
+    public void setNewProduct(Product np){
+        this.setProduct(np);
+        this.setJnameproduct(np.getName());
+    }
 
     public JButton getBview() {
         return bview;
@@ -204,6 +235,30 @@ public class SubProduct extends JPanel {
 
     public void setBview(JButton bview) {
         this.bview = bview;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getProjectname() {
+        return projectname;
+    }
+
+    public void setProjectname(String projectname) {
+        this.projectname = projectname;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
     
     

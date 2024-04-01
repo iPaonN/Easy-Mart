@@ -111,8 +111,14 @@ public class StockProductController implements ActionListener, DocumentListener,
 //  
     public void showProduct(ArrayList<Product> productlist){
         for (Product p: productlist){
-            SubProductController sc = new SubProductController(this.username, this.projectname, p);
-            view.getSubPanel().add(sc.getSub());
+            SubProduct sub = new SubProduct(p, username, projectname);
+            view.getSubPanel().add(sub);
+            sub.getBview().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ViewProductController(sub, username, projectname);
+            }
+        });;
         }
         view.getSubPanel().repaint();
         view.getSubPanel().revalidate();

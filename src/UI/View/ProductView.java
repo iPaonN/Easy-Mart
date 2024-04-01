@@ -5,11 +5,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-public class Product extends JPanel{
+public class ProductView extends JPanel{
     private JFrame Product;
     private JPanel panelsubmain;
     
-    public Product(){
+    public ProductView(){
         
         //Create
         Product = new JFrame("Product");
@@ -33,6 +33,6 @@ public class Product extends JPanel{
         Product.setVisible(false);
     }
     public static void main(String[] args) {
-        new Product();
+        new ProductView();
     }
 }
