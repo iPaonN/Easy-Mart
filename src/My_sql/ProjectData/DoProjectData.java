@@ -1154,9 +1154,34 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
-    //public static void main(String[] args) {
-        //DoProjectData p1 = new DoProjectData();
-        //String schema = "zedl3all_pj1";
+    public void update_product_quantity(String schema,String product_name, int quantity){
+        try{
+            data.set_Schema(schema);
+            data.connect();
+            Connection conn = data.get_Connection();
+            
+            try(PreparedStatement pstmt = conn.prepareStatement("UPDATE product SET quantity = ? WHERE product_name = ?")){
+                
+                pstmt.setInt(1, quantity);
+                pstmt.setString(2, product_name);
+                
+                pstmt.executeUpdate();
+                
+                System.out.println("Change update_product_quantity completed.");
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            data.disconnect();
+        }
+    }
+    
+    
+//    public static void main(String[] args) {
+//        DoProjectData p1 = new DoProjectData();
+//        String schema = "zedl3all_pj2";
+//        p1.update_product_quantity(schema, "A1", 200);
         //System.out.println(p1.get_Historys_year(schema,"2024"));
         //p1.insert_member(schema, "zedl3all", "Owner");
         //p1.rename_schema("zedl3all", "pj1", "pj2");
