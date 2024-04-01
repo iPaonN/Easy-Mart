@@ -1,5 +1,6 @@
 package UI.View;
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.*;
@@ -241,11 +242,16 @@ public class MemberView extends JPanel{
         fr.setLocationRelativeTo(null);
         fr.setVisible(false);
     }
-    
+    public void showMember(ArrayList<Object[]> memberlist){
+        model.setNumRows(0);
+        for (Object[] ml : memberlist){
+            model.insertRow(model.getRowCount(), ml);
+        }
+    }
     public Object[][] getDataRows() {
         return dataRows;
     }
-
+    
     public void setDataRows(Object[][] dataRows) {
         this.dataRows = dataRows;
     }
@@ -284,6 +290,15 @@ public class MemberView extends JPanel{
     public void setAdd(JButton add) {
         this.add = add;
     }
+
+    public JTextField getSearch() {
+        return search;
+    }
+
+    public void setSearch(JTextField search) {
+        this.search = search;
+    }
+    
     
     public static void main(String[] args){
         try {

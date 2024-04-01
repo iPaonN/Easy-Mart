@@ -15,7 +15,7 @@ import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.event.*;
 
-public class MemberController implements ActionListener{
+public class MemberController implements ActionListener, DocumentListener{
     private String username, projectname;
     private MemberView view;
     private AddMember adder;
@@ -32,10 +32,12 @@ public class MemberController implements ActionListener{
         promanager = new DoProjectData();
         manager = new DoUserData();
         //model.setMemberdata(1, "Staff", "First", "Last", "MAIL", 1);
-        view.displaydata(this.getDataRows());
+//        view.displaydata(this.getDataRows());
+        view.showMember(model.getMemList());
         
         //Add Listener
         view.getAdd().addActionListener(this);
+        view.getSearch().getDocument().addDocumentListener(this);
     }
     
 
@@ -135,8 +137,7 @@ public class MemberController implements ActionListener{
                 String nmem = this.getNameAdder(adder.getTfemial().getText());
                 promanager.insert_member(this.projectname, nmem, (String)adder.getJcb1().getSelectedItem());
                 manager.UpdateProjectList(nmem, manager.GetProjectList(nmem), this.projectname);
-                view.getModel().setRowCount(0);
-                view.displaydata(this.getDataRows());
+                view.showMember(model.getMemList());
                 view.repaint();
                 view.revalidate();
                 
@@ -148,4 +149,23 @@ public class MemberController implements ActionListener{
 //    public static void main(String[] args) {
 //        new MemberController("Teetat", "Teetat_b");
 //    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        view.showMember(model.getIsMember(view.getSearch().getText()));
+        view.repaint();
+        view.revalidate();
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        view.showMember(model.getIsMember(view.getSearch().getText()));
+        view.repaint();
+        view.revalidate();
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        
+    }
 }

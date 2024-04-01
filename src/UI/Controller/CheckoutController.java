@@ -15,7 +15,6 @@ public class CheckoutController {
     public CheckoutController(String projectname, CashierController inCashier){
         this.projectname = projectname;
         this.inCashier = inCashier;
-        this.main = main;
         
         main = new CheckoutPage();
         

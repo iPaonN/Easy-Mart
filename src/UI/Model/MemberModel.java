@@ -1,10 +1,13 @@
 package UI.Model;
 
 import My_sql.My_sql;
+import My_sql.ProjectData.DoProjectData;
+import My_sql.ProjectData.Member;
 import com.mysql.cj.jdbc.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class MemberModel {
     private String username;
@@ -12,6 +15,7 @@ public class MemberModel {
     private String projectname;
     Statement stmt = null;
     Connection conn = null;
+    private DoProjectData promanager;
     public MemberModel() {
 
     }
@@ -19,6 +23,7 @@ public class MemberModel {
     public MemberModel(String name, String projectname) {
         this.username = name;
         this.projectname = projectname;
+        promanager = new DoProjectData();
     }
 
     public String getUsername() {
@@ -28,7 +33,27 @@ public class MemberModel {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+    public ArrayList<Object[]> getMemList(){
+        ArrayList<Member> mlist = promanager.Get_Members(this.projectname);
+        ArrayList<Object[]> result = new ArrayList<Object[]>();
+        for (Member ml: mlist){
+            Object[] m = {ml.getFirst_name()+" "+ml.getLast_name(), ml.getAccess()};
+            result.add(m);
+        }
+        return result;
+    }
+    public ArrayList<Object[]> getIsMember(String name){
+        ArrayList<Member> mlist = promanager.Get_Members(this.projectname);
+        ArrayList<Object[]> result = new ArrayList<Object[]>();
+        for (Member ml: mlist){
+            Object[] m = {ml.getFirst_name()+" "+ml.getLast_name(), ml.getAccess()};
+            if(ml.getFirst_name().contains(name) == true || ml.getLast_name().contains(name) == true){
+                result.add(m);
+            }
+            
+        }
+        return result;
+    }
     public void setMemberdata(int staff_id, String staff_user, String first_name, String last_name, String email, int staff_access ){
       My_sql sql = new My_sql();
       try{
