@@ -116,7 +116,7 @@ public class StockProductController implements ActionListener, DocumentListener,
             sub.getBview().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ViewProductController(sub, username, projectname);
+                new ViewProductController(view.getSubPanel(), sub, username, projectname);
             }
         });;
         }

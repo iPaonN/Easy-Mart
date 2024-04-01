@@ -309,6 +309,14 @@ public class ViewProduct extends JPanel {
     public void close(){
         mainf.setVisible(false);
     }
+
+    public JFrame getMainf() {
+        return mainf;
+    }
+
+    public void setMainf(JFrame mainf) {
+        this.mainf = mainf;
+    }
     
     public static void main(String[] args) {
        try {

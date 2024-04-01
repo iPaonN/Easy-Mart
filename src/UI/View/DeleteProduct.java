@@ -71,6 +71,31 @@ public class DeleteProduct {
         fr.setLocationRelativeTo(null);
         fr.setVisible(true);
     }
+
+    public JFrame getFr() {
+        return fr;
+    }
+
+    public void setFr(JFrame fr) {
+        this.fr = fr;
+    }
+
+    public JButton getBn1() {
+        return bn1;
+    }
+
+    public void setBn1(JButton bn1) {
+        this.bn1 = bn1;
+    }
+
+    public JTextField getJt() {
+        return jt;
+    }
+
+    public void setJt(JTextField jt) {
+        this.jt = jt;
+    }
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
