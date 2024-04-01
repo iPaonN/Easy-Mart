@@ -8,9 +8,13 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import UI.Controller.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Blob;
 import javax.imageio.ImageIO;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class SubProduct extends JPanel {
 
@@ -227,6 +231,21 @@ public class SubProduct extends JPanel {
     public void setNewProduct(Product np){
         this.setProduct(np);
         this.setJnameproduct(np.getName());
+        this.setJnumamount(np.getQuantity());
+        this.setJnametype(np.getType());
+        this.setJnumprice(np.getWeight());
+        Blob blob = np.getImage();
+        try {
+           byte[] imageData = blob.getBytes(1, (int) blob.length());
+
+        Image image = ImageIO.read(new ByteArrayInputStream(imageData));
+        this.getpImage().add(new JLabel(new ImageIcon(image))); 
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        this.repaint();
+        this.revalidate();
     }
 
     public JButton getBview() {

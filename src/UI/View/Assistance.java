@@ -181,7 +181,7 @@ public class Assistance extends JPanel {
         fr.add(this);
         fr.setSize(1280, 720);
         fr.setLocationRelativeTo(null);
-        fr.setVisible(true);
+        fr.setVisible(false);
     }
 
     public RoundedButton getBn1(){

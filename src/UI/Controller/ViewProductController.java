@@ -5,6 +5,7 @@ import My_sql.ProjectData.Product;
 import UI.Model.ProductModel;
 import UI.View.SubProduct;
 import UI.View.ViewProduct;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -27,15 +28,29 @@ public class ViewProductController implements ActionListener {
         product = sub.getProduct();
         
         view.setProductName(product.getName());
-        view.setPricePerPiece(product.getType());
+        view.setPricePerPiece(product.getPrice()+"");
+        view.setType(product.getType());
+        view.setAmount(product.getQuantity()+"");
+        view.setWeight(product.getWeight()+"");
+         Blob blob = product.getImage();
+        try {
+           byte[] imageData = blob.getBytes(1, (int) blob.length());
+
+        Image image = ImageIO.read(new ByteArrayInputStream(imageData));
+        view.getImageLabel().add(new JLabel(new ImageIcon(image)));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        view.getImageLabel().repaint();
+        view.getImageLabel().revalidate();
+        
         
         model = new ProductModel();
         
         view.getSaveButton().addActionListener(this);
         view.getOKButton().addActionListener(this);
         view.getSetButton().addActionListener(this);
-        view.getPlusButton().addActionListener(this);
-        view.getMinusButton().addActionListener(this);
         view.getDeleteButton().addActionListener(this);
     }
 
