@@ -14,7 +14,7 @@ public class OptionController implements ActionListener, MouseListener {
     private DoUserData manager;
     private DoProjectData pjm;
     private Option main;
-    private String username, oldprojectname, newname, projectname;
+    private String username, projectname, projectnousername;
     private ImportFile im;
     private ArrayList<String> arraylist;
     private DeleteNotify dnotify;
@@ -24,7 +24,7 @@ public class OptionController implements ActionListener, MouseListener {
     
     public OptionController(String username, String projectname, MenuController out){
         String[] oldname= projectname.split("_");
-        oldprojectname = oldname[1];
+        projectnousername= oldname[1];
         this.projectname = projectname;
         this.out = out;
         dnotify = new DeleteNotify();
@@ -38,10 +38,9 @@ public class OptionController implements ActionListener, MouseListener {
         main.getProfileicon().addMouseListener(this);
         main.getSaveButton2().addActionListener(this);
         main.getDeleteButton().addActionListener(this);
-        main.getTFprojectname().setText(oldprojectname);
+        main.getTFprojectname().setText(projectname);
         
-        namewithproject = this.username+"_"+main.getTFprojectname().getText();
-        main.getProfileicon().LoadImage(pjm.Get_Profile(namewithproject));
+        main.getProfileicon().LoadImage(pjm.Get_Profile(projectname));
         main.getProfileicon().repaint();
         
     }
@@ -52,17 +51,15 @@ public class OptionController implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String newprojectname = this.username+"_"+newname;
         
         if (e.getSource().equals(main.getSaveButton())){
-            newname = main.getTFprojectname().getText();
+            String newname = main.getTFprojectname().getText();
             if (e.getSource().equals(main.getTFprojectname().getText().equals(""))){}
             if(main.getTFprojectname().getText().equals(main.getTFprojectnameC().getText())){
                 main.getTFprojectnameC().setText("");
                 JOptionPane.showMessageDialog(null, "Save Successfull");
                 System.out.println(this.username + " clicked " + main.getSaveButton().getClass());
-                pjm.rename_schema(username, oldprojectname, newname);
-                manager.RenameProject(username, projectname, newprojectname);
+                pjm.rename_schema(username, projectnousername, newname);
                 new MainPageController(this.username);
                 this.out.getFr().dispose();
             }else{
@@ -100,11 +97,11 @@ public class OptionController implements ActionListener, MouseListener {
             dnotify.getFrame().setVisible(true);  
         }
         else if(e.getSource().equals(dnotify.getDeleteButton())){
-            if(dnotify.getTF().getText().equals(oldprojectname)){
+            if(dnotify.getTF().getText().equals(projectnousername)){
                 System.out.println(this.username + " clicked " + main.getSaveButton().getClass());
                 System.out.println(projectname);
                 manager.RemoveProject(this.username, projectname);
-                pjm.delete_project(this.username, oldprojectname);
+                pjm.delete_project(projectname);
                 JOptionPane.showMessageDialog(null, "Deleted"); 
                 dnotify.getFrame().setVisible(false);
                 new MainPageController(this.username);
@@ -114,7 +111,7 @@ public class OptionController implements ActionListener, MouseListener {
                 System.out.println(this.username + " clicked " + main.getSaveButton().getClass());
                 System.out.println(projectname);
                 manager.RemoveProject(this.username, projectname);
-                pjm.delete_project(this.username, oldprojectname);
+                pjm.delete_project(projectname);
                 JOptionPane.showMessageDialog(null, "Deleted");
                 dnotify.getFrame().setVisible(false);
                 new MainPageController(this.username);

@@ -151,7 +151,7 @@ public final class DoProjectData extends ProjectData{
                     
                 }
             }
-            this.remove_project(oldname);
+            this.delete_project(oldname);
         }catch (SQLException e){
             e.printStackTrace();
         }finally{
@@ -215,7 +215,7 @@ public final class DoProjectData extends ProjectData{
                     
                 }
             }
-            this.remove_project(oldname);
+            this.delete_project(oldname);
         }catch (SQLException e){
             e.printStackTrace();
         }finally{
@@ -1135,7 +1135,7 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
-    public void remove_project(String schema){
+    public void delete_project(String schema){
         try{
             data.set_Schema("");
             data.connect();
