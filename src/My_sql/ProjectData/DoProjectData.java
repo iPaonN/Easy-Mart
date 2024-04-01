@@ -98,6 +98,8 @@ public final class DoProjectData extends ProjectData{
         String oldname = user+"_"+oldSchema;
         String newname = user+"_"+newSchema;
         
+        DoUserData DUD = new DoUserData();
+        
         this.Createtemplate(user, newSchema);
         
         try{
@@ -128,15 +130,12 @@ public final class DoProjectData extends ProjectData{
             
                 ResultSet member_rs = member_pstmt.executeQuery();
                 
-                DoUserData DUD = new DoUserData();
                 
                 while (member_rs.next()) {
                     
-                    if(!(member_rs.getString("staff_user").equals(user))){
-                        this.insert_member(newname, member_rs.getString("staff_user"), member_rs.getString("staff_access"));
-                        DUD.RenameProject(member_rs.getString("staff_user"), oldname, newname);
-                    }
-                    
+                    this.insert_member(newname, member_rs.getString("staff_user"), member_rs.getString("staff_access"));
+                    DUD.RenameProject(member_rs.getString("staff_user"), oldname, newname);
+                                  
                 }
             }
             try(PreparedStatement history_pstmt = conn.prepareStatement("SELECT * FROM history")){
@@ -1155,12 +1154,12 @@ public final class DoProjectData extends ProjectData{
         }
     }
     
-//    public static void main(String[] args) {
-//        DoProjectData p1 = new DoProjectData();
-//        String schema = "zedl3all_pj1";
-//        System.out.println(p1.get_Historys_year(schema,"2024"));
-        
-        //p1.rename_schema("Test1", "t1", "t2");
+    //public static void main(String[] args) {
+        //DoProjectData p1 = new DoProjectData();
+        //String schema = "zedl3all_pj1";
+        //System.out.println(p1.get_Historys_year(schema,"2024"));
+        //p1.insert_member(schema, "zedl3all", "Owner");
+        //p1.rename_schema("zedl3all", "pj1", "pj2");
         //System.out.println(p1.get_Historys("p_pj1", "28-03-2024").get(0).getTime());
         
 //        try {

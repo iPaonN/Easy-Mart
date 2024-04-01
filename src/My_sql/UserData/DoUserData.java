@@ -436,7 +436,7 @@ public final class DoUserData extends UserData{
                     user.setUser_name(rs.getString("staff_user"));
                     user.setFirst_name(rs.getString("first_name"));
                     user.setLast_name(rs.getString("last_name"));
-                    user.setEmail("email");
+                    user.setEmail(rs.getString("email"));
                     user.setImage(rs.getBlob("image"));
                 }
             }
