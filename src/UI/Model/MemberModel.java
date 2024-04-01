@@ -54,6 +54,15 @@ public class MemberModel {
         }
         return result;
     }
+    public boolean isMember(String email){
+        ArrayList<Member> mlist = promanager.Get_Members(this.projectname);
+        for (Member m: mlist){
+            if(m.getEmail().equals(email)){
+                return true;
+            }
+        }
+        return false;
+    }
     public void setMemberdata(int staff_id, String staff_user, String first_name, String last_name, String email, int staff_access ){
       My_sql sql = new My_sql();
       try{

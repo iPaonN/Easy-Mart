@@ -133,6 +133,10 @@ public class MemberController implements ActionListener, DocumentListener{
             else if ((((String)adder.getJcb1().getSelectedItem()).equals("Manager") == false)&&(((String)adder.getJcb1().getSelectedItem()).equals("Member") == false)){
                 JOptionPane.showMessageDialog(null, "Please Select Role");
             }
+            else if(model.isMember(adder.getTfemial().getText()) == true){
+                JOptionPane.showMessageDialog(null, "This email is already memeber");
+                adder.getMainf().dispose();
+            }
             else {
                 String nmem = this.getNameAdder(adder.getTfemial().getText());
                 promanager.insert_member(this.projectname, nmem, (String)adder.getJcb1().getSelectedItem());
