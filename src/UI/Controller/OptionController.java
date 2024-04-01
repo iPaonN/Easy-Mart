@@ -57,11 +57,18 @@ public class OptionController implements ActionListener, MouseListener {
             if (e.getSource().equals(main.getTFprojectname().getText().equals(""))){}
             if(main.getTFprojectname().getText().equals(main.getTFprojectnameC().getText())){
                 main.getTFprojectnameC().setText("");
-                JOptionPane.showMessageDialog(null, "Save Successfull");
+                
                 System.out.println(this.username + " clicked " + main.getSaveButton().getClass());
-                pjm.rename_schema(username, projectnousername, newname);
-                new MainPageController(this.username);
-                this.out.getFr().dispose();
+                try{
+                    pjm.rename_schema(username, projectnousername, newname);
+                    JOptionPane.showMessageDialog(null, "Save Successfull");
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null, "Can't change Project name");
+                }finally{
+                    new MainPageController(this.username);
+                    this.out.getFr().dispose();
+                }
+                
             }else{
                 JOptionPane.showMessageDialog(null, "Your Projectname and Confirmname do not match");
             }
