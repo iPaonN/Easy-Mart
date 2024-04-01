@@ -21,7 +21,7 @@ public class EditProfile {
         i2 = new ImageIcon(i1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
         hcp1 = new HalfCircle();
         hcp1.LoadImage("src/UI/Image/3.jpg");
-        mainf = new JFrame("EditProfile");
+        mainf = new JFrame("Profile");
         pmain = new JPanel();
         pinmain = new JPanel();
         pnorth = new JPanel();
@@ -31,14 +31,14 @@ public class EditProfile {
         pempty1 = new JPanel();
         pempty2 = new JPanel();
         pempty3 = new JPanel();
-        jeditprofile = new JLabel("Edit Profile");
+        jeditprofile = new JLabel("User's Profile");
         jfirstname = new JLabel("First Name");
         jlastname = new JLabel("Last Name");
         jusername = new JLabel("Username");
         tffirstname = new JTextField();
         tflastname = new JTextField();
         tfusername = new JTextField();
-        bsave = new JButton("  SAVE  ");
+        bsave = new JButton(" OK  ");
         
         //SetLayout
         mainf.setLayout(new BorderLayout());

@@ -17,15 +17,19 @@ public class PopEditProfile implements ActionListener, MouseListener{
     private ImportFile im;
     private EditProfile main;
     private String username;
-    private MainPageController mainpage;
+//    private MainPageController mainpage;
     
-    public PopEditProfile(String username, MainPageController mainpage){
+    public PopEditProfile(String username){
         manager = new DoUserData();
         main = new EditProfile();
         this.username = username;
-        this.mainpage = mainpage;
+//        this.mainpage = mainpage;
         main.getUsernameField().setText(manager.Get_User(this.username).getUser_name());
         main.getUsernameField().setEditable(false);
+        main.getFirstNameField().setText(manager.Get_User(this.username).getFirst_name());
+        main.getFirstNameField().setEditable(false);
+        main.getLastNameField().setText(manager.Get_User(this.username).getLast_name());
+        main.getLastNameField().setEditable(false);
 //        Image pic = manager.GetProfileImage(this.username);
 //        main.getProfileIcon().LoadImage(manager.GetProfileImage(String.valueOf(pic)));
         
@@ -49,38 +53,38 @@ public class PopEditProfile implements ActionListener, MouseListener{
 //                JOptionPane.showMessageDialog(null, "Username must have only letter or digit");
 //                main.getUsernameField().setText("");
 //            }
-            
-            if (main.getFirstNameField().getText().equals("null")){
-                JOptionPane.showMessageDialog(null, "Don't set null to firstname");
-                main.getFirstNameField().setText("");
-            }
-            else if (main.getFirstNameField().getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Input your firstname");
-                main.getFirstNameField().setText("");
-            }
-            else if (this.checkPJName(main.getFirstNameField().getText()) == false){
-                JOptionPane.showMessageDialog(null, "Firstname must have only letter or digit");
-                main.getFirstNameField().setText("");
-            }
-            
-            if (main.getLastNameField().getText().equals("null")){
-                JOptionPane.showMessageDialog(null, "Don't set null to lastname");
-                main.getLastNameField().setText("");
-            }
-            else if (main.getLastNameField().getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Input your lastname");
-                main.getLastNameField().setText("");
-            }
-            else if (this.checkPJName(main.getLastNameField().getText()) == false){
-                JOptionPane.showMessageDialog(null, "Lastname must have only letter or digit");
-                main.getLastNameField().setText("");
-            }
-            
-            
-            else{
-                manager.ChangeFirstname(manager.Get_User(this.username).getFirst_name(), main.getFirstNameField().getText());
-                manager.ChangeLastname(manager.Get_User(this.username).getLast_name(), main.getLastNameField().getText());
-                
+//            
+//            if (main.getFirstNameField().getText().equals("null")){
+//                JOptionPane.showMessageDialog(null, "Don't set null to firstname");
+//                main.getFirstNameField().setText("");
+//            }
+//            else if (main.getFirstNameField().getText().equals("")){
+//                JOptionPane.showMessageDialog(null, "Input your firstname");
+//                main.getFirstNameField().setText("");
+//            }
+//            else if (this.checkPJName(main.getFirstNameField().getText()) == false){
+//                JOptionPane.showMessageDialog(null, "Firstname must have only letter or digit");
+//                main.getFirstNameField().setText("");
+//            }
+//            
+//            if (main.getLastNameField().getText().equals("null")){
+//                JOptionPane.showMessageDialog(null, "Don't set null to lastname");
+//                main.getLastNameField().setText("");
+//            }
+//            else if (main.getLastNameField().getText().equals("")){
+//                JOptionPane.showMessageDialog(null, "Input your lastname");
+//                main.getLastNameField().setText("");
+//            }
+//            else if (this.checkPJName(main.getLastNameField().getText()) == false){
+//                JOptionPane.showMessageDialog(null, "Lastname must have only letter or digit");
+//                main.getLastNameField().setText("");
+//            }
+//            
+//            
+//            else{
+//                manager.ChangeFirstname(manager.Get_User(this.username).getFirst_name(), main.getFirstNameField().getText());
+//                manager.ChangeLastname(manager.Get_User(this.username).getLast_name(), main.getLastNameField().getText());
+//                
 //                DPD = new DoProjectData();
 //                String oldusername = this.username;
 //                String newusername = main.getUsernameField().getText();
@@ -99,22 +103,22 @@ public class PopEditProfile implements ActionListener, MouseListener{
 //                
 //                
 //                System.out.println(manager.Get_User(this.username).getFirst_name());
-                this.mainpage.getFr().dispose();
-                new MainPageController(main.getUsernameField().getText());
+//                this.mainpage.getFr().dispose();
+//                new MainPageController(main.getUsernameField().getText());
                 this.main.getFr().dispose();
-                
-            }
+//                
+//            }
         }
     }
     
-    public boolean checkPJName(String pjn){
-        for (char c : pjn.toCharArray()){
-            if (Character.isLetterOrDigit(c) == false){
-                return false;
-            } 
-        }
-        return true;
-    }  
+//    public boolean checkPJName(String pjn){
+//        for (char c : pjn.toCharArray()){
+//            if (Character.isLetterOrDigit(c) == false){
+//                return false;
+//            } 
+//        }
+//        return true;
+//    }  
 
     @Override
     public void mouseClicked(MouseEvent e) {

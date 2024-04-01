@@ -174,7 +174,7 @@ public class MainPageController implements MouseListener, ActionListener, Docume
             }
         }
         else if (e.getSource().equals(edit)){
-            editpro = new PopEditProfile(this.username, this);
+            editpro = new PopEditProfile(this.username);
         }
         else if (e.getSource().equals(this.change)){
             editpass = new PopEditPassword(this.username);
