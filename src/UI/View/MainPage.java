@@ -23,13 +23,13 @@ public class MainPage implements MouseListener{
     private ImageIcon usericon, scaleicon, marticon, scaleicon2;
     private JInternalFrame helpFrame, supportFrame, addProject;
     private CircleProfile cp1;
-    private final Object[] columnName = {"Name", "Option"};
+    private final Object[] columnName = {"Name"};
     private ArrayList<String> projectlist;
     
     public MainPage(){
         //CREATE OBJECT
         cp1 = new CircleProfile();
-        //cp1.LoadImage("src/UI/Image/3.jpg");
+        cp1.LoadImage("src/UI/Image/3.jpg");
         frame = new JFrame("PROJECT");
         mainbg = new JPanel();
         top = new JPanel();
@@ -148,10 +148,10 @@ public class MainPage implements MouseListener{
         //TABLE
         scrollPane.setViewportView(table);
         table.setModel(model);
+        model.setColumnIdentifiers(columnName);
         projectlist = new ArrayList<String>();
         projectlist.add("a");
         projectlist.add("b");
-        model.setColumnIdentifiers(columnName);
         for (int i = 0; i < projectlist.size(); i++){
             Object[] adder = new Object[1];
             adder[0] = projectlist.get(i);
@@ -162,10 +162,8 @@ public class MainPage implements MouseListener{
         table.setForeground(new Color(69, 104, 159));
         table.setRowHeight(50);
         table.setCellSelectionEnabled(false);
-        table.setFont(new Font("Arial", Font.BOLD, 16));
+        table.setFont(new Font("Arial", Font.BOLD, 18));
         table.getColumnModel().getColumn(0).setPreferredWidth(800);
-        table.getColumnModel().getColumn(1).setCellRenderer(new MainRenderer());
-        table.getColumnModel().getColumn(1).setCellEditor(new MainEditor(new JCheckBox()));
         table.setTableHeader(null);
         table.setDefaultEditor(Object.class, null);
         tablePanel.add(scrollPane);
@@ -263,7 +261,6 @@ public class MainPage implements MouseListener{
         bgwhite.add(bd5);
         searchPanel.add(search);
         btnPanel.add(btnNew);
-        //btnPanel.add(btnImport,BorderLayout.EAST);
         searchPanel.add(btnPanel, BorderLayout.EAST);
         topPanel.add(searchPanel, BorderLayout.WEST);
         bd5.add(topPanel, BorderLayout.NORTH);
@@ -401,7 +398,6 @@ public class MainPage implements MouseListener{
     public void setUsername(JLabel username) {
         this.username = username;
     }
-    
     public CircleProfile getCp1() {
         return cp1;
     }
@@ -409,7 +405,6 @@ public class MainPage implements MouseListener{
     public void setCp1(CircleProfile cp1) {
         this.cp1 = cp1;
     }
-    
     @Override
       public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(help)){
