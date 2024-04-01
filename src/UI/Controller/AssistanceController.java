@@ -5,13 +5,15 @@ import java.util.*;
 import My_sql.ProjectData.History;
 import UI.View.AssistantTable;
 import java.awt.event.*;
-import javax.swing.JOptionPane;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class AssistanceController implements MouseListener{
     private String username, projectname, schema;
     private Assistance view;
     private DoProjectData history;
-    private ArrayList arr;
+    private ArrayList arr, data1, data2, data3, data4;
+    private ArrayList<Object> datalist1, datalist2;
     
     public AssistanceController(String username, String projectname){
         this.username = username;
@@ -20,7 +22,9 @@ public class AssistanceController implements MouseListener{
         view = new Assistance();
         history = new DoProjectData();
         view.getBn1().addMouseListener(this);
-        view.getBn2().addMouseListener(this);
+        view.getBn2().addMouseListener(this);  
+//        data3 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "add");
+//        data4 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "decrease");
         
     }
     
@@ -28,22 +32,20 @@ public class AssistanceController implements MouseListener{
         return view;
     }
     
-    public int increaseorNot(HashMap<String, Integer> add, HashMap<String, Integer> decrease, String action){
-        int increase = 0;
-        int decrea = 0;
-        int result = 0;
+    public ArrayList increaseorNot(HashMap<String, Integer> add, HashMap<String, Integer> decrease, String action){
+         ArrayList result = null;
         for (String i : add.keySet()) {
             if (decrease.get(i) > (add.get(i) * 0.8)){
-                increase += 1;
+                data1.add(i);
             } else if (decrease.get(i) < (add.get(i) * 0.2)){
-                decrea += 1;
+                data2.add(i);
             }
         }
         
         if ("add".equals(action)){
-            result = increase;
+            result = data1;
         } else if ("decrease".equals(action)){
-            result = decrea;
+            result = data2;
         }
         return result;
     }
@@ -86,17 +88,28 @@ public class AssistanceController implements MouseListener{
         return listall;
     }
     
+    public String getMonth(){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
+        String monthString = now.format(formatter);
+        return monthString;
+    }
     @Override
     public void mouseClicked(MouseEvent e) {
-        Object[][] data = {
-            {"3/3/2024", "4:35 PM", "Coke"},
-            {"3/3/2024", "4:34 PM", "Banana"},
-            {"3/3/2024", "4:33 PM", "Tomato"}
-        };
+        data3 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "add");
+        data4 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "decrease");
         if (e.getSource().equals(view.getBn1())){
-            new AssistantTable(data);
+            for (int i = 0; i < data3.size(); i++){
+                datalist1.add(new Object[]{getMonth(), "", data3.get(i)});
+            }
+            Object[][] dataarray = datalist1.toArray(new Object[datalist1.size()][]);
+            new AssistantTable(dataarray);
         } else if (e.getSource().equals(view.getBn2())){
-            new AssistantTable(data);
+            for (int i = 0; i < data4.size(); i++){
+                datalist2.add(new Object[]{getMonth(), "", data4.get(i)});
+            }
+            Object[][] dataarra = datalist2.toArray(new Object[datalist2.size()][]);
+            new AssistantTable(dataarra);
         }
         
     }
