@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
-public class AssistanceController implements MouseListener{
+public class AssistanceController implements ActionListener{
     private String username, projectname, schema;
     private Assistance view;
     private DoProjectData history;
@@ -21,8 +21,8 @@ public class AssistanceController implements MouseListener{
         this.schema = this.projectname;
         view = new Assistance();
         history = new DoProjectData();
-        view.getBn1().addMouseListener(this);
-        view.getBn2().addMouseListener(this);  
+        view.getBn1().addActionListener(this);
+        view.getBn2().addActionListener(this);  
 //        data3 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "add");
 //        data4 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "decrease");
         
@@ -94,44 +94,32 @@ public class AssistanceController implements MouseListener{
         String monthString = now.format(formatter);
         return monthString;
     }
-    @Override
-    public void mouseClicked(MouseEvent e) {
+    
+    public void actionPerformed(ActionEvent e) {
         data3 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "add");
         data4 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "decrease");
-        if (e.getSource().equals(view.getBn1())){
+        if (e.getSource().equals(view.getBn2())){
             for (int i = 0; i < data3.size(); i++){
                 datalist1.add(new Object[]{getMonth(), "", data3.get(i)});
             }
             Object[][] dataarray = datalist1.toArray(new Object[datalist1.size()][]);
+//            Object[][] dataarray ={
+//                {"3/3/2024", "4:35 PM", "Coke"},
+//                {"3/3/2024", "4:34 PM", "Banana"}
+//             };
             new AssistantTable(dataarray);
-        } else if (e.getSource().equals(view.getBn2())){
+        } else if (e.getSource().equals(view.getBn1())){
             for (int i = 0; i < data4.size(); i++){
                 datalist2.add(new Object[]{getMonth(), "", data4.get(i)});
             }
             Object[][] dataarra = datalist2.toArray(new Object[datalist2.size()][]);
+//            Object[][] dataarra ={
+//                {"3/3/2024", "4:35 PM", "Coke"},
+//                {"3/3/2024", "4:34 PM", "Banana"},
+//                {"3/3/2024", "", "Tomato"}
+//             };
             new AssistantTable(dataarra);
         }
-        
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        
     }
     public static void main(String[] args) {
         new AssistanceController("Thanasit", "pro1");
