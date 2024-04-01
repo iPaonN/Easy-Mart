@@ -269,6 +269,14 @@ public class MemberView extends JPanel{
         }
     }
 
+    public DefaultTableModel getModel() {
+        return model;
+    }
+
+    public void setModel(DefaultTableModel model) {
+        this.model = model;
+    }
+    
     public JButton getAdd() {
         return add;
     }

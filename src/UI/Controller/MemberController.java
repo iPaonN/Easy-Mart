@@ -128,13 +128,18 @@ public class MemberController implements ActionListener{
                 adder.getJalert().setText("Don't have this email");
                 adder.getTfemial().setText("");
             }
-            else if ((((String)adder.getJcb1().getSelectedItem()).equals("Manager") == false)||(((String)adder.getJcb1().getSelectedItem()).equals("Member") == false)){
+            else if ((((String)adder.getJcb1().getSelectedItem()).equals("Manager") == false)&&(((String)adder.getJcb1().getSelectedItem()).equals("Member") == false)){
                 JOptionPane.showMessageDialog(null, "Please Select Role");
             }
             else {
                 String nmem = this.getNameAdder(adder.getTfemial().getText());
                 promanager.insert_member(this.projectname, nmem, (String)adder.getJcb1().getSelectedItem());
                 manager.UpdateProjectList(nmem, manager.GetProjectList(nmem), this.projectname);
+                view.getModel().setRowCount(0);
+                view.displaydata(this.getDataRows());
+                view.repaint();
+                view.revalidate();
+                
                 adder.getMainf().dispose();
             }
         }
