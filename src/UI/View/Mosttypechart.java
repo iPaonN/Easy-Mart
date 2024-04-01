@@ -9,24 +9,20 @@ import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.CategorySeries;
 import org.knowm.xchart.XChartPanel;
-import org.knowm.xchart.XYChart;
-import org.knowm.xchart.XYChartBuilder;
-import org.knowm.xchart.XYSeries;
 import org.knowm.xchart.demo.charts.ExampleChart;
 import org.knowm.xchart.style.CategoryStyler;
 import org.knowm.xchart.style.Styler;
 
-public class IncomeChart extends JPanel implements ExampleChart<CategoryChart>{
-    private ArrayList<String> product;
-    private ArrayList<Double> price;
+public class Mosttypechart extends JPanel implements ExampleChart<CategoryChart>{
+    private ArrayList<String> product = new ArrayList<>(){{ add("Category 1"); add("Category 2"); add("Category 3"); add("Category 4"); add("Category 5");}};;
+    private ArrayList<Double> price  = new ArrayList<>(){{ add(600.0); add(800.0); add(400.0); add(500.0); add(1000.0);}};
     @Override
     public CategoryChart getChart(){
-        product = new ArrayList<>(){{ add("Category 1"); add("Category 2"); add("Category 3"); add("Category 4"); add("Category 5");}};
-        price  = new ArrayList<>(){{ add(600.0); add(800.0); add(400.0); add(500.0); add(1000.0);}};
+        
         CategoryChart IncomeChart = new CategoryChartBuilder()
             .width(800)
             .height(600)
-            .title("Income")
+            .title("Most Type")
             .xAxisTitle("Product")
             .yAxisTitle("Sales")
             .build();
@@ -66,4 +62,21 @@ public class IncomeChart extends JPanel implements ExampleChart<CategoryChart>{
     public String getExampleChartName() {
         return getClass().getSimpleName() + " - Cursor";
     }
+
+    public ArrayList<String> getProduct() {
+        return product;
+    }
+
+    public void setProduct(ArrayList<String> product) {
+        this.product = product;
+    }
+
+    public ArrayList<Double> getPrice() {
+        return price;
+    }
+
+    public void setPrice(ArrayList<Double> price) {
+        this.price = price;
+    }
+    
 }

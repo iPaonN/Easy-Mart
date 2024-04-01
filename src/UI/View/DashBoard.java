@@ -14,11 +14,11 @@ public class DashBoard extends JPanel{
     private SubDashBoard_2 sdb2;
     private SubDashBoard_3 sdb3;
     private IncomeCompareGraph icg1;
-    private IncomeGraph ig1;
+    private Mosttypegraph mtg;
     private TopProductGraph tpg1;
     public DashBoard(){
         icg1 = new IncomeCompareGraph();
-        ig1 = new IncomeGraph();
+        mtg = new Mosttypegraph();
         tpg1 = new TopProductGraph();
         sdb1 = new SubDashBoard_1();
         sdb2 = new SubDashBoard_2();
@@ -65,7 +65,7 @@ public class DashBoard extends JPanel{
         //Pcenter
         pcenter.add(pempty1);
         pempty1.add(icg1);
-        pempty1.add(ig1);
+        pempty1.add(mtg);
         pempty1.add(tpg1);
         
         pempty2.setPreferredSize(new Dimension(200, 150));
@@ -183,12 +183,12 @@ public class DashBoard extends JPanel{
         this.icg1 = icg1;
     }
 
-    public IncomeGraph getIg1() {
-        return ig1;
+    public Mosttypegraph getmtg() {
+        return mtg;
     }
 
-    public void setIg1(IncomeGraph ig1) {
-        this.ig1 = ig1;
+    public void setmtg(Mosttypegraph mtg) {
+        this.mtg = mtg;
     }
 
     public TopProductGraph getTpg1() {

@@ -69,4 +69,21 @@ public class TopProductChart extends JPanel implements ExampleChart<CategoryChar
     public String getExampleChartName() {
         return getClass().getSimpleName() + " - Cursor";
     }
+
+    public ArrayList<String> getProduct() {
+        return product;
+    }
+
+    public void setProduct(ArrayList<String> product) {
+        this.product = product;
+    }
+
+    public ArrayList<Double> getPrice() {
+        return price;
+    }
+
+    public void setPrice(ArrayList<Double> price) {
+        this.price = price;
+    }
+    
 }

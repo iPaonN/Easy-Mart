@@ -5,20 +5,19 @@ import org.knowm.xchart.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import org.knowm.xchart.demo.charts.ExampleChart;
-import org.knowm.xchart.style.*;
-
-public class IncomeGraph extends JPanel {
+public class Mosttypegraph extends JPanel {
     private JFrame mainf;
     private JPanel psouth, pempty1, pempty2;
-    private JPanel jchart;
+    private ExampleChart<CategoryChart> Exchart = new Mosttypechart();
+    private CategoryChart chart = Exchart.getChart();
+    private JPanel jchart = new XChartPanel<>(chart);
     private JButton bday, bweek, byear, bzoom;
     private ArrayList<String> product;
     private ArrayList<Double> price;
     private ImageIcon i1, i2;
-    public IncomeGraph() {
+    public Mosttypegraph() {
         
         //Create
         i1 = new ImageIcon("src/UI/Image/zoom.png");
@@ -28,14 +27,10 @@ public class IncomeGraph extends JPanel {
         pempty1 = new JPanel();
         pempty2 = new JPanel();
         bday = new JButton("    Day    ");
-        bweek = new JButton("    Week    ");
+        bweek = new JButton("    Month    ");
         byear = new JButton("    Year    ");
         bzoom = new JButton();
         bzoom.setIcon(i2);
-        ExampleChart<CategoryChart> Exchart = new IncomeChart();
-        CategoryChart chart = Exchart.getChart();
-  
-        jchart = new XChartPanel<>(chart);
         
         //SetFont
         bday.setForeground(new Color(69, 104, 159));
@@ -77,7 +72,7 @@ public class IncomeGraph extends JPanel {
         mainf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainf.pack();
         mainf.setLocationRelativeTo(null);
-        mainf.setVisible(false);
+        mainf.setVisible(true);
     }
 
     public static void main(String[] args) {
@@ -87,7 +82,112 @@ public class IncomeGraph extends JPanel {
             e.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
-            new IncomeGraph();
+            new Mosttypegraph();
         });
     }
+
+    public JFrame getMainf() {
+        return mainf;
+    }
+
+    public void setMainf(JFrame mainf) {
+        this.mainf = mainf;
+    }
+
+    public JPanel getPsouth() {
+        return psouth;
+    }
+
+    public void setPsouth(JPanel psouth) {
+        this.psouth = psouth;
+    }
+
+    public JPanel getPempty1() {
+        return pempty1;
+    }
+
+    public void setPempty1(JPanel pempty1) {
+        this.pempty1 = pempty1;
+    }
+
+    public JPanel getPempty2() {
+        return pempty2;
+    }
+
+    public void setPempty2(JPanel pempty2) {
+        this.pempty2 = pempty2;
+    }
+
+    public JPanel getJchart() {
+        return jchart;
+    }
+
+    public void setJchart(JPanel jchart) {
+        this.jchart = jchart;
+    }
+
+    public JButton getBday() {
+        return bday;
+    }
+
+    public void setBday(JButton bday) {
+        this.bday = bday;
+    }
+
+    public JButton getBweek() {
+        return bweek;
+    }
+
+    public void setBweek(JButton bweek) {
+        this.bweek = bweek;
+    }
+
+    public JButton getByear() {
+        return byear;
+    }
+
+    public void setByear(JButton byear) {
+        this.byear = byear;
+    }
+
+    public JButton getBzoom() {
+        return bzoom;
+    }
+
+    public void setBzoom(JButton bzoom) {
+        this.bzoom = bzoom;
+    }
+
+    public ArrayList<String> getProduct() {
+        return product;
+    }
+
+    public void setProduct(ArrayList<String> product) {
+        this.product = product;
+    }
+
+    public ArrayList<Double> getPrice() {
+        return price;
+    }
+
+    public void setPrice(ArrayList<Double> price) {
+        this.price = price;
+    }
+
+    public ImageIcon getI1() {
+        return i1;
+    }
+
+    public void setI1(ImageIcon i1) {
+        this.i1 = i1;
+    }
+
+    public ImageIcon getI2() {
+        return i2;
+    }
+
+    public void setI2(ImageIcon i2) {
+        this.i2 = i2;
+    }
+
 }

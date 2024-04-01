@@ -5,13 +5,19 @@ import My_sql.ProjectData.History;
 import My_sql.ProjectData.Product;
 import My_sql.UserData.DoUserData;
 import UI.View.DashBoard;
+import UI.View.Mosttypechart;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.time.*;
 import java.time.temporal.*;
+import javax.swing.border.LineBorder;
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.demo.charts.ExampleChart;
 
 
 public class DashBoardController implements ActionListener {
@@ -385,6 +391,160 @@ public class DashBoardController implements ActionListener {
     
     // SubDashBoard_3 //
 
+    // SubDashBoard_mosttype //
+    
+    public Map<String, Double> mosttype_day(String schema){
+        
+        HashMap<String, Double> all_product = new HashMap<>();
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = currentDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_date(schema,formattedDate);
+        for (History i : history){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    double price = p1.getPrice()*i.getQuantity();
+                    if(all_product.containsKey(p1.getName())){
+                        all_product.put(p1.getName(), all_product.get(p1.getName())+price);
+                    }
+                    else{
+                        all_product.put(p1.getName(), price);
+                    }
+            }
+        }
+        ///sort use treemap///
+        TreeMap<String, Double> sortedData = new TreeMap<>(new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return all_product.get(s2).compareTo(all_product.get(s1));
+            }
+        });
+        
+        sortedData.putAll(all_product);
+        ///sort use treemap///
+        return sortedData;
+    }
+    
+    public Map<String, Double> mosttype_month(String schema){
+        
+        HashMap<String, Double> all_product = new HashMap<>();
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
+        String formattedDate = currentDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_month(schema,formattedDate);
+        ArrayList<History> usehistory = new ArrayList<>();
+
+        for (History i : history){
+            if(i.getAction_date().getYear()==currentDateTime.getYear()){
+                usehistory.add(i);
+            }
+        }
+        
+        for (History i : usehistory){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    double price = p1.getPrice()*i.getQuantity();
+                    if(all_product.containsKey(p1.getName())){
+                        all_product.put(p1.getName(), all_product.get(p1.getName())+price);
+                    }
+                    else{
+                        all_product.put(p1.getName(), price);
+                    }
+            }
+        }
+        
+        ///sort use treemap///
+        TreeMap<String, Double> sortedData = new TreeMap<>(new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return all_product.get(s2).compareTo(all_product.get(s1));
+            }
+        });
+        
+        sortedData.putAll(all_product);
+        ///sort use treemap///
+        return sortedData;
+    }
+    public Map<String, Double> mosttype_year(String schema){
+        
+        HashMap<String, Double> all_product = new HashMap<>();
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy");
+        String formattedDate = currentDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_year(schema,formattedDate);
+        for (History i : history){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    double price = p1.getPrice()*i.getQuantity();
+                    if(all_product.containsKey(p1.getName())){
+                        all_product.put(p1.getName(), all_product.get(p1.getName())+price);
+                    }
+                    else{
+                        all_product.put(p1.getName(), price);
+                    }
+            }
+        }
+        ///sort use treemap///
+        TreeMap<String, Double> sortedData = new TreeMap<>(new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return all_product.get(s2).compareTo(all_product.get(s1));
+            }
+        });
+        
+        sortedData.putAll(all_product);
+        ///sort use treemap///
+        return sortedData;
+    }
+    
+    public void mosttype_use(Map<String, Double> map){
+        ArrayList<String> product = new ArrayList<>();
+        ArrayList<Double> price = new ArrayList<>();
+        
+        for (String key : map.keySet()) {
+            product.add(key);
+            price.add(map.get(key));
+        }
+        Mosttypechart mosttypechart = new Mosttypechart();
+        mosttypechart.setProduct(product);
+        mosttypechart.setPrice(price);
+        ExampleChart<CategoryChart> Exchart = mosttypechart;
+        CategoryChart chart = Exchart.getChart();
+        //dashboard.getmtg().setJchart(new XChartPanel<>(chart));
+        JPanel use = new JPanel();
+        use.setLayout(new BorderLayout());
+        use.setBorder(new LineBorder(new Color(69, 104, 159), 3));
+        use.add(new XChartPanel<>(chart), BorderLayout.CENTER);
+        use.add(dashboard.getmtg().getPsouth());
+        dashboard.getmtg().getMainf().add(use);
+        dashboard.getmtg().revalidate();
+        dashboard.getmtg().repaint();
+    }
+    
+    // SubDashBoard_mosttype //
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         
