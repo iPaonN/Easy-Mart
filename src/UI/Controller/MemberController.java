@@ -5,7 +5,7 @@ import My_sql.ProjectData.DoProjectData;
 import My_sql.UserData.DoUserData;
 import UI.Model.MemberModel;
 import UI.View.AddMember;
-import UI.View.Member;
+import UI.View.MemberView;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ import javax.swing.event.*;
 
 public class MemberController implements ActionListener{
     private String username, projectname;
-    private Member view;
+    private MemberView view;
     private AddMember adder;
     private MemberModel model;
     private DoProjectData promanager;
@@ -27,7 +27,7 @@ public class MemberController implements ActionListener{
     public MemberController(String username, String projectname) {
         this.username = username;
         this.projectname = projectname;
-        view = new Member();
+        view = new MemberView();
         model = new MemberModel(this.username, this.projectname);
         promanager = new DoProjectData();
         manager = new DoUserData();
@@ -39,11 +39,11 @@ public class MemberController implements ActionListener{
     }
     
 
-    public Member getView() {
+    public MemberView getView() {
         return view;
     }
 
-    public void setView(Member view) {
+    public void setView(MemberView view) {
         this.view = view;
     }
     public String getNameAdder(String email){
@@ -128,7 +128,7 @@ public class MemberController implements ActionListener{
                 adder.getJalert().setText("Don't have this email");
                 adder.getTfemial().setText("");
             }
-            else if (!((String)adder.getJcb1().getSelectedItem()).equals("Manager") || !((String)adder.getJcb1().getSelectedItem()).equals("Member")){
+            else if ((((String)adder.getJcb1().getSelectedItem()).equals("Manager") == false)||(((String)adder.getJcb1().getSelectedItem()).equals("Member") == false)){
                 JOptionPane.showMessageDialog(null, "Please Select Role");
             }
             else {

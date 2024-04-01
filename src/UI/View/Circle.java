@@ -23,8 +23,8 @@ public class Circle extends JPanel {
         return im1;
     }
     //Overload
-    public Image LoadImage(Image im1){
-        i1 = new ImageIcon(im1);
+    public Image LoadImage(Image img){
+        i1 = new ImageIcon(img);
         im1 = i1.getImage();
         return im1;
     }

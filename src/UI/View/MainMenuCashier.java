@@ -13,13 +13,13 @@ public class MainMenuCashier {
     private ImageIcon icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9;
     private ImageIcon reicon1, reicon2, reicon3, reicon4, reicon5, reicon6, reicon9, reicon10, reicon11;
     private GridBagConstraints gb1;
-    private Cashier ca1;
+    private JPanel mainpanel;
     private CircleProfile cp1;
 
     public MainMenuCashier() {
 
         //Create
-        ca1 = new Cashier();
+        mainpanel = new JPanel(new CardLayout());
         cp1 = new CircleProfile();
         //cp1.LoadImage("src/UI/Image/3.jpg");
         fr = new JFrame("MENU");
@@ -63,7 +63,7 @@ public class MainMenuCashier {
         Jicon1 = new JLabel(reicon11);
 
         //Bottom
-        bn1 = new JButton("Member");
+        bn1 = new JButton("Cashier");
         bn1.setPreferredSize(new Dimension(200, 10));
         bn1.setForeground(new java.awt.Color(69, 104, 159));
         bn1.setBackground(Color.WHITE);
@@ -100,7 +100,7 @@ public class MainMenuCashier {
         //Panel
         panel.setLayout(new GridLayout(13, 0, 0, 5));
         panel.add(bn1);
-        panel.add(bn2);
+        //panel.add(bn2);
         
         panel.setBackground(Color.white);
         panel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 10, Color.white));
@@ -139,12 +139,20 @@ public class MainMenuCashier {
         fr.setLayout(new BorderLayout());
         fr.add(panel2, BorderLayout.NORTH);
         fr.add(panel, BorderLayout.WEST);
-        fr.add(ca1);
+        fr.add(mainpanel);
         fr.setSize(1280, 720);
         fr.setLocationRelativeTo(null);
         fr.setVisible(true);
     }
 
+    public JPanel getMainpanel() {
+        return mainpanel;
+    }
+
+    public void setMainpanel(JPanel mainpanel) {
+        this.mainpanel = mainpanel;
+    }
+    
     public JFrame getFr() {
         return fr;
     }

@@ -6,7 +6,7 @@ import UI.View.Assistance;
 import UI.View.DashBoard;
 import UI.View.HistoryView;
 import UI.View.MainMenu;
-import UI.View.Member;
+import UI.View.MemberView;
 import UI.View.Option;
 import UI.View.StockProduct;
 import java.awt.BorderLayout;
@@ -20,7 +20,7 @@ public class MenuController implements ActionListener, MouseListener{
     private DoProjectData pjm;
     private MainMenu main;
     private String username, projectname;
-    private DashBoard dashboard;
+    private DashBoardController dashboard;
     private Assistance assistance;
     private StockProductController stock;
     private MemberController member;
@@ -35,13 +35,13 @@ public class MenuController implements ActionListener, MouseListener{
         this.projectname = projectname;
         
         cardcontroll = (CardLayout)main.getCardpanel().getLayout();
-        dashboard = new DashBoard();
+        dashboard = new DashBoardController(this.username, this.projectname);
         assistance = new Assistance();
         stock = new StockProductController(this.username, this.projectname);
         member = new MemberController(this.username, this.projectname);
         history = new HistoryController(this.username, this.projectname);
         option = new OptionController(this.username, this.projectname, this);
-        main.getCardpanel().add(dashboard, "DashBoard");
+        main.getCardpanel().add(dashboard.getDashboard(), "DashBoard");
         main.getCardpanel().add(assistance, "Assistance");
         main.getCardpanel().add(stock.getView(), "Stock");
         main.getCardpanel().add(member.getView(), "Member");

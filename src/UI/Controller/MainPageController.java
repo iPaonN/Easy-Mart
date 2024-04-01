@@ -1,6 +1,7 @@
 package UI.Controller;
 
 import My_sql.ProjectData.DoProjectData;
+import My_sql.ProjectData.Member;
 import My_sql.UserData.DoUserData;
 import UI.View.Addproject;
 import UI.View.MainMenu;
@@ -89,7 +90,15 @@ public class MainPageController implements MouseListener, ActionListener, Docume
             new MainPage();
         });
     }
-    
+    public String getRole(String projectname){
+        ArrayList<Member> allmem = pmanager.Get_Members(projectname);
+        for (Member am: allmem){
+            if(am.getUser_name().equals(this.username)){
+                return am.getAccess();
+            }
+        }
+        return null;
+    }
     public JFrame getFr(){
         return main.getFrame();
     }
@@ -101,7 +110,14 @@ public class MainPageController implements MouseListener, ActionListener, Docume
             int selectedColum = main.getTable().getSelectedColumn();
 //            System.out.println(selectedRow+" "+selectedColum);
             DefaultTableModel model = (DefaultTableModel)main.getTable().getModel();
-            new MenuController(username, (String)model.getValueAt(selectedRow, 0));
+            String role = this.getRole((String)model.getValueAt(selectedRow, 0));
+            if(role.equals("Owner") || role.equals("Manager")){
+                new MenuController(username, (String)model.getValueAt(selectedRow, 0));
+            }
+            else{
+                new CashierController(username, (String)model.getValueAt(selectedRow, 0));
+            }
+            
             this.main.getFrame().dispose();
         }
         else if (e.getSource().equals(main.getEasyMart())){

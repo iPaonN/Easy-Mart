@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.*;
 
-public class Member extends JPanel{
+public class MemberView extends JPanel{
     private JFrame fr;
     private JLabel label, uns1, j1, j2;
     private JLabel Jicon1, Jicon2, Jicon3, member;
@@ -21,7 +21,7 @@ public class Member extends JPanel{
     private DefaultTableCellRenderer renderer;
     private final Object[] columnName = {"Name", "Role"};
     private Object[][] dataRows;
-    public Member() {
+    public MemberView() {
         fr = new JFrame("menu");
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gb1 = new GridBagConstraints();
@@ -284,7 +284,7 @@ public class Member extends JPanel{
             e.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
-            new Member();
+            new MemberView();
         });
 }
 }

@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class CashierController implements ActionListener, MouseListener{
     private DoUserData manager;
     private DoProjectData pjm;
-    private Cashier main;
+    private Cashier cash;
+    private MainMenuCashier main;
     private SubCashier subcashier;
     private String username, projectname;
     private CheckoutController Checkout;
@@ -21,35 +22,38 @@ public class CashierController implements ActionListener, MouseListener{
         pjm = new DoProjectData();
         this.username = username;
         this.projectname = projectname;
-        main = new Cashier();
+        main = new MainMenuCashier();
+        main.getUns1().setText(this.username);
+        cash = new Cashier();
+        main.getMainpanel().add(cash);
         Checkout = new CheckoutController(this.projectname, this);
         
         for (String t: pjm.getAll_Type(this.projectname)){
-                main.getSort().addItem(t);
+                cash.getSort().addItem(t);
         }
-        main.getSort().repaint();
-        main.getSort().revalidate();
+        cash.getSort().repaint();
+        cash.getSort().revalidate();
         
-        main.getPanel().removeAll();
+        cash.getPanel().removeAll();
         this.showProduct(pjm.getAll_product(this.projectname));
         
         
-        main.getCashierPanel().addMouseListener(this);
-        main.getCheckout().addActionListener(this);
-        main.getCasherIcon().addActionListener(this);
+        cash.getCashierPanel().addMouseListener(this);
+        cash.getCheckout().addActionListener(this);
+        cash.getCasherIcon().addActionListener(this);
     }
     
     public Cashier getView(){
-        return main;
+        return cash;
     }
-//    public static void main(String[] args) {
+//    public static void cash(String[] args) {
 //        new CashierController("DDD", "AAA");
 //    }
 
     public void showProduct(ArrayList<Product> productlist){
         for (Product p: productlist){
             SubCashier sub = new SubCashier(p, username, projectname);
-            main.getPanel().add(sub);
+            cash.getPanel().add(sub);
             sub.getPlus().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,17 +68,17 @@ public class CashierController implements ActionListener, MouseListener{
             }            
         });
     }
-        main.getPanel().repaint();
-        main.getPanel().revalidate();
+        cash.getPanel().repaint();
+        cash.getPanel().revalidate();
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(main.getCasherIcon())){
+        if (e.getSource().equals(cash.getCasherIcon())){
             Checkout.getFr().setVisible(true);
         }
-        else if (e.getSource().equals(main.getCheckout())){
-            main.getPanel().removeAll();
+        else if (e.getSource().equals(cash.getCheckout())){
+            cash.getPanel().removeAll();
             this.showProduct(pjm.getAll_product(this.projectname));
         }
         
@@ -82,8 +86,8 @@ public class CashierController implements ActionListener, MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource().equals(main.getCashierPanel())){
-            main.getPanel().removeAll();
+        if (e.getSource().equals(cash.getCashierPanel())){
+            cash.getPanel().removeAll();
             this.showProduct(pjm.getAll_product(this.projectname));
         }
     }
