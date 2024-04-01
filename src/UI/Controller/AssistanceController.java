@@ -6,7 +6,7 @@ import My_sql.ProjectData.History;
 import UI.View.AssistantTable;
 import java.awt.event.*;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
+import java.time.*;
 
 public class AssistanceController implements ActionListener{
     private String username, projectname, schema;
@@ -14,6 +14,8 @@ public class AssistanceController implements ActionListener{
     private DoProjectData history;
     private ArrayList arr, data1, data2, data3, data4;
     private ArrayList<Object> datalist1, datalist2;
+    private LocalDate today;
+    private LocalTime time;
     
     public AssistanceController(String username, String projectname){
         this.username = username;
@@ -22,7 +24,9 @@ public class AssistanceController implements ActionListener{
         view = new Assistance();
         history = new DoProjectData();
         view.getBn1().addActionListener(this);
-        view.getBn2().addActionListener(this);  
+        view.getBn2().addActionListener(this);
+        today = LocalDate.now();
+        time = LocalTime.now();
 //        data3 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "add");
 //        data4 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "decrease");
         
@@ -95,12 +99,19 @@ public class AssistanceController implements ActionListener{
         return monthString;
     }
     
+    public String getTime(){
+        int hour = time.getHour();
+        int minute = time.getMinute();
+        String amPm = (hour < 12) ? "AM" : "PM";
+        hour = (hour == 0) ? 12 : (hour > 12) ? hour - 12 : hour;
+        return String.format("%d:%02d %s\n", hour, minute, amPm);
+    }
     public void actionPerformed(ActionEvent e) {
         data3 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "add");
-        data4 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "decrease");
+        data4 = increaseorNot(addAmount(schema, getMonth()), decreaseAmount(schema, getMonth()), "decrease"); 
         if (e.getSource().equals(view.getBn2())){
             for (int i = 0; i < data3.size(); i++){
-                datalist1.add(new Object[]{getMonth(), "", data3.get(i)});
+                datalist1.add(new Object[]{today, getTime(), data3.get(i)});
             }
             Object[][] dataarray = datalist1.toArray(new Object[datalist1.size()][]);
 //            Object[][] dataarray ={
@@ -110,7 +121,7 @@ public class AssistanceController implements ActionListener{
             new AssistantTable(dataarray);
         } else if (e.getSource().equals(view.getBn1())){
             for (int i = 0; i < data4.size(); i++){
-                datalist2.add(new Object[]{getMonth(), "", data4.get(i)});
+                datalist2.add(new Object[]{today, getTime(), data4.get(i)});
             }
             Object[][] dataarra = datalist2.toArray(new Object[datalist2.size()][]);
 //            Object[][] dataarra ={
@@ -121,7 +132,7 @@ public class AssistanceController implements ActionListener{
             new AssistantTable(dataarra);
         }
     }
-    public static void main(String[] args) {
-        new AssistanceController("Thanasit", "pro1");
-    }
+//    public static void main(String[] args) {
+//        new AssistanceController("Thanasit", "pro1");
+//    }
 }
