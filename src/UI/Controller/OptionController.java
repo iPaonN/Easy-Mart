@@ -1,8 +1,3 @@
-/*
-delete buttun want to go to Mainpage after click delete
-*/
-
-
 package UI.Controller;
 
 import Import_Export.*;
@@ -11,7 +6,7 @@ import My_sql.UserData.*;
 import UI.View.*;
 import java.awt.*;
 import java.awt.event.*;
-//import java.io.*;
+import java.io.*;
 import javax.swing.*;
 import java.util.*;
 //WIP Made by Auto feat Pao
@@ -24,6 +19,7 @@ public class OptionController implements ActionListener, MouseListener {
     private ArrayList<String> arraylist;
     private DeleteNotify dnotify;
     private MenuController out;
+    private String oldpath = "", imagePath = "", namewithproject = "";
     
     
     public OptionController(String username, String projectname, MenuController out){
@@ -43,6 +39,11 @@ public class OptionController implements ActionListener, MouseListener {
         main.getSaveButton2().addActionListener(this);
         main.getDeleteButton().addActionListener(this);
         main.getTFprojectname().setText(oldprojectname);
+        
+        namewithproject = this.username+"_"+main.getTFprojectname().getText();
+        main.getProfileicon().LoadImage(pjm.Get_Profile(namewithproject));
+        main.getProfileicon().repaint();
+        
     }
     
     public Option getView(){
@@ -71,19 +72,32 @@ public class OptionController implements ActionListener, MouseListener {
         }
         else if (e.getSource().equals(main.getSaveButton2())){
             System.out.println(this.username + " clicked " + main.getSaveButton2().getClass());
-            if (im.getPath().getAbsolutePath().equals("")){}
-            else{
-//                String imagePath = im.getPath().getAbsolutePath();
-//                pjm.update_profile(this.username, (File)imagePath)
+            if(oldpath.equals(imagePath)){
+                JOptionPane.showMessageDialog(null, "Please Choose Your Image Before Save");
             }
+            else{
+                File imageFile = new File(imagePath);
+                if (imageFile.exists() && imageFile.isFile()) {
+                    long filesizeByte = imageFile.length();
+                    double filesizeKB = filesizeByte / 1024.0;
+                    if(filesizeKB <= 64){
+                        namewithproject = this.username+"_"+main.getTFprojectname().getText();
+                        System.out.println(imagePath);
+                        System.out.println(namewithproject);
+                        JOptionPane.showMessageDialog(null, "Saved");
+                        pjm.update_profile(namewithproject, new File(imagePath));
+                        new MainPageController(this.username);
+                        this.out.getFr().dispose();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Your Image Size is Bigger Than 64KB");
+                    }
+                    
+                }
+            } 
         }
         else if(e.getSource().equals(main.getDeleteButton())){
-            System.out.println(oldprojectname);
-            System.out.println(projectname);
-            
-            dnotify.getFrame().setVisible(true);
-            
-            
+            dnotify.getFrame().setVisible(true);  
         }
         else if(e.getSource().equals(dnotify.getDeleteButton())){
             if(dnotify.getTF().getText().equals(oldprojectname)){
@@ -106,7 +120,7 @@ public class OptionController implements ActionListener, MouseListener {
                 new MainPageController(this.username);
                 this.out.getFr().dispose();
             }else{
-                JOptionPane.showMessageDialog(null, "Your Confirm is wrong");
+                JOptionPane.showMessageDialog(null, "Your confirm is wrong");
             }
             
             
@@ -117,12 +131,26 @@ public class OptionController implements ActionListener, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(main.getProfileicon())) {
+            JOptionPane.showMessageDialog(null, "Your Image Size Must Less Than 64KB");
             im = new ImportFile("jpg");
-            String imagePath = im.getPath().getAbsolutePath();
+            if (im != null && im.getPath() != null) {
+                imagePath = im.getPath().getAbsolutePath();
+            }
 
             try {
-                main.getProfileicon().LoadImage(imagePath);
-                main.getProfileicon().repaint();
+                File imageFile = new File(imagePath);
+                if (imageFile.exists() && imageFile.isFile()) {
+                    long filesizeByte = imageFile.length();
+                    double filesizeKB = filesizeByte / 1024.0;
+                    if(filesizeKB <= 64){
+                        main.getProfileicon().LoadImage(imagePath);
+                        main.getProfileicon().repaint();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Your Image Size is Bigger Than 64KB");
+                    }
+                    
+                }
             } catch (Exception ex) {
                 System.err.println("Error : " + ex.getMessage());
                 ex.printStackTrace();

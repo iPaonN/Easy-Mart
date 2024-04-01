@@ -19,8 +19,8 @@ public class ImportFile {
         fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(File_Extension.toUpperCase()+" File", File_Extension);
         fileChooser.setFileFilter(filter);
-        int val = fileChooser.showOpenDialog(null);
-        if (val == JFileChooser.APPROVE_OPTION) {
+        int check = fileChooser.showOpenDialog(null);
+        if (check == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
         }else {
             file = null;
