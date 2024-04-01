@@ -5,276 +5,438 @@ import My_sql.ProjectData.History;
 import My_sql.ProjectData.Product;
 import My_sql.UserData.DoUserData;
 import UI.View.DashBoard;
-import UI.Model.DashBoardModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import javax.swing.JOptionPane;
-
+import java.time.*;
+import java.time.temporal.*;
 
 
 public class DashBoardController implements ActionListener {
-    private DashBoard view;
-    private DashBoardModel model;
+    private DashBoard dashboard;
     private String username, projectname, schema;
-    private DoProjectData promanager;
-    private DoUserData manager;
-    private History his;
+    private DoProjectData DPD;
+    private DoUserData DUD;
     
     public DashBoardController(String username, String projectname) {
-        view = new DashBoard();
-        view.setSubDashBoard1ActionListener(this);
-        view.setSubDashBoard2ActionListener(this);
-        view.setSubDashBoard3ActionListener(this);
-        view.getmain().setVisible(true);
-        model = new DashBoardModel(this.username, this.projectname);
+        dashboard = new DashBoard();
+        this.username = username;
+        this.projectname = projectname;
         schema = username+"_"+projectname;
-        promanager = new DoProjectData();
-        manager = new DoUserData();
+        DPD = new DoProjectData();
+        DUD = new DoUserData();
+        
+        // SubDashBoard_1 //
+        dashboard.getSdb1().getBday().addActionListener(this);
+        dashboard.getSdb1().getBmonth().addActionListener(this);
+        dashboard.getSdb1().getbYear().addActionListener(this);
+        
+        dashboard.getSdb1().getJprice().setText(dash1_day_income(schema)+""+"฿");
+        // SubDashBoard_1 //
+        
+        // SubDashBoard_2 //
+        dashboard.getSdb2().getBday().addActionListener(this);
+        dashboard.getSdb2().getBmonth().addActionListener(this);
+        dashboard.getSdb2().getbYear().addActionListener(this);
+        
+        dashboard.getSdb2().getJproduct().setText(dash2_day(schema));
+        // SubDashBoard_2 //
+        
+        // SubDashBoard_3 //
+        dashboard.getSdb3().getBday().addActionListener(this);
+        dashboard.getSdb3().getBmonth().addActionListener(this);
+        dashboard.getSdb3().getbYear().addActionListener(this);
+        
+        dash3_comepare(dash3_day(schema));
+        // SubDashBoard_3 //
+        
+        dashboard.getMainf().setVisible(true);
     }
  
-    // SubProduct 1 Method
+    // SubDashBoard_1 //
     
-    public double day_income(String schema,String Date){
+    public double dash1_day_income(String schema){
         double income = 0;
-        ArrayList<History> history = promanager.get_Historys_date(schema,Date);
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = currentDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_date(schema,formattedDate);
         for (History i : history){
-            if (i.getAction() == "decrease") {
+            if (i.getAction().equals("decrease")) {
                     String productname = i.getProduct_name();
-                    Product p1 = promanager.get_product(schema, productname);
+                    Product p1 = DPD.get_product(schema, productname);
                     income += p1.getPrice()*i.getQuantity();
             }
         }
         return income;
     }
     
-    public double week_income(String schema, String today_date) {
+    public double dash1_month_income(String schema) {
         double income = 0;
-        LocalDate today = LocalDate.parse(today_date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
+        String formattedDate = currentDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_month(schema,formattedDate);
+        ArrayList<History> usehistory = new ArrayList<>();
 
-        for (int i = 0; i < 7; i++) {
-            LocalDate currentDate = today.minusDays(i);
-            String currentDateStr = currentDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            ArrayList<History> historyForDate = promanager.get_Historys_date(schema, currentDateStr);
-            for (History j : historyForDate) {
-                if (j.getAction().equals("decrease")) {
-                    String productname = j.getProduct_name();
-                    Product p1 = promanager.get_product(schema, productname);
-                    income += p1.getPrice() * j.getQuantity();
-                }
+        for (History i : history){
+            if(i.getAction_date().getYear()==currentDateTime.getYear()){
+                usehistory.add(i);
             }
         }
+        
+        for (History i : usehistory){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    income += p1.getPrice()*i.getQuantity();
+            }
+        }
+        
         return income;
     }
 
         
-    public double year_income(String schema, int year) {
+    public double dash1_year_income(String schema) {
         double income = 0;
-        LocalDate currentDate = LocalDate.now();
-        LocalDate startDate = LocalDate.of(year, 1, 1);
-        LocalDate endDate = LocalDate.of(year, 12, 31);
-
-
-        while (!currentDate.isBefore(startDate) && !currentDate.isAfter(endDate)) {
-            String currentDateStr = currentDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            ArrayList<History> historyForDate = promanager.get_Historys_date(schema, currentDateStr);
-            for (History i : historyForDate) {
-                if (i.getAction().equals("decrease")) {
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy");
+        String formattedDate = currentDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_year(schema,formattedDate);
+        
+        for (History i : history){
+            if (i.getAction().equals("decrease")) {
                     String productname = i.getProduct_name();
-                    Product p1 = promanager.get_product(schema, productname);
-                    income += p1.getPrice() * i.getQuantity();
-                }
+                    Product p1 = DPD.get_product(schema, productname);
+                    income += p1.getPrice()*i.getQuantity();
             }
-            currentDate = currentDate.minusDays(1);
         }
+        
         return income;
     }
     
-    // SubProduct 2  Method
-    public String day_product(String schema, String Date) {
-        String bestProduct = "";
-        int maxQuantity = 0;
-        ArrayList<History> history = promanager.get_Historys_date(schema, Date);
-        HashMap<String, Integer> productQuantityMap = new HashMap<>();
-
-        for (History i : history) {
+    // SubDashBoard_1 //
+    
+    // SubDashBoard_2 //
+    public String dash2_day(String schema){
+        String mostproduct = "You didn't sell any product.";
+        
+        Map<String, Integer> all_product = new HashMap<>();
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = currentDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_date(schema,formattedDate);
+        for (History i : history){
             if (i.getAction().equals("decrease")) {
-                String productName = i.getProduct_name();
-                productQuantityMap.put(productName, productQuantityMap.getOrDefault(productName, 0) + i.getQuantity());
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    if(all_product.containsKey(p1.getName())){
+                        all_product.put(p1.getName(), all_product.get(p1.getName())+i.getQuantity());
+                    }
+                    else{
+                        all_product.put(p1.getName(), i.getQuantity());
+                    }
             }
         }
-
-        for (Map.Entry<String, Integer> entry : productQuantityMap.entrySet()) {
-            if (entry.getValue() > maxQuantity) {
-                bestProduct = entry.getKey();
-                maxQuantity = entry.getValue();
+        int maxCount = 0;
+        
+        for (Map.Entry<String, Integer> entry : all_product.entrySet()) {
+            String productName = entry.getKey();
+            int count = entry.getValue();
+            
+            if (count > maxCount) {
+                maxCount = count;
+                mostproduct = productName;
             }
         }
-
-        return bestProduct;
+        
+        return mostproduct;
     }
     
-    public String week_product(String schema, String today_date) {
-        LocalDate today = LocalDate.parse(today_date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        String startOfWeekStr = startOfWeek.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    public String dash2_month(String schema){
+        String mostproduct = "You didn't sell any product.";
+        
+        Map<String, Integer> all_product = new HashMap<>();
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
+        String formattedDate = currentDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_month(schema,formattedDate);
+        ArrayList<History> usehistory = new ArrayList<>();
 
-        Map<String, Integer> productSalesMap = new HashMap<>();
-        for (int i = 0; i < 7; i++) {
-            LocalDate currentDate = startOfWeek.plusDays(i);
-            String currentDateStr = currentDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            ArrayList<History> historyForDate = promanager.get_Historys_date(schema, currentDateStr);
-            for (History j : historyForDate) {
-                if (j.getAction().equals("decrease")) {
-                    String productName = j.getProduct_name();
-                    productSalesMap.put(productName, productSalesMap.getOrDefault(productName, 0) + j.getQuantity());
-                }
+        for (History i : history){
+            if(i.getAction_date().getYear()==currentDateTime.getYear()){
+                usehistory.add(i);
             }
         }
-
-        int maxQuantity = 0;
-        String bestProduct = "";
-        for (Map.Entry<String, Integer> entry : productSalesMap.entrySet()) {
-            if (entry.getValue() > maxQuantity) {
-                bestProduct = entry.getKey();
-                maxQuantity = entry.getValue();
+        
+        for (History i : usehistory){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    if(all_product.containsKey(p1.getName())){
+                        all_product.put(p1.getName(), all_product.get(p1.getName())+i.getQuantity());
+                    }
+                    else{
+                        all_product.put(p1.getName(), i.getQuantity());
+                    }
             }
         }
-
-        return bestProduct;
-    }
-    
-    public String year_product(String schema, int year) {
-        LocalDate startDate = LocalDate.of(year, 1, 1);
-        String startDateStr = startDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        LocalDate endDate = LocalDate.of(year, 12, 31);
-        String endDateStr = endDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-        Map<String, Integer> productSalesMap = new HashMap<>();
-        while (!startDate.isAfter(endDate)) {
-            String currentDateStr = startDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            ArrayList<History> historyForDate = promanager.get_Historys_date(schema, currentDateStr);
-            for (History i : historyForDate) {
-                if (i.getAction().equals("decrease")) {
-                    String productName = i.getProduct_name();
-                    productSalesMap.put(productName, productSalesMap.getOrDefault(productName, 0) + i.getQuantity());
-                }
-            }
-            startDate = startDate.plusDays(1);
-        }
-
-        int maxQuantity = 0;
-        String bestProduct = "";
-        for (Map.Entry<String, Integer> entry : productSalesMap.entrySet()) {
-            if (entry.getValue() > maxQuantity) {
-                bestProduct = entry.getKey();
-                maxQuantity = entry.getValue();
+        int maxCount = 0;
+        
+        for (Map.Entry<String, Integer> entry : all_product.entrySet()) {
+            String productName = entry.getKey();
+            int count = entry.getValue();
+            
+            if (count > maxCount) {
+                maxCount = count;
+                mostproduct = productName;
             }
         }
-
-        return bestProduct;
+        
+        return mostproduct;
     }
-
     
-    
-    // SubProduct 3  Method
-    public double day_compareincome(String schema, String today_date) {
-        double today_income = day_income(schema, today_date);
-        LocalDate yesterday = LocalDate.parse(today_date, DateTimeFormatter.ofPattern("dd-MM-yyyy")).minusDays(1);
-        String yesterdayStr = yesterday.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        double yesterday_income = day_income(schema, yesterdayStr);
-        double result = today_income - yesterday_income;
-        if (result >= 0) {
-            view.getSdb3().setsymbol("+");
-        } else if (result < 0) {
-            view.getSdb3().setsymbol("-");
-            result *= -1;
+    public String dash2_year(String schema){
+        
+        String mostproduct = "You didn't sell any product.";
+        
+        Map<String, Integer> all_product = new HashMap<>();
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy");
+        String formattedDate = currentDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_year(schema,formattedDate);
+        
+        for (History i : history){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    if(all_product.containsKey(p1.getName())){
+                        all_product.put(p1.getName(), all_product.get(p1.getName())+i.getQuantity());
+                    }
+                    else{
+                        all_product.put(p1.getName(), i.getQuantity());
+                    }
+            }
         }
-        return result;
-    }
-    
-    public double week_compareincome(String schema, String today_date) {
-        double thisWeekIncome = week_income(schema, today_date);
-        double lastWeekIncome = 0;
-
-        LocalDate today = LocalDate.parse(today_date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        LocalDate lastWeekStart = today.minusDays(7);
-        LocalDate lastWeekEnd = today.minusDays(1);
-
-        for (LocalDate date = lastWeekStart; !date.isAfter(lastWeekEnd); date = date.plusDays(1)) {
-            String currentDateStr = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            lastWeekIncome += day_income(schema, currentDateStr);
+        int maxCount = 0;
+        
+        for (Map.Entry<String, Integer> entry : all_product.entrySet()) {
+            String productName = entry.getKey();
+            int count = entry.getValue();
+            
+            if (count > maxCount) {
+                maxCount = count;
+                mostproduct = productName;
+            }
         }
-
-        double result = thisWeekIncome - lastWeekIncome;
-        if (result >= 0) {
-            view.getSdb3().setsymbol("+");
-        } else {
-            view.getSdb3().setsymbol("-");
-            result *= -1;
+        
+        return mostproduct;
+    }
+    // SubDashBoard_2 //
+    
+    // SubDashBoard_3 //
+    
+    public void dash3_comepare(Double income){
+        if (income > 0){
+            dashboard.getSdb3().getJcompareprice().setText(income+"฿");
+            dashboard.getSdb3().getPempty2().add(dashboard.getSdb3().getJincrease());
         }
-
-        return result;
-    }
-    
-    public double year_compareincome(String schema, int year) {
-        double thisYearIncome = year_income(schema, year);
-        double lastYearIncome = year_income(schema, year - 1);
-
-        double result = thisYearIncome - lastYearIncome;
-        if (result >= 0) {
-            view.getSdb3().setsymbol("+");
-        } else {
-            view.getSdb3().setsymbol("-");
-            result *= -1;
+        else if (income < 0){
+            dashboard.getSdb3().getJcompareprice().setText(income+"฿");
+            dashboard.getSdb3().getPempty2().add(dashboard.getSdb3().getJdecrease());
         }
+        else{
+            dashboard.getSdb3().getJcompareprice().setText(income+"฿");
+            dashboard.getSdb3().getPempty2().add(dashboard.getSdb3().getJnormal());
+        }
+    }
+    
+    public double dash3_day(String schema){
+        double income = 0.0;
+        
+        double today_income = 0;
+        double yesterday_income = 0;
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime yesterdayDateTime = currentDateTime.minus(1, ChronoUnit.DAYS);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String currentformat = currentDateTime.format(formatter);
+        String yesterdayformat = yesterdayDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_date(schema,currentformat);
+        for (History i : history){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    today_income += p1.getPrice()*i.getQuantity();
+            }
+        }
+        history = DPD.get_Historys_date(schema,yesterdayformat);
+        for (History i : history){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    yesterday_income += p1.getPrice()*i.getQuantity();
+            }
+        }
+        income = today_income-yesterday_income;
+        
+        return income;
+    }
+    
+    public double dash3_month(String schema){
+        double income = 0.0;
+        
+        double today_income = 0;
+        double yestermonth_income = 0;
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime yestermonthDateTime = currentDateTime.minus(1, ChronoUnit.MONTHS);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
+        String currentformat = currentDateTime.format(formatter);
+        String yestermonthformat = yestermonthDateTime.format(formatter);
+        
+        ////////////////current
+        ArrayList<History> history = DPD.get_Historys_month(schema,currentformat);
+        ArrayList<History> usehistory = new ArrayList<>();
 
-        return result;
+        for (History i : history){
+            if(i.getAction_date().getYear()==currentDateTime.getYear()){
+                usehistory.add(i);
+            }
+        }
+        
+        for (History i : usehistory){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    today_income += p1.getPrice()*i.getQuantity();
+            }
+        }
+        
+        ////////////////yestermonth
+        history = DPD.get_Historys_month(schema,yestermonthformat);
+        usehistory.clear();
+
+        for (History i : history){
+            if(i.getAction_date().getYear()==currentDateTime.getYear()){
+                usehistory.add(i);
+            }
+        }
+        
+        for (History i : usehistory){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    yestermonth_income += p1.getPrice()*i.getQuantity();
+            }
+        }
+        income = today_income-yestermonth_income;
+        
+        return income;
     }
     
-    public static String getTodayDate() {
-        LocalDate currentDate = LocalDate.now();
-        return currentDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    public double dash3_year(String schema){
+        double income = 0.0;
+        
+        double today_income = 0;
+        double yesterday_income = 0;
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime yesterdayDateTime = currentDateTime.minus(1, ChronoUnit.YEARS);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy");
+        String currentformat = currentDateTime.format(formatter);
+        String yesterdayformat = yesterdayDateTime.format(formatter);
+        
+        ArrayList<History> history = DPD.get_Historys_year(schema,currentformat);
+        for (History i : history){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    today_income += p1.getPrice()*i.getQuantity();
+            }
+        }
+        history = DPD.get_Historys_year(schema,yesterdayformat);
+        for (History i : history){
+            if (i.getAction().equals("decrease")) {
+                    String productname = i.getProduct_name();
+                    Product p1 = DPD.get_product(schema, productname);
+                    yesterday_income += p1.getPrice()*i.getQuantity();
+            }
+        }
+        income = today_income-yesterday_income;
+        
+        return income;
     }
     
-    // Action Event
+    // SubDashBoard_3 //
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        // SubProduct 1
-        if (e.getSource().equals(view.getSdb1().getBday())){
-            view.getSdb1().setprice(String.valueOf(day_income(schema,getTodayDate())) + "฿");
-        } else if (e.getSource().equals(view.getSdb1().getBweek())) {
-            view.getSdb1().setprice(String.valueOf(week_income(schema,getTodayDate())) + "฿");
-        } else if (e.getSource().equals(view.getSdb1().getbYear())) {
-            view.getSdb1().setprice(String.valueOf(year_income(schema,2024)) + "฿");
+        
+        // SubDashBoard_1 //
+        if(e.getSource().equals(dashboard.getSdb1().getBday())){
+            dashboard.getSdb1().getJprice().setText(dash1_day_income(schema)+""+"฿");
+            System.out.println("Day");
         }
-        // SubProduct 2
-        else if (e.getSource().equals(view.getSdb2().getBday())) {
-            view.getSdb2().setproduct(day_product(schema,getTodayDate()));
-        } else if (e.getSource().equals(view.getSdb2().getBweek())) {
-            view.getSdb2().setproduct(week_product(schema,getTodayDate()));
-        } else if (e.getSource().equals(view.getSdb2().getbYear())) {
-            view.getSdb2().setproduct(year_product(schema,2024));
+        else if(e.getSource().equals(dashboard.getSdb1().getBmonth())){
+            dashboard.getSdb1().getJprice().setText(dash1_month_income(schema)+""+"฿");
+            System.out.println("Month");
         }
-        // SubProduct 3
-        else if (e.getSource().equals(view.getSdb3().getBday())) {
-            view.getSdb3().setcompareprice(String.valueOf(day_compareincome(schema,getTodayDate())) + "฿");
-        } else if (e.getSource().equals(view.getSdb3().getBweek())) {
-            view.getSdb3().setcompareprice(String.valueOf(week_compareincome(schema,getTodayDate())) + "฿");
-        } else if (e.getSource().equals(view.getSdb3().getbYear())) {
-            view.getSdb3().setcompareprice(String.valueOf(year_compareincome(schema,2024)) + "฿");
+        else if(e.getSource().equals(dashboard.getSdb1().getbYear())){
+            dashboard.getSdb1().getJprice().setText(dash1_year_income(schema)+""+"฿");
+            System.out.println("Year");
         }
-    }
-    
-    public void showMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "", JOptionPane.INFORMATION_MESSAGE);
+        // SubDashBoard_1 //
+        
+        // SubDashBoard_2 //
+        else if(e.getSource().equals(dashboard.getSdb2().getBday())){
+            dashboard.getSdb2().getJproduct().setText(dash2_day(schema));
+            System.out.println("Day");
+        }
+        else if(e.getSource().equals(dashboard.getSdb2().getBmonth())){
+            dashboard.getSdb2().getJproduct().setText(dash2_month(schema));
+            System.out.println("Month");
+        }
+        else if(e.getSource().equals(dashboard.getSdb2().getbYear())){
+            dashboard.getSdb2().getJproduct().setText(dash2_year(schema));
+            System.out.println("Year");
+        }
+        // SubDashBoard_2 //
+        
+        // SubDashBoard_3 //
+        else if(e.getSource().equals(dashboard.getSdb3().getBday())){
+            dash3_comepare(dash3_day(schema));
+            System.out.println("Day");
+        }
+        else if(e.getSource().equals(dashboard.getSdb3().getBmonth())){
+            dash3_comepare(dash3_month(schema));
+            System.out.println("Month");
+        }
+        else if(e.getSource().equals(dashboard.getSdb3().getbYear())){
+            dash3_comepare(dash3_year(schema));
+            System.out.println("Year");
+        }
+        // SubDashBoard_3 //
+        
+        
     }
     
     public static void main(String[] args) {
-        new DashBoardController("test","test");
+        new DashBoardController("zedl3all","pj2");
     }
 }

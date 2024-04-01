@@ -2,7 +2,6 @@
 package UI.View;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
@@ -87,29 +86,23 @@ public class DashBoard extends JPanel{
         mainf.setLocationRelativeTo(null);
         mainf.setVisible(false);
     }
-    
-    public void setSubDashBoard1ActionListener(ActionListener listener) {
-        sdb1.getBday().addActionListener(listener);
-        sdb1.getBweek().addActionListener(listener);
-        sdb1.getbYear().addActionListener(listener);
-    }
 
-    public void setSubDashBoard2ActionListener(ActionListener listener) {
-        sdb2.getBday().addActionListener(listener);
-        sdb2.getBweek().addActionListener(listener);
-        sdb2.getbYear().addActionListener(listener);
-    }
-
-    public void setSubDashBoard3ActionListener(ActionListener listener) {
-        sdb3.getBday().addActionListener(listener);
-        sdb3.getBweek().addActionListener(listener);
-        sdb3.getbYear().addActionListener(listener);
-    }
-    
-    public JFrame getmain(){
+    public JFrame getMainf() {
         return mainf;
     }
-    
+
+    public void setMainf(JFrame mainf) {
+        this.mainf = mainf;
+    }
+
+    public JPanel getPmain() {
+        return pmain;
+    }
+
+    public void setPmain(JPanel pmain) {
+        this.pmain = pmain;
+    }
+
     public JPanel getPsubmain() {
         return psubmain;
     }
@@ -117,20 +110,94 @@ public class DashBoard extends JPanel{
     public void setPsubmain(JPanel psubmain) {
         this.psubmain = psubmain;
     }
-    
-    public static void main(String[] args) {
-        new DashBoard();
+
+    public JPanel getPnorth() {
+        return pnorth;
     }
-    
+
+    public void setPnorth(JPanel pnorth) {
+        this.pnorth = pnorth;
+    }
+
+    public JPanel getPcenter() {
+        return pcenter;
+    }
+
+    public void setPcenter(JPanel pcenter) {
+        this.pcenter = pcenter;
+    }
+
+    public JPanel getPempty1() {
+        return pempty1;
+    }
+
+    public void setPempty1(JPanel pempty1) {
+        this.pempty1 = pempty1;
+    }
+
+    public JPanel getPempty2() {
+        return pempty2;
+    }
+
+    public void setPempty2(JPanel pempty2) {
+        this.pempty2 = pempty2;
+    }
+
+    public JLabel getJdashboard() {
+        return jdashboard;
+    }
+
+    public void setJdashboard(JLabel jdashboard) {
+        this.jdashboard = jdashboard;
+    }
+
     public SubDashBoard_1 getSdb1() {
         return sdb1;
+    }
+
+    public void setSdb1(SubDashBoard_1 sdb1) {
+        this.sdb1 = sdb1;
     }
 
     public SubDashBoard_2 getSdb2() {
         return sdb2;
     }
 
+    public void setSdb2(SubDashBoard_2 sdb2) {
+        this.sdb2 = sdb2;
+    }
+
     public SubDashBoard_3 getSdb3() {
         return sdb3;
     }
+
+    public void setSdb3(SubDashBoard_3 sdb3) {
+        this.sdb3 = sdb3;
+    }
+
+    public IncomeCompareGraph getIcg1() {
+        return icg1;
+    }
+
+    public void setIcg1(IncomeCompareGraph icg1) {
+        this.icg1 = icg1;
+    }
+
+    public IncomeGraph getIg1() {
+        return ig1;
+    }
+
+    public void setIg1(IncomeGraph ig1) {
+        this.ig1 = ig1;
+    }
+
+    public TopProductGraph getTpg1() {
+        return tpg1;
+    }
+
+    public void setTpg1(TopProductGraph tpg1) {
+        this.tpg1 = tpg1;
+    }
+    
+    
 }
