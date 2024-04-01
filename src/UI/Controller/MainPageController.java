@@ -52,7 +52,7 @@ public class MainPageController implements MouseListener, ActionListener, Docume
         
         //Popup menu
         pop = new JPopupMenu();
-        edit = new JMenuItem("Edit Profile");
+        edit = new JMenuItem("Profile");
         change = new JMenuItem("Change Password");
         logout = new JMenuItem("Log out");
         pop.add(edit);
