@@ -59,7 +59,27 @@ public class AddAmount {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    public static void main(String[] args) {
-        new AddAmount();
+//    public static void main(String[] args) {
+//        new AddAmount();
+//    }
+
+    public JFrame getFr(){
+        return frame;
+    }
+    
+    public JLabel getText() {
+        return text;
+    }
+
+    public JTextField getAmountTF() {
+        return amountTF;
+    }
+
+    public JPanel getBottom() {
+        return bottom;
+    }
+
+    public JButton getBtn() {
+        return btn;
     }
 }

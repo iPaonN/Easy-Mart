@@ -1,11 +1,11 @@
 package UI.View;
 
 import java.awt.*;
-import java.awt.event.*;
+//import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Cashier extends JPanel implements ActionListener {
+public class Cashier extends JPanel /*implements ActionListener*/ {
 
     private JFrame frame;
     private JPanel background, bg1, bg2, bg3, bg4, main, textPanel, searchPanel, productPanel, bdwhite;
@@ -15,6 +15,7 @@ public class Cashier extends JPanel implements ActionListener {
     private JButton filter, checkout;
     private JScrollPane scrollPane;
     private JComboBox sort;
+    private SubCashier subcashier;
     private CashierNotify cn1;
 
     public Cashier() {
@@ -110,7 +111,7 @@ public class Cashier extends JPanel implements ActionListener {
         checkout.setFocusable(false);
         btnPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         btnPanel.setBackground(Color.white);
-        checkout.addActionListener(this);
+//        checkout.addActionListener(this);
 
         //IN SCROLLPANE
         scrollPane.setViewportView(subPanel);
@@ -150,16 +151,44 @@ public class Cashier extends JPanel implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setVisible(false);
     }
+    
+    public JLabel getCashierPanel(){
+        return text;
+    }
+    
+    public JPanel getPanel(){
+        return subPanel;
+    }
+    
+    public JTextField getSearch(){
+        return search;
+    }
+    
+    public JButton getCheckout(){
+        return checkout;
+    }
+    
+    public JButton getFilterButton(){
+        return filter;
+    }
+    
+    public JComboBox getSort(){
+        return sort;
+    }
+    
+    public CashierNotify getCasherIcon(){
+        return cn1;
+    }
 
     public static void main(String[] args) {
         new Cashier();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(checkout)) {
-            subPanel.add(new SubCashier());
-            subPanel.revalidate();
-        }
-    }
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+////        if (e.getSource().equals(checkout)) {
+////            subPanel.add(new SubCashier());
+////            subPanel.revalidate();
+////        }
+//    }
 }
