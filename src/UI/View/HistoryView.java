@@ -22,7 +22,7 @@ public class HistoryView extends JPanel{
     private JTable table;
     private JScrollPane scrollPane;
     private DefaultTableModel model;
-    private final Object[] columnName = {"Date", "View"};
+    private final Object[] columnName = {"Date"};
     private Object[][] dataRows;
     public HistoryView() {
 
@@ -184,8 +184,6 @@ public class HistoryView extends JPanel{
         for (Object[] dataRow : dataRows) {
             model.insertRow(model.getRowCount(), dataRow);
         }
-        table.getColumnModel().getColumn(1).setCellRenderer(new HistoryRenderer());
-//        table.getColumnModel().getColumn(1).setCellEditor(new HistoryEditor(new JCheckBox()));
         table.getColumnModel().getColumn(0).setPreferredWidth(650);
         table.setDefaultEditor(Object.class, null);
         table.setCellSelectionEnabled(false);
@@ -244,9 +242,6 @@ public class HistoryView extends JPanel{
         model.setColumnIdentifiers(columnName);
         for (Object[] dataRow : dataRows) {
             model.insertRow(model.getRowCount(), dataRow);
-            
-            table.getColumnModel().getColumn(1).setCellRenderer(new HistoryRenderer());
-            //table.getColumnModel().getColumn(1).setCellEditor(new HistoryEditor(new JCheckBox()));
             table.getColumnModel().getColumn(0).setPreferredWidth(650);
             table.setDefaultEditor(Object.class, null);
             table.setCellSelectionEnabled(false);
