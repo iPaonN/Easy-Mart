@@ -604,7 +604,7 @@ public class DashBoardController implements ActionListener {
         this.dashboard = dashboard;
     }
     
-    public static void main(String[] args) {
-        new DashBoardController("zedl3all","pj2");
-    }
+//    public static void main(String[] args) {
+//        new DashBoardController("zedl3all","pj2");
+//    }
 }

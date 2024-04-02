@@ -31,7 +31,7 @@ public class PopEditProfile implements ActionListener, MouseListener{
         main.getLastNameField().setText(manager.Get_User(this.username).getLast_name());
         main.getLastNameField().setEditable(false);
 //        Image pic = manager.GetProfileImage(this.username);
-//        main.getProfileIcon().LoadImage(manager.GetProfileImage(String.valueOf(pic)));
+        main.getProfileIcon().LoadImage(manager.GetProfileImage(this.username));
         
         main.getSaveButton().addActionListener(this);
         main.getProfileIcon().addMouseListener(this);
