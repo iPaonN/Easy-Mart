@@ -59,7 +59,7 @@ public class CreateProduct extends JPanel {
         jaddpic = new JButton("Add Picture");
         jsave = new JButton("    SAVE    ");
         jcbtype = new JComboBox();
-        jcbtype.addItem(" Food ");
+        jcbtype.addItem("Food");
         jID = new JLabel("Product ID : ");
         tfproduct = new JTextField(12);
         tfproduct.setHorizontalAlignment(SwingConstants.CENTER);
