@@ -130,8 +130,8 @@ public class CashierController implements ActionListener, MouseListener, Documen
             this.showProduct(pjm.getAll_product(this.projectname));
             Checkout.getFr().repaint();
             Checkout.getFr().revalidate();
-            Checkout.setTotalAmount(Checkout.getTotalAmount());
-            Checkout.setTotalPrice(Checkout.getTotalPrice());
+//            Checkout.setTotalAmount(Checkout.getTotalAmount());
+//            Checkout.getTotalPrice()(Checkout.getTotalPrice());
             
         }
         else if (e.getSource().equals(main.getEasyMartLabel())){
