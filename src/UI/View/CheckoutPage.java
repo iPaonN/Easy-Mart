@@ -133,8 +133,11 @@ public class CheckoutPage {
             list.remove(null);
         }
         for (BuyProduct l : list){
-            Object[] i = {l.getProductname(), l.getAmount(), l.getSumprice()};
-            model.insertRow(model.getRowCount(), i);
+            if(l.getAmount() != 0){
+                Object[] i = {l.getProductname(), l.getAmount(), l.getSumprice()};
+                model.insertRow(model.getRowCount(), i);  
+            }
+            
         }
     }
     public void removeAllRow(){

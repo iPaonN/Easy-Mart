@@ -62,7 +62,7 @@ public class AddAmount {
 //    public static void main(String[] args) {
 //        new AddAmount();
 //    }
-
+    
     public JFrame getFr(){
         return frame;
     }

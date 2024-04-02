@@ -21,6 +21,14 @@ public class CheckoutController {
         main = new CheckoutPage();
         main.showBuy(buylist);
     }
+
+    public CheckoutPage getMain() {
+        return main;
+    }
+
+    public void setMain(CheckoutPage main) {
+        this.main = main;
+    }
     
     public JFrame getFr(){
         return main.getMainf();

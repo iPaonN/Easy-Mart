@@ -61,14 +61,14 @@ public class CashierController implements ActionListener, MouseListener{
             sub.getPlus().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                //new AddAmountController(projectname, p, Checkout);
+                new AddAmountController(cash.getPanel(), sub, username, projectname, "+", basket);
             }
         });
         
         sub.getMinus().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new AddAmountController(username, projectname, p, this, CheckoutController.this);
+                new AddAmountController(cash.getPanel(), sub, username, projectname, "-", basket);
             }            
         });
     }
@@ -79,6 +79,7 @@ public class CashierController implements ActionListener, MouseListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cash.getCasherIcon())){
+            Checkout.getMain().showBuy(basket);
             Checkout.getFr().setVisible(true);
         }
         else if (e.getSource().equals(cash.getCheckout())){
