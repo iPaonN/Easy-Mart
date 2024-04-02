@@ -11,7 +11,7 @@ public class Assistance extends JPanel {
     private JLabel label, label2, label3, label4, label5;
     private JButton bn1, bn2;
     private JPanel panel, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel10, pa1, pa2, pa3, pa4;
-    private JPanel pempty1, pempty2, pempty3, pempty4, pempty5, pempty6;
+    private JPanel pempty1, pempty2, pempty3, pempty4, pempty5, pempty6, pempty7, pempty8;
     private ImageIcon i1, i2;
     private RoundedButton rb1;
     private RoundedButton2 rb2;
@@ -35,7 +35,7 @@ public class Assistance extends JPanel {
         label2.setHorizontalAlignment(SwingConstants.CENTER);
 
         label3 = new JLabel("Products should be add.");
-        label3.setFont(new java.awt.Font("Arial", Font.CENTER_BASELINE, 20));
+        label3.setFont(new java.awt.Font("Arial", Font.CENTER_BASELINE, 25));
         label3.setForeground(new java.awt.Color(69, 104, 159));
         label3.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -124,11 +124,11 @@ public class Assistance extends JPanel {
         panel3.setBorder(BorderFactory.createMatteBorder(40, 8, 8, 8, new java.awt.Color(69, 104, 159)));
         panel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        panel4 = new JPanel();
-        panel4.setLayout(new BorderLayout());
-        panel4.add(panel);
-        panel4.setBorder(BorderFactory.createMatteBorder(40, 8, 8, 8, new java.awt.Color(69, 104, 159)));
-        panel4.setBackground(new java.awt.Color(255, 255, 255));
+        //panel4 = new JPanel();
+        //panel4.setLayout(new BorderLayout());
+        //panel4.add(panel);
+        //panel4.setBorder(BorderFactory.createMatteBorder(40, 8, 8, 8, new java.awt.Color(69, 104, 159)));
+        //panel4.setBackground(new java.awt.Color(255, 255, 255));
 
         panel5 = new JPanel();
         panel5.setLayout(new BorderLayout());
@@ -141,7 +141,7 @@ public class Assistance extends JPanel {
 
         panel6 = new JPanel();
         panel6.setLayout(new BorderLayout());
-        panel6.add(panel4);
+        //panel6.add(panel4);
         panel6.add(new JLabel("               "), BorderLayout.SOUTH);
         panel6.add(new JLabel("               "), BorderLayout.EAST);
         panel6.add(new JLabel("               "), BorderLayout.NORTH);
@@ -149,12 +149,23 @@ public class Assistance extends JPanel {
         panel6.setBackground(new java.awt.Color(255, 255, 255));
 
         panel7 = new JPanel();
-        panel7.setLayout(new GridLayout(2, 2));
+        pempty7 = new JPanel();
+        pempty7.setBackground(Color.WHITE);
+        pempty7.setLayout(new BorderLayout());
+        pempty7.setPreferredSize(new Dimension(200, 180));
+        
+        pempty8 = new JPanel();
+        pempty8.setBackground(Color.WHITE);
+        pempty8.setLayout(new BorderLayout());
+        pempty8.setPreferredSize(new Dimension(200, 30));
+        panel7.setLayout(new BorderLayout());
+        
         panel7.add(panel5);
-        panel7.add(panel6);
-        panel7.add(new JLabel("               "));
-        panel7.add(new JLabel("               "));
-
+        //panel7.add(panel6);
+        panel7.add(new JLabel("                                                                                  "), BorderLayout.WEST);
+        panel7.add(new JLabel("                                                                                  "), BorderLayout.EAST);
+        panel7.add(pempty7, BorderLayout.SOUTH);
+        panel7.add(pempty8, BorderLayout.NORTH);
         panel7.setBackground(new java.awt.Color(255, 255, 255));
 
         panel10 = new JPanel();
