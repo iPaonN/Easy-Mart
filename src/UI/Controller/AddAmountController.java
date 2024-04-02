@@ -17,7 +17,6 @@ public class AddAmountController implements ActionListener{
     private SubCashier sub;
     private JPanel panel;
     private DoProjectData manager;
-    private CheckoutController outCheck;
     private ArrayList<BuyProduct> buylist;
     
     public AddAmountController(JPanel panel, SubCashier sub, String username, String projectname, String action, ArrayList<BuyProduct> buylist){
