@@ -1,5 +1,4 @@
 package UI.View;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.DefaultCellEditor;
@@ -25,6 +24,9 @@ public class AssistantEditor extends DefaultCellEditor implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(null, "Hello Welcome", "Message", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Because in the past 1 month\n" +
+                                        "Your products sell out in 15 days.\n" +
+                                        "We recommend increasing the products.",
+                                    "Message", JOptionPane.INFORMATION_MESSAGE);
     }
 }
