@@ -8,7 +8,7 @@ import javax.swing.border.LineBorder;
 public class SubDashBoard_3 extends JPanel{
     private JFrame mainf;
     private JPanel pmain, pempty1, pempty2;
-    private JLabel jcompare, jcompareprice, jincrease, jdecrease, jnormal;
+    private JLabel jcompare, jcompareprice, jincrease, jdecrease, jnormal, jcomapreicon;
     private JButton bday, bmonth, bYear;
     public SubDashBoard_3(){
         
@@ -17,6 +17,7 @@ public class SubDashBoard_3 extends JPanel{
         pmain = new JPanel();
         pempty1 = new JPanel();
         pempty2 = new JPanel();
+        jcomapreicon = new JLabel("");
         jincrease = new JLabel("▲");
         jnormal = new JLabel("▬");
         jdecrease = new JLabel("▼");
@@ -66,7 +67,7 @@ public class SubDashBoard_3 extends JPanel{
         pmain.add(new JLabel());
         pmain.add(pempty2);
         pempty2.add(jcompareprice);
-        //pempty2.add(jincrease);
+        pempty2.add(jcomapreicon);
         jcompareprice.setHorizontalAlignment(SwingConstants.CENTER);
         pmain.add(new JLabel());
         pmain.add(pempty1);
@@ -193,6 +194,14 @@ public class SubDashBoard_3 extends JPanel{
 
     public void setbYear(JButton bYear) {
         this.bYear = bYear;
+    }
+
+    public JLabel getjcomapreicon() {
+        return jcomapreicon;
+    }
+
+    public void setjcomapreicon(JLabel jcomapreicon) {
+        this.jcomapreicon = jcomapreicon;
     }
     
     

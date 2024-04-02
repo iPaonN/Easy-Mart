@@ -259,15 +259,30 @@ public class DashBoardController implements ActionListener {
     public void dash3_comepare(Double income){
         if (income > 0){
             dashboard.getSdb3().getJcompareprice().setText(income+"฿");
-            dashboard.getSdb3().getPempty2().add(dashboard.getSdb3().getJincrease());
+            dashboard.getSdb3().getjcomapreicon().setText("▲"); 
+            dashboard.getSdb3().getjcomapreicon().setForeground(Color.GREEN.darker());
+            
+            dashboard.getSdb3().revalidate();
+            dashboard.getSdb3().repaint();
+            //dashboard.getSdb3().getPempty2().add(dashboard.getSdb3().getJincrease());
         }
         else if (income < 0){
             dashboard.getSdb3().getJcompareprice().setText(income+"฿");
-            dashboard.getSdb3().getPempty2().add(dashboard.getSdb3().getJdecrease());
+            dashboard.getSdb3().getjcomapreicon().setText("▼"); 
+            dashboard.getSdb3().getjcomapreicon().setForeground(Color.RED.darker());
+            
+            dashboard.getSdb3().revalidate();
+            dashboard.getSdb3().repaint();
+            //dashboard.getSdb3().getPempty2().add(dashboard.getSdb3().getJdecrease());
         }
         else{
             dashboard.getSdb3().getJcompareprice().setText(income+"฿");
-            dashboard.getSdb3().getPempty2().add(dashboard.getSdb3().getJnormal());
+            dashboard.getSdb3().getjcomapreicon().setText("▬"); 
+            dashboard.getSdb3().getjcomapreicon().setForeground(Color.WHITE.darker());
+            
+            dashboard.getSdb3().revalidate();
+            dashboard.getSdb3().repaint();
+            //dashboard.getSdb3().getPempty2().add(dashboard.getSdb3().getJnormal());
         }
     }
     
@@ -314,18 +329,21 @@ public class DashBoardController implements ActionListener {
         LocalDateTime yestermonthDateTime = currentDateTime.minus(1, ChronoUnit.MONTHS);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
         String currentformat = currentDateTime.format(formatter);
+        //System.out.println(currentformat);
         String yestermonthformat = yestermonthDateTime.format(formatter);
+        //System.out.println(yestermonthformat);
         
         ////////////////current
         ArrayList<History> history = DPD.get_Historys_month(schema,currentformat);
         ArrayList<History> usehistory = new ArrayList<>();
+        
 
         for (History i : history){
             if(i.getAction_date().getYear()==currentDateTime.getYear()){
                 usehistory.add(i);
             }
         }
-        
+        //System.out.println(usehistory);
         for (History i : usehistory){
             if (i.getAction().equals("decrease")) {
                     String productname = i.getProduct_name();
@@ -343,7 +361,7 @@ public class DashBoardController implements ActionListener {
                 usehistory.add(i);
             }
         }
-        
+        //System.out.println(usehistory);
         for (History i : usehistory){
             if (i.getAction().equals("decrease")) {
                     String productname = i.getProduct_name();
@@ -584,6 +602,7 @@ public class DashBoardController implements ActionListener {
             System.out.println("Day");
         }
         else if(e.getSource().equals(dashboard.getSdb3().getBmonth())){
+            System.out.println(dash3_month(schema));
             dash3_comepare(dash3_month(schema));
             System.out.println("Month");
         }
