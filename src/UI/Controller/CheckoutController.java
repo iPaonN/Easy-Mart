@@ -20,9 +20,18 @@ public class CheckoutController {
         
         main = new CheckoutPage();
         main.showBuy(buylist);
-        main.getTotalamount().setText(this.getTotalAmount()+"");
-        main.getTotalprice().setText(this.getTotalPrice()+"");
+//        main.getTotalamount().setText(this.getTotalAmount()+"");
+//        main.getTotalprice().setText(this.getTotalPrice()+"");
     }
+    
+    public JLabel getTotalamountLabel(){
+        return main.getTotalamount();
+    }
+    
+    public JLabel getTotalpriceLabel(){
+        return main.getTotalprice();
+    }
+    
     public int getTotalAmount(){
         int result = 0;
         for (BuyProduct b: buylist){

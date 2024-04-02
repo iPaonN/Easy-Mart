@@ -115,10 +115,14 @@ public class CashierController implements ActionListener, MouseListener, Documen
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cash.getCasherIcon())){
             Checkout.getMain().showBuy(basket);
+            Checkout.getTotalamountLabel().setText(String.valueOf(Checkout.getTotalAmount()));
+            Checkout.getTotalpriceLabel().setText(String.valueOf(Checkout.getTotalPrice()));
             Checkout.getFr().setVisible(true);
         }
         else if (e.getSource().equals(cash.getCheckout())){
             this.basket = new ArrayList<BuyProduct>();
+            Checkout.getTotalamountLabel().setText(String.valueOf(0));
+            Checkout.getTotalpriceLabel().setText(String.valueOf(0.0));
         }
         
     }
