@@ -49,6 +49,8 @@ public class MainPageController implements MouseListener, ActionListener, Docume
 //        test.add("a");
 //        test.add("B");
         System.out.println(projectlist);
+        projectlist.remove("");
+        projectlist.remove(null);
         main.addRow(this.projectlist);
         
         //Popup menu
