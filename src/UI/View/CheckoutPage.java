@@ -90,6 +90,8 @@ public class CheckoutPage {
         table.getTableHeader().setForeground(new Color(69, 104, 159));
         table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
         table.getTableHeader().setBackground(Color.white);
+        table.setDefaultEditor(Object.class, null);
+        table.setCellSelectionEnabled(false);
         scrollPane.setBorder(new LineBorder(new Color(69, 104, 159), 2));
         scrollPane.setForeground(Color.red);
         empty1.setBackground(Color.white);
