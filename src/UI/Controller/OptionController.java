@@ -38,7 +38,7 @@ public class OptionController implements ActionListener, MouseListener {
         main.getProfileicon().addMouseListener(this);
         main.getSaveButton2().addActionListener(this);
         main.getDeleteButton().addActionListener(this);
-        main.getTFprojectname().setText(projectname);
+        main.getTFprojectname().setText(projectnousername);
         
         main.getProfileicon().LoadImage(pjm.Get_Profile(projectname));
         main.getProfileicon().repaint();
