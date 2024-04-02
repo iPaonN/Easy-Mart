@@ -183,7 +183,7 @@ public class Cashier extends JPanel /*implements ActionListener*/ {
     public static void main(String[] args) {
         new Cashier();
     }
-
+    
 //    @Override
 //    public void actionPerformed(ActionEvent e) {
 ////        if (e.getSource().equals(checkout)) {
@@ -191,4 +191,12 @@ public class Cashier extends JPanel /*implements ActionListener*/ {
 ////            subPanel.revalidate();
 ////        }
 //    }
+
+    public JPanel getSubPanel() {
+        return subPanel;
+    }
+
+    public void setSubPanel(JPanel subPanel) {
+        this.subPanel = subPanel;
+    }
 }

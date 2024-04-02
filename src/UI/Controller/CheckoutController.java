@@ -20,8 +20,23 @@ public class CheckoutController {
         
         main = new CheckoutPage();
         main.showBuy(buylist);
+        main.getTotalamount().setText(this.getTotalAmount()+"");
+        main.getTotalprice().setText(this.getTotalPrice()+"");
     }
-
+    public int getTotalAmount(){
+        int result = 0;
+        for (BuyProduct b: buylist){
+            result += b.getAmount();
+        }
+            return result;
+    }
+    public double getTotalPrice(){
+        double result = 0.0;
+        for (BuyProduct b: buylist){
+            result += b.getSumprice();
+        }
+        return result;
+    }
     public CheckoutPage getMain() {
         return main;
     }

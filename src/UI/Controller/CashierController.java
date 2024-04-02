@@ -8,8 +8,10 @@ import UI.Model.BuyProduct;
 import UI.View.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class CashierController implements ActionListener, MouseListener{
+public class CashierController implements ActionListener, MouseListener, DocumentListener, ItemListener{
     private DoUserData manager;
     private DoProjectData pjm;
     private Cashier cash;
@@ -30,7 +32,7 @@ public class CashierController implements ActionListener, MouseListener{
         main.getMainpanel().add(cash);
         basket = new ArrayList<BuyProduct>();
         Checkout = new CheckoutController(this.projectname, this.basket);
-        
+        cash.getSort().addItem("All");
         for (String t: pjm.getAll_Type(this.projectname)){
                 cash.getSort().addItem(t);
         }
@@ -45,6 +47,8 @@ public class CashierController implements ActionListener, MouseListener{
         cash.getCashierPanel().addMouseListener(this);
         cash.getCheckout().addActionListener(this);
         cash.getCasherIcon().addActionListener(this);
+        cash.getSearch().getDocument().addDocumentListener(this);
+        cash.getSort().addItemListener(this);
     }
     
     public Cashier getView(){
@@ -55,6 +59,7 @@ public class CashierController implements ActionListener, MouseListener{
 //    }
 
     public void showProduct(ArrayList<Product> productlist){
+        cash.getPanel().removeAll();
         for (Product p: productlist){
             SubCashier sub = new SubCashier(p, username, projectname);
             cash.getPanel().add(sub);
@@ -75,7 +80,36 @@ public class CashierController implements ActionListener, MouseListener{
         cash.getPanel().repaint();
         cash.getPanel().revalidate();
     }
-    
+    public ArrayList<String> filterType(String type){
+        ArrayList<Product> productlist = pjm.getAll_product(this.projectname);
+        ArrayList<String> result = new ArrayList<String>();
+        for (Product p: productlist){
+            if (type.equals("All")){
+                result.add(p.getName());
+            }
+            else if(p.getType().equals(type) == true){
+                result.add(p.getName());
+            }
+        }
+        return result;
+    }
+    public ArrayList<Product> filterName(String productname, String type){
+        ArrayList<String> listtype = this.filterType(type);
+        ArrayList<Product> result = new ArrayList<Product>();
+        if(productname.equals("")){
+            for (String lt: listtype){
+                result.add(pjm.get_product(this.projectname, lt));
+            }
+        }
+        else{
+            for (String lt: listtype){
+                if (lt.contains(productname) == true){
+                   result.add(pjm.get_product(this.projectname, lt)); 
+                }
+            }
+        }
+        return result;
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cash.getCasherIcon())){
@@ -83,8 +117,7 @@ public class CashierController implements ActionListener, MouseListener{
             Checkout.getFr().setVisible(true);
         }
         else if (e.getSource().equals(cash.getCheckout())){
-            cash.getPanel().removeAll();
-            this.showProduct(pjm.getAll_product(this.projectname));
+            this.basket = new ArrayList<BuyProduct>();
         }
         
     }
@@ -111,5 +144,28 @@ public class CashierController implements ActionListener, MouseListener{
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        cash.getCashierPanel().removeAll();
+        this.showProduct(this.filterName(cash.getSearch().getText(), (String)cash.getSort().getSelectedItem()));
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        cash.getCashierPanel().removeAll();
+        this.showProduct(this.filterName(cash.getSearch().getText(), (String)cash.getSort().getSelectedItem()));
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        cash.getCashierPanel().removeAll();
+        this.showProduct(this.filterName(cash.getSearch().getText(), (String)cash.getSort().getSelectedItem()));
     }
 }
