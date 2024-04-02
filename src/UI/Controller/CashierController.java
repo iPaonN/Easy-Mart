@@ -42,6 +42,7 @@ public class CashierController implements ActionListener, MouseListener, Documen
         cash.getPanel().removeAll();
         this.showProduct(pjm.getAll_product(this.projectname));
         
+        main.getEasyMartLabel().addMouseListener(this);
         main.getCp1().LoadImage(pjm.Get_Profile(this.projectname));
         main.getUns1().setText(this.projectname);
         cash.getCashierPanel().addMouseListener(this);
@@ -127,6 +128,15 @@ public class CashierController implements ActionListener, MouseListener, Documen
         if (e.getSource().equals(cash.getCashierPanel())){
             cash.getPanel().removeAll();
             this.showProduct(pjm.getAll_product(this.projectname));
+            Checkout.getFr().repaint();
+            Checkout.getFr().revalidate();
+            Checkout.setTotalAmount(Checkout.getTotalAmount());
+            Checkout.setTotalPrice(Checkout.getTotalPrice());
+            
+        }
+        else if (e.getSource().equals(main.getEasyMartLabel())){
+            new MainPageController(this.username);
+            main.getFr().dispose();
         }
     }
 

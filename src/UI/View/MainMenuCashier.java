@@ -145,6 +145,10 @@ public class MainMenuCashier {
         fr.setVisible(true);
     }
 
+    public JLabel getEasyMartLabel(){
+        return label;
+    }
+    
     public JPanel getMainpanel() {
         return mainpanel;
     }
