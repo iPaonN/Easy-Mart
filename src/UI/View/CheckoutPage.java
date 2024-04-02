@@ -2,9 +2,13 @@ package UI.View;
 
 import UI.Model.BuyProduct;
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -167,6 +171,55 @@ public class CheckoutPage {
     
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         model.setValueAt(value, rowIndex, columnIndex);
+    }
+    
+    public void exportToCSV() {
+        
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Export CSV File");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("CSV Files", "csv"));
+
+        int userSelection = fileChooser.showSaveDialog(mainf);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+
+            if (!filePath.toLowerCase().endsWith(".csv")) {
+                filePath += ".csv";
+            }
+
+            try (FileWriter writer = new FileWriter(filePath)) {
+                for (int i = 0; i < model.getColumnCount(); i++) {
+                    writer.write(model.getColumnName(i));
+                    if (i < model.getColumnCount() - 1) {
+                        writer.write(",");
+                    } else {
+                        writer.write("\n");
+                    }
+                }
+
+                for (int row = 0; row < model.getRowCount(); row++) {
+                    for (int col = 0; col < model.getColumnCount(); col++) {
+                        writer.write(model.getValueAt(row, col).toString());
+                        if (col < model.getColumnCount() - 1) {
+                            writer.write(",");
+                        } else {
+                            writer.write("\n");
+                        }
+                    }
+                }
+                
+                writer.write("Grand Total,");
+                writer.write(totalamount.getText() + ",");
+                writer.write(totalprice.getText()+ "\n");
+
+                System.out.println(filePath);
+
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
 
 

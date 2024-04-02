@@ -58,6 +58,10 @@ public class CheckoutController {
         return main.getMainf();
     }
     
+    public void getCSV(){
+        main.exportToCSV();
+    }
+    
 //    public void updateProductQuantity(String productName, int amountToAdd) {
 //        // Find the row index of the product in the table
 //        int rowIndex = main.findRowIndex(productName);
