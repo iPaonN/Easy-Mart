@@ -85,11 +85,10 @@ public class OptionController implements ActionListener, MouseListener {
                     long filesizeByte = imageFile.length();
                     double filesizeKB = filesizeByte / 1024.0;
                     if(filesizeKB <= 64){
-                        namewithproject = this.username+"_"+main.getTFprojectname().getText();
                         System.out.println(imagePath);
-                        System.out.println(namewithproject);
+                        System.out.println(projectname);
                         JOptionPane.showMessageDialog(null, "Saved");
-                        pjm.update_profile(namewithproject, new File(imagePath));
+                        pjm.update_profile(projectname, new File(imagePath));
                         new MainPageController(this.username);
                         this.out.getFr().dispose();
                     }
